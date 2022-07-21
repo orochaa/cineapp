@@ -3,6 +3,7 @@
 
 interface ImportMetaEnv {
   readonly API_TOKEN:string
+  readonly API_URL:string
  // more env variables...
 }
 
