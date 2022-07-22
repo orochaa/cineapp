@@ -18,9 +18,9 @@ export function MoviesPage () {
   const fantasy = useGenre<IMovie[]>('movie', 14)
   const history = useGenre<IMovie[]>('movie', 36)
   const horror = useGenre<IMovie[]>('movie', 27)
-  const mistery = useGenre<IMovie[]>('movie', 9648)
+  const mystery = useGenre<IMovie[]>('movie', 9648)
   const romance = useGenre<IMovie[]>('movie', 10749)
-  const scifi = useGenre<IMovie[]>('movie', 878)
+  const sciFi = useGenre<IMovie[]>('movie', 878)
   const western = useGenre<IMovie[]>('movie', 37)
 
   return (
@@ -41,9 +41,9 @@ export function MoviesPage () {
         <Carousel title="Fantasia" list={fantasy} />
         <Carousel title="História" list={history} />
         <Carousel title="Terror" list={horror} />
-        <Carousel title="Suspense" list={mistery} />
+        <Carousel title="Suspense" list={mystery} />
         <Carousel title="Romance" list={romance} />
-        <Carousel title="Ficção Cientifica" list={scifi} />
+        <Carousel title="Ficção Cientifica" list={sciFi} />
         <Carousel title="Faroeste" list={western} />
       </Main>
     </>
