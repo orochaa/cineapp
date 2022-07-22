@@ -8,24 +8,15 @@ export function Home () {
   const { data: popularTv } = useFetch<ITv[]>('/tv/popular')
   const { data: topRatedTv } = useFetch<ITv[]>('/tv/top_rated')
 
-  if (!popularMovies || !topRatedMovies || !popularTv || !topRatedTv) {
-    return <p>loading...</p>
-  }
-
   return (
     <>
       <Header />
       <Main>
-        <h1 className="text-2xl">Em Alta</h1>
-        <Banner movie={popularMovies[0]} tv={popularTv[0]} />
-        <h2 className="text-xl">Filmes Populares</h2>
-        <Carousel list={popularMovies.slice(1, popularMovies.length)} />
-        <h2 className="text-xl">Filmes Bem Avaliados</h2>
-        <Carousel list={topRatedMovies} />
-        <h2 className="text-xl">Séries Populares</h2>
-        <Carousel list={popularTv.slice(1, popularTv.length)} />
-        <h2 className="text-xl">Séries Bem Avaliados</h2>
-        <Carousel list={topRatedTv} />
+        <Banner movie={popularMovies ? popularMovies[0] : undefined} tv={popularTv ? popularTv[0] : undefined} />
+        <Carousel title="Filmes Populares" list={popularMovies?.slice(1, popularMovies.length)} />
+        <Carousel title="Filmes Bem Avaliados" list={topRatedMovies} />
+        <Carousel title="Séries Populares" list={popularTv?.slice(1, popularTv.length)} />
+        <Carousel title="Séries Bem Avaliados" list={topRatedTv} />
       </Main>
     </>
   )
