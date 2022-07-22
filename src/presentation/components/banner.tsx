@@ -2,11 +2,12 @@ import { IMovie, ITv } from '@/domain/api'
 import { Backdrop } from './backdrop'
 
 interface BannerProps {
-  movie: IMovie
-  tv: ITv
+  movie: IMovie | undefined
+  tv: ITv | undefined
 }
 
 export function Banner ({ movie, tv }: BannerProps) {
+  if (!movie || !tv) return <span></span>
   return (
     <div className="flex gap-2 my-4">
       <Backdrop
