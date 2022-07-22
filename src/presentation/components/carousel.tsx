@@ -4,88 +4,81 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { Backdrop } from './backdrop'
 
 interface CarouselProps {
-  list: Array<IMovie | ITv>
+  title: string
+  list: Array<IMovie | ITv> | undefined
 }
 
-export function Carousel ({ list }: CarouselProps) {
+export function Carousel (props: CarouselProps) {
   const [axisX, setAxisX] = useState(0)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(true)
 
-  const filteredList = list.filter(item => item.backdrop_path !== null)
+  const filteredList = props.list ? props.list.filter(item => item.backdrop_path !== null) : []
+
+  const carouselWidth = Math.floor((window.innerWidth * 0.9) / 310) * 310
+  const listWidth = filteredList.length * 310
 
   const handleLeftArrowClick = () => {
-    let x = axisX + Math.round(window.innerWidth * 0.78)
-
-    if (x >= 0) {
-      x = 0
-      setShowLeftArrow(false)
-    } else {
-      setShowRightArrow(true)
-    }
-
-    setAxisX(x)
+    setAxisX(axisX => axisX + carouselWidth)
   }
 
   const handleRightArrowClick = () => {
-    const listWidth = filteredList.length * 310
-    let x = axisX - Math.round(window.innerWidth * 0.78)
+    setAxisX(axisX => axisX - carouselWidth)
+  }
 
-    if (window.innerWidth - listWidth > x) {
-      const blankSpace = window.innerWidth > 800 ? 80 : 16
-
-      x = window.innerWidth - listWidth - blankSpace
-      setShowRightArrow(false)
+  useEffect(() => {
+    if (axisX >= 0) {
+      setAxisX(0)
+      setShowLeftArrow(false)
     } else {
       setShowLeftArrow(true)
     }
 
-    setAxisX(x)
-  }
-
-  useEffect(() => {
-    const paddingLeft = window.innerWidth > 800 ? 80 : 28
-    const listWidth = filteredList.length * 310
-
-    if (window.innerWidth - paddingLeft > listWidth) {
+    const nextRight = Math.abs(axisX - carouselWidth)
+    if (nextRight >= listWidth) {
       setShowRightArrow(false)
+    } else {
+      setShowRightArrow(true)
     }
-  }, [filteredList.length])
+  }, [axisX, listWidth])
 
   return (
-    <section className="group relative flex items-center overflow-hidden py-4">
-      <button
-        className={`absolute left-1 opacity-0 text-title group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
-          showLeftArrow ? 'visible' : 'invisible'
-        }`}
-        onClick={handleLeftArrowClick}
-      >
-        <MdChevronLeft size={40} />
-      </button>
-      <ul
-        className="flex items-center gap-4 transition-all duration-500"
-        style={{
-          marginLeft: axisX + 'px'
-        }}
-      >
-        {filteredList.map((item, index) => (
-          <Backdrop
-            key={index}
-            backdrop={item}
-            size="w300"
-            title={item?.title || (item?.name as string)}
-            className="min-w-[300px] text-lg"
-          />
-        ))}
-      </ul>
-      <button
-        className={`absolute right-1 opacity-0 text-title group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
-          showRightArrow ? 'visible' : 'invisible'
-        }`}
-        onClick={handleRightArrowClick}
-      >
-        <MdChevronRight size={40} />
-      </button>
+    <section>
+      <h2 className="pt-6 pb-4 text-2xl text-title">{props.title}</h2>
+      <div className="group relative flex items-center overflow-hidden">
+        <button
+          className={`absolute left-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
+            showLeftArrow ? 'visible' : 'invisible'
+          }`}
+          onClick={handleLeftArrowClick}
+        >
+          <MdChevronLeft size={40} />
+        </button>
+        <ul
+          className="flex items-center gap-4 transition-all duration-500"
+          style={{
+            marginLeft: axisX + 'px'
+          }}
+        >
+          {filteredList.map((item, index) => (
+            <Backdrop
+              key={index}
+              backdrop={item}
+              size="w300"
+              title={item?.title || (item?.name as string)}
+              className="min-w-[300px] text-lg"
+            />
+          ))}
+        </ul>
+        <button
+          className={`absolute right-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
+            showRightArrow ? 'visible' : 'invisible'
+          }`}
+          onClick={handleRightArrowClick}
+        >
+          <MdChevronRight size={40} />
+        </button>
+      </div>
     </section>
   )
 }
