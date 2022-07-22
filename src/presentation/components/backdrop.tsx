@@ -25,7 +25,10 @@ export function Backdrop (props: BackdropProps) {
           backdrop.backdrop_path
         }`}
         alt={title}
-        style={{ filter: hover ? 'brightness(0.3)' : 'brightness(0.8)' }}
+        style={{
+          transition: 'all 0.3s ease',
+          filter: hover ? 'brightness(0.3)' : 'brightness(0.8)'
+        }}
       />
       <div
         className="
