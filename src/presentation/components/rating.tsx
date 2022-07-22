@@ -21,7 +21,7 @@ export function Rating (props: RatingProps) {
             fontSize: (size * 14) / 40
           }}
         >
-          {rate}
+          {rate.toFixed(1)}
         </p>
       </div>
       <div
