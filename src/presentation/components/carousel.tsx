@@ -6,12 +6,12 @@ import { formatGenre } from '@/presentation/helpers'
 
 interface CarouselProps {
   genre: IMovieGenre | ITvGenre | string
-  selectedGenre?: SelectGenreValue
+  selectedGenre: SelectGenreValue
   list: Array<IMovie | ITv> | undefined
 }
 
 export function Carousel (props: CarouselProps) {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const [grid, setGrid] = useState(false)
 
   const [axisX, setAxisX] = useState(0)

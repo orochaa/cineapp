@@ -50,9 +50,9 @@ export function MoviesPage () {
             'western'
           ]}
         />
-        <Carousel genre="Populares" list={trending} />
-        <Carousel genre="Bem Avaliados" list={topRated} />
-        <Carousel genre="Em Breve" list={upcoming} />
+        <Carousel genre="Populares" selectedGenre={genre} list={trending} />
+        <Carousel genre="Bem Avaliados" selectedGenre={genre} list={topRated} />
+        <Carousel genre="Em Breve" selectedGenre={genre} list={upcoming} />
         <Carousel genre="action" selectedGenre={genre} list={action} />
         <Carousel genre="adventure" selectedGenre={genre} list={adventure} />
         <Carousel genre="animation" selectedGenre={genre} list={animation} />

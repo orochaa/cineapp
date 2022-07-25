@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { MdHome, MdSearch, MdTheaters, MdTv } from 'react-icons/md'
+import { useState } from 'react'
 
 export function Header () {
+  const [inputFocus, onInputFocus] = useState(false)
+
   return (
     <header className="flex gap-10 w-full py-5 px-9 bg-primary text-white">
       <nav className="flex gap-6 font-open font-semibold">
@@ -25,12 +28,14 @@ export function Header () {
         </Link>
       </nav>
       <form className="flex items-center gap-4 bg-background py-1 px-4 rounded">
-        <MdSearch size={20} />
+        <MdSearch size={20} className={inputFocus ? 'text-purple-500' : ''} />
         <input
           type="text"
           placeholder="Pesquisar"
-          className="bg-transparent outline-none p-1 placeholder:text-zinc-500"
+          className="bg-transparent outline-none p-1 placeholder:text-zinc-500 transition-colors"
           style={{ verticalAlign: 'middle' }}
+          onFocus={() => onInputFocus(true)}
+          onBlur={() => onInputFocus(false)}
         />
       </form>
     </header>

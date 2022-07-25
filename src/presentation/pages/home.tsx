@@ -13,10 +13,10 @@ export function Home () {
       <Header />
       <Main>
         <Banner movie={popularMovies ? popularMovies[0] : undefined} tv={popularTv ? popularTv[0] : undefined} />
-        <Carousel title="Filmes Populares" list={popularMovies?.slice(1, popularMovies.length)} />
-        <Carousel title="Filmes Bem Avaliados" list={topRatedMovies} />
-        <Carousel title="Séries Populares" list={popularTv?.slice(1, popularTv.length)} />
-        <Carousel title="Séries Bem Avaliados" list={topRatedTv} />
+        <Carousel genre="Filmes Populares" selectedGenre="*" list={popularMovies?.slice(1, popularMovies.length)} />
+        <Carousel genre="Filmes Bem Avaliados" selectedGenre="*" list={topRatedMovies} />
+        <Carousel genre="Séries Populares" selectedGenre="*" list={popularTv?.slice(1, popularTv.length)} />
+        <Carousel genre="Séries Bem Avaliados" selectedGenre="*" list={topRatedTv} />
       </Main>
     </>
   )
