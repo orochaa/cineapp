@@ -1,5 +1,5 @@
 import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { formatGenre } from '../helpers'
 import { Backdrop } from './backdrop'
@@ -13,23 +13,32 @@ interface CarouselProps {
 
 export function Carousel (props: CarouselProps) {
   const [visible, setVisible] = useState(false)
+  const [grid, setGrid] = useState(false)
+
   const [axisX, setAxisX] = useState(0)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(true)
 
   const { list, genre, selectedGenre } = props
-  const filteredList = list ? list.filter(item => item.backdrop_path !== null) : []
+  const filteredList = list
+    ? list.filter(item => item.backdrop_path !== null)
+    : []
 
-  const carouselWidth = Math.floor((window.innerWidth * 0.9) / 310) * 310
-  const listWidth = filteredList.length * 310
+  const carouselWidth = useMemo(() => (
+    Math.floor((window.innerWidth * 0.9) / 310) * 310
+  ), [window.innerWidth])
 
-  const handleLeftArrowClick = () => {
+  const listWidth = useMemo(() => (
+    filteredList.length * 310
+  ), [filteredList.length])
+
+  const handleLeftArrowClick = useCallback(() => {
     setAxisX(axisX => axisX + carouselWidth)
-  }
+  }, [])
 
-  const handleRightArrowClick = () => {
+  const handleRightArrowClick = useCallback(() => {
     setAxisX(axisX => axisX - carouselWidth)
-  }
+  }, [])
 
   useEffect(() => {
     if (axisX >= 0) {
@@ -49,12 +58,16 @@ export function Carousel (props: CarouselProps) {
 
   useEffect(() => {
     setVisible(selectedGenre === genre || selectedGenre === '*')
+    setGrid(selectedGenre === genre)
+    setAxisX(axisX => selectedGenre === genre ? 0 : axisX)
   }, [selectedGenre])
 
   return (
     <section className={visible ? 'block' : 'hidden'}>
-      <h2 className="pt-6 pb-4 text-2xl text-title">{formatGenre(genre as any)}</h2>
-      <div className="group relative flex items-center overflow-hidden">
+      <h2 className="pt-6 pb-4 text-2xl text-title">
+        {formatGenre(genre as any)}
+      </h2>
+      <div className={grid ? 'block' : 'group relative flex items-center overflow-hidden'}>
         <button
           className={`absolute left-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
             showLeftArrow ? 'visible' : 'invisible'
@@ -64,7 +77,10 @@ export function Carousel (props: CarouselProps) {
           <MdChevronLeft size={40} />
         </button>
         <ul
-          className="flex items-center gap-4 transition-all duration-500"
+          className={`
+            flex items-center gap-4 transition-all duration-500
+            ${grid ? 'flex-wrap' : 'flex-nowrap'}
+          `}
           style={{
             marginLeft: axisX + 'px'
           }}
