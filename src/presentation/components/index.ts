@@ -1,7 +1,6 @@
 export * from './backdrop'
 export * from './carousel'
 export * from './header'
-export * from './loading'
 export * from './main'
 export * from './rating'
 export * from './select-genre'

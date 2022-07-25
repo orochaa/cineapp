@@ -1,12 +1,14 @@
 interface RatingProps {
   size: number
-  rate: number
+  rate: number | undefined
 }
 
 export function Rating (props: RatingProps) {
   const { size, rate } = props
   let strokeColor = ''
   const dash = (size * 220) / 70
+
+  if (!rate) return <span></span>
 
   if (rate >= 8) strokeColor = '#31dd0e'
   else if (rate >= 6) strokeColor = '#dadd0e'
