@@ -1,9 +1,11 @@
 import { ITv } from '@/domain/api'
-import { Carousel, Header, Main } from '../components'
-import { useFetch } from '../hooks'
-import { useGenre } from '../hooks/use-genre'
+import { Carousel, Header, Main, SelectGenre, SelectGenreValue } from '@/presentation/components'
+import { useFetch, useGenre } from '@/presentation/hooks'
+import { useState } from 'react'
 
 export function SeriesPage () {
+  const [genre, setGenre] = useState<SelectGenreValue>('*')
+
   const { data: trending } = useFetch<ITv[]>('/trending/tv/week')
   const { data: topRated } = useFetch<ITv[]>('/tv/top_rated')
   const { data: current } = useFetch<ITv[]>('/tv/on_the_air')
@@ -26,23 +28,43 @@ export function SeriesPage () {
     <>
       <Header />
       <Main>
-        <Carousel title="Populares" list={trending} />
-        <Carousel title="Bem Avaliados" list={topRated} />
-        <Carousel title="Atuais" list={current} />
-        <Carousel title="Ação e Aventura" list={actionAdventure} />
-        <Carousel title="Animação" list={animation} />
-        <Carousel title="Crime" list={crime} />
-        <Carousel title="Documentário" list={documentary} />
-        <Carousel title="Drama" list={drama} />
-        <Carousel title="Familia" list={family} />
-        <Carousel title="Kids" list={kids} />
-        <Carousel title="Suspense" list={mystery} />
-        <Carousel title="Noticia" list={news} />
-        <Carousel title="Reality" list={reality} />
-        <Carousel title="Ficção Cientifica" list={sciFi} />
-        <Carousel title="Novela" list={soap} />
-        <Carousel title="TalkShow" list={talk} />
-        <Carousel title="Faroeste" list={western} />
+        <SelectGenre
+          title="Séries"
+          onSet={setGenre}
+          options={[
+            'actionAdventure',
+            'animation',
+            'crime',
+            'documentary',
+            'drama',
+            'family',
+            'kids',
+            'mystery',
+            'news',
+            'reality',
+            'sciFi',
+            'soap',
+            'talk',
+            'western'
+          ]}
+        />
+        <Carousel genre="Populares" selectedGenre={genre} list={trending} />
+        <Carousel genre="Bem Avaliados" selectedGenre={genre}list={topRated} />
+        <Carousel genre="Atuais" selectedGenre={genre} list={current} />
+        <Carousel genre={'actionAdventure'} selectedGenre={genre} list={actionAdventure} />
+        <Carousel genre={'animation'} selectedGenre={genre} list={animation} />
+        <Carousel genre={'crime'} selectedGenre={genre} list={crime} />
+        <Carousel genre={'documentary'} selectedGenre={genre} list={documentary} />
+        <Carousel genre={'drama'} selectedGenre={genre} list={drama} />
+        <Carousel genre={'family'} selectedGenre={genre} list={family} />
+        <Carousel genre={'kids'} selectedGenre={genre} list={kids} />
+        <Carousel genre={'mystery'} selectedGenre={genre} list={mystery} />
+        <Carousel genre={'news'} selectedGenre={genre} list={news} />
+        <Carousel genre={'reality'} selectedGenre={genre} list={reality} />
+        <Carousel genre={'sciFi'} selectedGenre={genre} list={sciFi} />
+        <Carousel genre={'soap'} selectedGenre={genre} list={soap} />
+        <Carousel genre={'talk'} selectedGenre={genre} list={talk} />
+        <Carousel genre={'western'} selectedGenre={genre} list={western} />
       </Main>
     </>
   )
