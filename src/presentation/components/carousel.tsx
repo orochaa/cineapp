@@ -1,20 +1,23 @@
-import { IMovie, ITv } from '@/domain/api'
+import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
 import { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { formatGenre } from '../helpers'
 import { Backdrop } from './backdrop'
+import { SelectGenreValue } from './select-genre'
 
 interface CarouselProps {
-  genre: string
+  genre: IMovieGenre | ITvGenre | string
+  selectedGenre?: SelectGenreValue
   list: Array<IMovie | ITv> | undefined
 }
 
 export function Carousel (props: CarouselProps) {
+  const [visible, setVisible] = useState(false)
   const [axisX, setAxisX] = useState(0)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(true)
 
-  const { list, genre } = props
+  const { list, genre, selectedGenre } = props
   const filteredList = list ? list.filter(item => item.backdrop_path !== null) : []
 
   const carouselWidth = Math.floor((window.innerWidth * 0.9) / 310) * 310
@@ -44,8 +47,12 @@ export function Carousel (props: CarouselProps) {
     }
   }, [axisX, listWidth])
 
+  useEffect(() => {
+    setVisible(selectedGenre === genre || selectedGenre === '*')
+  }, [selectedGenre])
+
   return (
-    <>
+    <section className={visible ? 'block' : 'hidden'}>
       <h2 className="pt-6 pb-4 text-2xl text-title">{formatGenre(genre as any)}</h2>
       <div className="group relative flex items-center overflow-hidden">
         <button
@@ -81,6 +88,6 @@ export function Carousel (props: CarouselProps) {
           <MdChevronRight size={40} />
         </button>
       </div>
-    </>
+    </section>
   )
 }
