@@ -1,9 +1,8 @@
-import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import { formatGenre } from '../helpers'
-import { Backdrop } from './backdrop'
-import { SelectGenreValue } from './select-genre'
+import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
+import { Backdrop, SelectGenreValue } from '@/presentation/components'
+import { formatGenre } from '@/presentation/helpers'
 
 interface CarouselProps {
   genre: IMovieGenre | ITvGenre | string
@@ -16,21 +15,19 @@ export function Carousel (props: CarouselProps) {
   const [grid, setGrid] = useState(false)
 
   const [axisX, setAxisX] = useState(0)
-  const [showLeftArrow, setShowLeftArrow] = useState(false)
-  const [showRightArrow, setShowRightArrow] = useState(true)
+  const [leftArrow, setLeftArrow] = useState(false)
 
-  const { list, genre, selectedGenre } = props
-  const filteredList = list
-    ? list.filter(item => item.backdrop_path !== null)
-    : []
+  const [carouselList, setCarouselList] = useState<Array<IMovie | ITv>>([])
 
-  const carouselWidth = useMemo(() => (
-    Math.floor((window.innerWidth * 0.9) / 310) * 310
-  ), [window.innerWidth])
+  const carouselWidth = useMemo(
+    () => Math.floor((window.innerWidth * 0.9) / 310) * 310,
+    [window.innerWidth]
+  )
 
-  const listWidth = useMemo(() => (
-    filteredList.length * 310
-  ), [filteredList.length])
+  const carouselListWidth = useMemo(
+    () => carouselList.length * 310,
+    [carouselList.length]
+  )
 
   const handleLeftArrowClick = useCallback(() => {
     setAxisX(axisX => axisX + carouselWidth)
@@ -43,34 +40,45 @@ export function Carousel (props: CarouselProps) {
   useEffect(() => {
     if (axisX >= 0) {
       setAxisX(0)
-      setShowLeftArrow(false)
+      setLeftArrow(false)
     } else {
-      setShowLeftArrow(true)
+      setLeftArrow(true)
     }
 
-    const nextRight = Math.abs(axisX - carouselWidth)
-    if (nextRight >= listWidth) {
-      setShowRightArrow(false)
-    } else {
-      setShowRightArrow(true)
+    const nextRight = Math.abs(axisX - carouselWidth * 2)
+    if (nextRight >= carouselListWidth) {
+      setCarouselList(carouselList.concat(carouselList))
     }
-  }, [axisX, listWidth])
+  }, [axisX, carouselList.length])
 
   useEffect(() => {
-    setVisible(selectedGenre === genre || selectedGenre === '*')
-    setGrid(selectedGenre === genre)
-    setAxisX(axisX => selectedGenre === genre ? 0 : axisX)
-  }, [selectedGenre])
+    const isGenreSelected = props.selectedGenre === props.genre
+    setVisible(isGenreSelected || props.selectedGenre === '*')
+    setGrid(isGenreSelected)
+    setAxisX(axisX => (isGenreSelected ? 0 : axisX))
+  }, [props.selectedGenre])
+
+  useEffect(() => {
+    if (props.list) {
+      setCarouselList(
+        props.list.filter(item => item.backdrop_path !== null)
+      )
+    }
+  }, [props.list, props.selectedGenre])
 
   return (
     <section className={visible ? 'block' : 'hidden'}>
       <h2 className="pt-6 pb-4 text-2xl text-title">
-        {formatGenre(genre as any)}
+        {formatGenre(props.genre as any)}
       </h2>
-      <div className={grid ? 'block' : 'group relative flex items-center overflow-hidden'}>
+      <div
+        className={
+          grid ? 'block' : 'group relative flex items-center overflow-hidden'
+        }
+      >
         <button
           className={`absolute left-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
-            showLeftArrow ? 'visible' : 'invisible'
+            leftArrow ? 'visible' : 'invisible'
           }`}
           onClick={handleLeftArrowClick}
         >
@@ -78,27 +86,25 @@ export function Carousel (props: CarouselProps) {
         </button>
         <ul
           className={`
-            flex items-center gap-4 transition-all duration-500
+            flex shrink-0 items-center gap-4 transition-all duration-500
             ${grid ? 'flex-wrap' : 'flex-nowrap'}
           `}
           style={{
             marginLeft: axisX + 'px'
           }}
         >
-          {filteredList.map((item, index) => (
+          {carouselList.map((item, index) => (
             <Backdrop
               key={index}
               backdrop={item}
               size="w300"
               title={item?.title || (item?.name as string)}
-              className="min-w-[300px] text-lg"
+              className="text-lg"
             />
           ))}
         </ul>
         <button
-          className={`absolute right-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
-            showRightArrow ? 'visible' : 'invisible'
-          }`}
+          className="absolute right-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60"
           onClick={handleRightArrowClick}
         >
           <MdChevronRight size={40} />
