@@ -1,9 +1,18 @@
 import { IMovie } from '@/domain/api'
-import { Carousel, Header, Main } from '../components'
-import { useFetch } from '../hooks'
-import { useGenre } from '../hooks/use-genre'
+import {
+  Carousel,
+  Header,
+  Main,
+  ISelectGenre,
+  SelectGenre
+} from '@/presentation/components'
+import { useFetch, useGenre } from '@/presentation/hooks'
+import { useState } from 'react'
+import { formatGenre } from '../helpers'
 
 export function MoviesPage () {
+  const [genre, setGenre] = useState<ISelectGenre>('*')
+
   const { data: trending } = useFetch<IMovie[]>('/trending/movie/week')
   const { data: topRated } = useFetch<IMovie[]>('/movie/top_rated')
   const { data: upcoming } = useFetch<IMovie[]>('/movie/upcoming')
@@ -27,24 +36,45 @@ export function MoviesPage () {
     <>
       <Header />
       <Main>
-        <Carousel title="Populares" list={trending} />
-        <Carousel title="Bem Avaliados" list={topRated} />
-        <Carousel title="Em Breve" list={upcoming} />
-        <Carousel title="Ação" list={action} />
-        <Carousel title="Aventura" list={adventure} />
-        <Carousel title="Animação" list={animation} />
-        <Carousel title="Comédia" list={comedy} />
-        <Carousel title="Crime" list={crime} />
-        <Carousel title="Documentário" list={documentary} />
-        <Carousel title="Drama" list={drama} />
-        <Carousel title="Familia" list={family} />
-        <Carousel title="Fantasia" list={fantasy} />
-        <Carousel title="História" list={history} />
-        <Carousel title="Terror" list={horror} />
-        <Carousel title="Suspense" list={mystery} />
-        <Carousel title="Romance" list={romance} />
-        <Carousel title="Ficção Cientifica" list={sciFi} />
-        <Carousel title="Faroeste" list={western} />
+        <SelectGenre
+          title="Filmes"
+          onSet={setGenre}
+          options={[
+            'action',
+            'adventure',
+            'animation',
+            'comedy',
+            'crime',
+            'documentary',
+            'drama',
+            'family',
+            'fantasy',
+            'history',
+            'horror',
+            'mystery',
+            'romance',
+            'sciFi',
+            'western'
+          ]}
+        />
+        <Carousel genre="Populares" list={trending} />
+        <Carousel genre="Bem Avaliados" list={topRated} />
+        <Carousel genre="Em Breve" list={upcoming} />
+        <Carousel genre="action" list={action} />
+        <Carousel genre="adventure" list={adventure} />
+        <Carousel genre="animation" list={animation} />
+        <Carousel genre="comedy" list={comedy} />
+        <Carousel genre="crime" list={crime} />
+        <Carousel genre="documentary" list={documentary} />
+        <Carousel genre="drama" list={drama} />
+        <Carousel genre="family" list={family} />
+        <Carousel genre="fantasy" list={fantasy} />
+        <Carousel genre="history" list={history} />
+        <Carousel genre="horror" list={horror} />
+        <Carousel genre="mystery" list={mystery} />
+        <Carousel genre="romance" list={romance} />
+        <Carousel genre="sciFi" list={sciFi} />
+        <Carousel genre="western" list={western} />
       </Main>
     </>
   )

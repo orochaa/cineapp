@@ -1,10 +1,11 @@
 import { IMovie, ITv } from '@/domain/api'
 import { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import { formatGenre } from '../helpers'
 import { Backdrop } from './backdrop'
 
 interface CarouselProps {
-  title: string
+  genre: string
   list: Array<IMovie | ITv> | undefined
 }
 
@@ -13,7 +14,8 @@ export function Carousel (props: CarouselProps) {
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(true)
 
-  const filteredList = props.list ? props.list.filter(item => item.backdrop_path !== null) : []
+  const { list, genre } = props
+  const filteredList = list ? list.filter(item => item.backdrop_path !== null) : []
 
   const carouselWidth = Math.floor((window.innerWidth * 0.9) / 310) * 310
   const listWidth = filteredList.length * 310
@@ -43,8 +45,8 @@ export function Carousel (props: CarouselProps) {
   }, [axisX, listWidth])
 
   return (
-    <section>
-      <h2 className="pt-6 pb-4 text-2xl text-title">{props.title}</h2>
+    <>
+      <h2 className="pt-6 pb-4 text-2xl text-title">{formatGenre(genre as any)}</h2>
       <div className="group relative flex items-center overflow-hidden">
         <button
           className={`absolute left-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
@@ -79,6 +81,6 @@ export function Carousel (props: CarouselProps) {
           <MdChevronRight size={40} />
         </button>
       </div>
-    </section>
+    </>
   )
 }
