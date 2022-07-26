@@ -1,5 +1,6 @@
-export * from './backdrop'
+export * from './card'
 export * from './carousel'
+export * from './carousel/genre'
 export * from './header'
 export * from './main'
 export * from './rating'

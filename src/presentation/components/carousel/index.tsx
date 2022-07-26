@@ -1,23 +1,34 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  ForwardRefRenderFunction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  SetStateAction,
+  useImperativeHandle,
+  forwardRef
+} from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
-import { Backdrop, SelectGenreValue } from '@/presentation/components'
-import { formatGenre } from '@/presentation/helpers'
 
-interface CarouselProps {
-  genre: IMovieGenre | ITvGenre | string
-  selectedGenre: SelectGenreValue
-  list: Array<IMovie | ITv> | undefined
+interface ICarouselProps {
+  title: string
+  children: any[] | undefined
 }
 
-export function Carousel (props: CarouselProps) {
-  const [visible, setVisible] = useState(true)
-  const [grid, setGrid] = useState(false)
+export interface ICarouselHandles {
+  setGrid: Dispatch<SetStateAction<boolean>>
+  setAxisX: Dispatch<SetStateAction<number>>
+}
 
+const CarouselComponent: ForwardRefRenderFunction<
+  ICarouselHandles,
+  ICarouselProps
+> = (props, ref) => {
   const [axisX, setAxisX] = useState(0)
   const [leftArrow, setLeftArrow] = useState(false)
-
-  const [carouselList, setCarouselList] = useState<Array<IMovie | ITv>>([])
+  const [grid, setGrid] = useState(false)
+  const [carouselList, setCarouselList] = useState<any[]>([])
 
   const carouselWidth = useMemo(
     () => Math.floor((window.innerWidth * 0.9) / 310) * 310,
@@ -37,6 +48,14 @@ export function Carousel (props: CarouselProps) {
     setAxisX(axisX => axisX - carouselWidth)
   }, [])
 
+  useImperativeHandle(ref,
+    () => ({
+      setGrid,
+      setAxisX
+    }),
+    []
+  )
+
   useEffect(() => {
     if (axisX >= 0) {
       setAxisX(0)
@@ -47,30 +66,27 @@ export function Carousel (props: CarouselProps) {
 
     const nextRight = Math.abs(axisX - carouselWidth * 2)
     if (nextRight >= carouselListWidth) {
-      setCarouselList(carouselList.concat(carouselList))
-    }
-  }, [axisX, carouselList.length])
-
-  useEffect(() => {
-    const isGenreSelected = props.selectedGenre === props.genre
-    setVisible(isGenreSelected || props.selectedGenre === '*')
-    setGrid(isGenreSelected)
-    setAxisX(axisX => (isGenreSelected ? 0 : axisX))
-  }, [props.selectedGenre])
-
-  useEffect(() => {
-    if (props.list) {
-      setCarouselList(
-        props.list.filter(item => item.backdrop_path !== null)
+      setCarouselList(carouselList =>
+        carouselList
+          .concat(props.children || carouselList)
+          .map((item, index) => ({ ...item, key: index }))
       )
     }
-  }, [props.list, props.selectedGenre])
+  }, [axisX])
+
+  useEffect(() => {
+    setAxisX(0)
+  }, [grid])
+
+  useEffect(() => {
+    if (props.children) {
+      setCarouselList(props.children)
+    }
+  }, [props.children])
 
   return (
-    <section className={visible ? 'block' : 'hidden'}>
-      <h2 className="pt-6 pb-4 text-2xl text-title">
-        {formatGenre(props.genre as any)}
-      </h2>
+    <>
+      <h2 className="pt-6 pb-4 text-2xl text-title">{props.title}</h2>
       <div
         className={
           grid ? 'block' : 'group relative flex items-center overflow-hidden'
@@ -93,15 +109,7 @@ export function Carousel (props: CarouselProps) {
             marginLeft: axisX + 'px'
           }}
         >
-          {carouselList.map((item, index) => (
-            <Backdrop
-              key={index}
-              backdrop={item}
-              size="w300"
-              title={item?.title || (item?.name as string)}
-              className="text-lg"
-            />
-          ))}
+          {carouselList}
         </ul>
         <button
           className="absolute right-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60"
@@ -110,6 +118,8 @@ export function Carousel (props: CarouselProps) {
           <MdChevronRight size={40} />
         </button>
       </div>
-    </section>
+    </>
   )
 }
+
+export const Carousel = forwardRef(CarouselComponent)
