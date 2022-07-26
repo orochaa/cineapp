@@ -1,5 +1,5 @@
 import { ITv } from '@/domain/api'
-import { Carousel, Header, Main, SelectGenre, SelectGenreValue } from '@/presentation/components'
+import { CarouselGenre, Header, Main, SelectGenre, SelectGenreValue } from '@/presentation/components'
 import { useFetch, useGenre } from '@/presentation/hooks'
 import { useState } from 'react'
 
@@ -48,23 +48,23 @@ export function SeriesPage () {
             'western'
           ]}
         />
-        <Carousel genre="Populares" selectedGenre={genre} list={trending} />
-        <Carousel genre="Bem Avaliados" selectedGenre={genre}list={topRated} />
-        <Carousel genre="Atuais" selectedGenre={genre} list={current} />
-        <Carousel genre={'actionAdventure'} selectedGenre={genre} list={actionAdventure} />
-        <Carousel genre={'animation'} selectedGenre={genre} list={animation} />
-        <Carousel genre={'crime'} selectedGenre={genre} list={crime} />
-        <Carousel genre={'documentary'} selectedGenre={genre} list={documentary} />
-        <Carousel genre={'drama'} selectedGenre={genre} list={drama} />
-        <Carousel genre={'family'} selectedGenre={genre} list={family} />
-        <Carousel genre={'kids'} selectedGenre={genre} list={kids} />
-        <Carousel genre={'mystery'} selectedGenre={genre} list={mystery} />
-        <Carousel genre={'news'} selectedGenre={genre} list={news} />
-        <Carousel genre={'reality'} selectedGenre={genre} list={reality} />
-        <Carousel genre={'sciFi'} selectedGenre={genre} list={sciFi} />
-        <Carousel genre={'soap'} selectedGenre={genre} list={soap} />
-        <Carousel genre={'talk'} selectedGenre={genre} list={talk} />
-        <Carousel genre={'western'} selectedGenre={genre} list={western} />
+        <CarouselGenre type="tv" genre="Populares" selectedGenre={genre} list={trending} />
+        <CarouselGenre type="tv" genre="Bem Avaliados" selectedGenre={genre}list={topRated} />
+        <CarouselGenre type="tv" genre="Atuais" selectedGenre={genre} list={current} />
+        <CarouselGenre type="tv" genre="actionAdventure" selectedGenre={genre} list={actionAdventure} />
+        <CarouselGenre type="tv" genre="animation" selectedGenre={genre} list={animation} />
+        <CarouselGenre type="tv" genre="crime" selectedGenre={genre} list={crime} />
+        <CarouselGenre type="tv" genre="documentary" selectedGenre={genre} list={documentary} />
+        <CarouselGenre type="tv" genre="drama" selectedGenre={genre} list={drama} />
+        <CarouselGenre type="tv" genre="family" selectedGenre={genre} list={family} />
+        <CarouselGenre type="tv" genre="kids" selectedGenre={genre} list={kids} />
+        <CarouselGenre type="tv" genre="mystery" selectedGenre={genre} list={mystery} />
+        <CarouselGenre type="tv" genre="news" selectedGenre={genre} list={news} />
+        <CarouselGenre type="tv" genre="reality" selectedGenre={genre} list={reality} />
+        <CarouselGenre type="tv" genre="sciFi" selectedGenre={genre} list={sciFi} />
+        <CarouselGenre type="tv" genre="soap" selectedGenre={genre} list={soap} />
+        <CarouselGenre type="tv" genre="talk" selectedGenre={genre} list={talk} />
+        <CarouselGenre type="tv" genre="western" selectedGenre={genre} list={western} />
       </Main>
     </>
   )

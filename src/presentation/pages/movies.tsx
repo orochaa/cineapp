@@ -1,5 +1,5 @@
 import { IMovie } from '@/domain/api'
-import { Carousel, Header, Main, SelectGenre, SelectGenreValue } from '@/presentation/components'
+import { CarouselGenre, Header, Main, SelectGenre, SelectGenreValue } from '@/presentation/components'
 import { useFetch, useGenre } from '@/presentation/hooks'
 import { useState } from 'react'
 
@@ -50,24 +50,24 @@ export function MoviesPage () {
             'western'
           ]}
         />
-        <Carousel genre="Populares" selectedGenre={genre} list={trending} />
-        <Carousel genre="Bem Avaliados" selectedGenre={genre} list={topRated} />
-        <Carousel genre="Em Breve" selectedGenre={genre} list={upcoming} />
-        <Carousel genre="action" selectedGenre={genre} list={action} />
-        <Carousel genre="adventure" selectedGenre={genre} list={adventure} />
-        <Carousel genre="animation" selectedGenre={genre} list={animation} />
-        <Carousel genre="comedy" selectedGenre={genre} list={comedy} />
-        <Carousel genre="crime" selectedGenre={genre} list={crime} />
-        <Carousel genre="documentary" selectedGenre={genre} list={documentary} />
-        <Carousel genre="drama" selectedGenre={genre} list={drama} />
-        <Carousel genre="family" selectedGenre={genre} list={family} />
-        <Carousel genre="fantasy" selectedGenre={genre} list={fantasy} />
-        <Carousel genre="history" selectedGenre={genre} list={history} />
-        <Carousel genre="horror" selectedGenre={genre} list={horror} />
-        <Carousel genre="mystery" selectedGenre={genre} list={mystery} />
-        <Carousel genre="romance" selectedGenre={genre} list={romance} />
-        <Carousel genre="sciFi" selectedGenre={genre} list={sciFi} />
-        <Carousel genre="western" selectedGenre={genre} list={western} />
+        <CarouselGenre genre="Populares" selectedGenre={genre} type="movies" list={trending} />
+        <CarouselGenre genre="Bem Avaliados" selectedGenre={genre} type="movies" list={topRated} />
+        <CarouselGenre genre="Em Breve" selectedGenre={genre} type="movies" list={upcoming} />
+        <CarouselGenre genre="action" selectedGenre={genre} type="movies" list={action} />
+        <CarouselGenre genre="adventure" selectedGenre={genre} type="movies" list={adventure} />
+        <CarouselGenre genre="animation" selectedGenre={genre} type="movies" list={animation} />
+        <CarouselGenre genre="comedy" selectedGenre={genre} type="movies" list={comedy} />
+        <CarouselGenre genre="crime" selectedGenre={genre} type="movies" list={crime} />
+        <CarouselGenre genre="documentary" selectedGenre={genre} type="movies" list={documentary} />
+        <CarouselGenre genre="drama" selectedGenre={genre} type="movies" list={drama} />
+        <CarouselGenre genre="family" selectedGenre={genre} type="movies" list={family} />
+        <CarouselGenre genre="fantasy" selectedGenre={genre} type="movies" list={fantasy} />
+        <CarouselGenre genre="history" selectedGenre={genre} type="movies" list={history} />
+        <CarouselGenre genre="horror" selectedGenre={genre} type="movies" list={horror} />
+        <CarouselGenre genre="mystery" selectedGenre={genre} type="movies" list={mystery} />
+        <CarouselGenre genre="romance" selectedGenre={genre} type="movies" list={romance} />
+        <CarouselGenre genre="sciFi" selectedGenre={genre} type="movies" list={sciFi} />
+        <CarouselGenre genre="western" selectedGenre={genre} type="movies" list={western} />
       </Main>
     </>
   )
