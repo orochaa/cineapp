@@ -2,10 +2,7 @@ import { IMovieGenre, ITvGenre } from '@/domain/api'
 
 type GenreTypes = IMovieGenre | ITvGenre
 
-type GenreDictionary = {
-  // eslint-disable-next-line no-unused-vars
-  [genreType in GenreTypes ]: string
-}
+type GenreDictionary = Record<GenreTypes, string>
 
 export function formatGenre (genre: IMovieGenre | ITvGenre): string {
   const genreDictionary: GenreDictionary = {

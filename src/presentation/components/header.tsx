@@ -20,7 +20,7 @@ export function Header () {
             Filmes
           </p>
         </Link>
-        <Link to="/series" className="group flex items-center gap-2">
+        <Link to="/tv" className="group flex items-center gap-2">
           <MdTv />
           <p className="after:block after:w-0 after:h-0.5 after:bg-white after:transition-[width] after:rounded group-hover:after:w-full">
             Séries
