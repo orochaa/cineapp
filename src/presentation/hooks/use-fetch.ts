@@ -9,7 +9,7 @@ export function useFetch<T> (uri: string) {
         language: 'pt-BR'
       }
     })
-    return res.data.results
+    return res.data.results || res.data
   })
   return { data, error, mutate }
 }
