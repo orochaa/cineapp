@@ -12,6 +12,8 @@ export function VideoPlayer (props: VideoPlayerProps) {
       playing={props.playing}
       controls={true}
       stopOnUnmount={true}
+      height="40rem"
+      width="65rem"
     />
   )
 }

@@ -13,6 +13,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 interface ICarouselProps {
   title: string
+  cardLength: number
   children: any[] | undefined
 }
 
@@ -31,12 +32,12 @@ const CarouselComponent: ForwardRefRenderFunction<
   const [carouselList, setCarouselList] = useState<any[]>([])
 
   const carouselWidth = useMemo(
-    () => Math.floor((window.innerWidth * 0.9) / 310) * 310,
+    () => Math.floor((window.innerWidth * 0.9) / props.cardLength) * props.cardLength,
     [window.innerWidth]
   )
 
   const carouselListWidth = useMemo(
-    () => carouselList.length * 310,
+    () => carouselList.length * props.cardLength,
     [carouselList.length]
   )
 

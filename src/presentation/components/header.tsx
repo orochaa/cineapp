@@ -6,7 +6,7 @@ export function Header () {
   const [inputFocus, onInputFocus] = useState(false)
 
   return (
-    <header className="flex gap-10 w-full py-5 px-9 bg-primary text-white">
+    <header className="fixed top-0 left-0 flex gap-10 w-full py-5 px-9 bg-primary text-white z-40">
       <nav className="flex gap-6 font-open font-semibold">
         <Link to="/home" className="group flex items-center gap-2">
           <MdHome />
