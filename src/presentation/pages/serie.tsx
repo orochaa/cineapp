@@ -1,9 +1,9 @@
 import {
-  IMovie,
-  IMovieCredits,
-  IMovieDetails,
-  IMovieProviders,
-  IMovieVideo
+  ITv,
+  ITvCredits,
+  ITvDetails,
+  ITvProviders,
+  ITvVideo
 } from '@/domain/api'
 import {
   Card,
@@ -13,39 +13,26 @@ import {
   VideoPlayer
 } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
-import { MdAttachMoney, MdMoneyOff } from 'react-icons/md'
 import { CgAsterisk } from 'react-icons/cg'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
-import { useCallback, useEffect, useState, CSSProperties } from 'react'
+import { useEffect, useState, CSSProperties } from 'react'
 
-export function MoviePage () {
-  const { movieId } = useParams()
-  const { data: movie } = useFetch<IMovieDetails>(`/movie/${movieId}`)
-  const { data: videos } = useFetch<IMovieVideo[]>(`/movie/${movieId}/videos`)
-  const { data: credits } = useFetch<IMovieCredits>(`/movie/${movieId}/credits`)
-  const { data: similars } = useFetch<IMovie[]>(`/movie/${movieId}/similar`)
-  const { data: providers } = useFetch<IMovieProviders>(
-    `/movie/${movieId}/watch/providers`
+export function SeriePage () {
+  const { serieId } = useParams()
+  const { data: tv } = useFetch<ITvDetails>(`/tv/${serieId}`)
+  const { data: videos } = useFetch<ITvVideo[]>(`/tv/${serieId}/videos`)
+  const { data: credits } = useFetch<ITvCredits>(`/tv/${serieId}/credits`)
+  const { data: similar } = useFetch<ITv[]>(`/tv/${serieId}/similar`)
+  const { data: providers } = useFetch<ITvProviders>(
+    `/tv/${serieId}/watch/providers`
   )
 
   const [showVideo, setShowVideo] = useState(false)
 
-  const formatNumber = useCallback((n: number | undefined): string => {
-    if (!n) return '?'
-    return n
-      .toString()
-      .split('')
-      .reverse()
-      .map((n, i) => (i % 3 === 0 ? n + '.' : n))
-      .reverse()
-      .join('')
-      .replace(/\.$/i, '')
-  }, [])
-
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [movieId])
+  }, [serieId])
 
   return (
     <>
@@ -58,7 +45,9 @@ export function MoviePage () {
         >
           <VideoPlayer
             playing={true}
-            url={`https://www.youtube.com/watch?v=${videos.find(video => /trailer/i.test(video.name))?.key}`}
+            url={`https://www.youtube.com/watch?v=${
+              videos.find(video => /trailer/i.test(video.name))?.key || videos[0]?.key
+            }`}
           />
         </div>
       )}
@@ -68,7 +57,7 @@ export function MoviePage () {
           style={{
             backgroundImage: `url(${
               import.meta.env.VITE_API_IMAGE_URL
-            }/original${movie?.backdrop_path})`,
+            }/original${tv?.backdrop_path})`,
             backgroundAttachment: 'fixed',
             backgroundPosition: '50% 20%',
             backgroundSize: 'cover',
@@ -85,32 +74,31 @@ export function MoviePage () {
           }}
         ></div>
         <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm max-w-[60%]">
-          <p className="text-base text-neutral-300 pl-1 flex items-center gap-1">
-            {movie?.release_date.split('-').reverse().join('/')}
+          <p className="text-base text-neutral-300 pl-1 flex flex-wrap items-center gap-1">
+            {tv?.first_air_date.split('-').reverse().join('/')}
             <CgAsterisk />
-            {movie?.genres.map(genre => genre.name).join(', ')}
+            {tv?.genres.map(genre => genre.name).join(', ')}
             <CgAsterisk />
-            {Math.floor((movie?.runtime || 0) / 60)}h
-            {Math.floor((movie?.runtime || 0) % 60)}min
+            {tv?.number_of_seasons} Temporadas
+            <CgAsterisk />
+            {tv?.number_of_episodes} Episódios
           </p>
-          <h1 className="text-6xl text-neutral-100 font-bold">
-            {movie?.title}
-          </h1>
-          <p className="text-lg text-neutral-200">{movie?.tagline}</p>
+          <h1 className="text-6xl text-neutral-100 font-bold">{tv?.name}</h1>
+          <p className="text-lg text-neutral-200">{tv?.tagline}</p>
         </div>
       </section>
 
       <Main>
-        <section className="w-9/12 m-auto">
+        <section className="w-full lg:w-9/12 m-auto">
           <div className="flex gap-6 p-8">
             <div className="relative min-w-fit">
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
                   '/w342',
-                  movie?.poster_path || ''
+                  tv?.poster_path || ''
                 )}
-                alt={movie?.title}
+                alt={tv?.title}
                 style={{
                   filter: 'brightness(0.9)'
                 }}
@@ -137,21 +125,27 @@ export function MoviePage () {
                 <span className="text-xl text-slate-400 mr-2">
                   Titulo original:
                 </span>
-                {movie?.original_title}
+                {tv?.original_name}
               </p>
               <p>
                 <span className="text-xl text-slate-400 mr-2">Sinopse:</span>
-                {movie?.overview || 'Sem informações sobre 🙁'}
+                {tv?.overview || 'Sem informações sobre 🙁'}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">Orçamento:</span>
-                <MdMoneyOff className="inline text-red-500" size={20} />
-                {formatNumber(movie?.budget)}
+                <span className="text-xl text-slate-400 mr-2">Criado por:</span>
+                {tv?.created_by.map(writer => writer.name).join(', ')}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">Receita:</span>
-                <MdAttachMoney className="inline text-green-500" size={20} />
-                {formatNumber(movie?.revenue)}
+                <span className="text-xl text-slate-400 mr-2">
+                  Período de Produção:
+                </span>
+                {tv?.first_air_date.split('-').reverse().join('/')}
+                {' - '}
+                {tv?.last_air_date.split('-').reverse().join('/') || '*'}
+              </p>
+              <p>
+                <span className="text-xl text-slate-400 mr-2">Status:</span>
+                {tv?.in_production ? 'Em produção' : 'Encerrado'}
               </p>
               {providers?.BR?.flatrate && (
                 <>
@@ -216,12 +210,37 @@ export function MoviePage () {
               ))}
           </Carousel>
 
+          <h2 className="text-title text-2xl pt-6 pb-4">Temporadas</h2>
+          <ul className="flex flex-col gap-4">
+            {tv?.seasons.map(season => (
+              <li key={season.id} className="flex bg-primary shadow shadow-black">
+                <img
+                  src={''.concat(
+                    import.meta.env.VITE_API_IMAGE_URL,
+                    '/w185',
+                    season.poster_path
+                  )}
+                  alt={season.name}
+                  className="shadow-inner shadow-slate-900 block"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-2">
+                    {season.name} - {season.episode_count} episódios
+                  </h3>
+                  <p className="text-zinc-300">
+                    {season.overview || 'Sem informações sobre 🙁'}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
           <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
           <div className="grid grid-cols-4 gap-6">
-            {similars?.map(movie => (
+            {similar?.map(tv => (
               <Link
-                key={movie.id}
-                to={`/movies/${movie.id}`}
+                key={tv.id}
+                to={`/tv/${tv.id}`}
                 className="hover:brightness-75 transition-all"
                 style={{
                   background: '#090B10AA',
@@ -232,9 +251,9 @@ export function MoviePage () {
                   src={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
                     '/w300',
-                    movie.backdrop_path
+                    tv.backdrop_path
                   )}
-                  alt={movie.name}
+                  alt={tv.name}
                   style={{ filter: 'brightness(0.9)' }}
                 />
                 <div className="px-4 py-2">
@@ -250,7 +269,7 @@ export function MoviePage () {
                       } as CSSProperties
                     }
                   >
-                    {movie.title}
+                    {tv.name}
                   </h3>
                   <p
                     className="text-zinc-400"
@@ -264,7 +283,7 @@ export function MoviePage () {
                       } as CSSProperties
                     }
                   >
-                    {movie.overview || 'Sem informações sobre 🙁'}
+                    {tv.overview || 'Sem informações sobre 🙁'}
                   </p>
                 </div>
               </Link>

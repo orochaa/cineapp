@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Home, MoviePage, MoviesPage, SeriesPage } from '@/presentation/pages'
+import { Home, MoviePage, MoviesPage, SeriePage, SeriesPage } from '@/presentation/pages'
 
 export function Router () {
   return (
@@ -13,6 +13,7 @@ export function Router () {
         </Route>
         <Route path="tv">
           <Route path="" element={<SeriesPage />} />
+          <Route path=":serieId" element={<SeriePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

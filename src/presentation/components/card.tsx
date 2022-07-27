@@ -25,10 +25,9 @@ export function Card (props: CardProps) {
       {props.name ? (
         <Link
           to={props.uri}
-          className={`relative text-title ${props.className}`}
+          className={`relative text-title shadow-md shadow-black ${props.className}`}
           onMouseEnter={() => onHover(true)}
           onMouseLeave={() => onHover(false)}
-          style={{ boxShadow: '0 0 15px 5px #121214' }}
         >
           <img
             src={props.imageUrl}
