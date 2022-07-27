@@ -1,5 +1,10 @@
 import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
-import { Card, Carousel, ICarouselHandles, SelectGenreValue } from '@/presentation/components'
+import {
+  Card,
+  Carousel,
+  ICarouselHandles,
+  SelectGenreValue
+} from '@/presentation/components'
 import { formatGenre } from '@/presentation/helpers'
 import { useEffect, useRef, useState } from 'react'
 
@@ -24,20 +29,26 @@ export function CarouselGenre (props: CarouselGenreProps) {
 
   return (
     <section className={visible ? 'block' : 'hidden'}>
-      <Carousel ref={carouselRef} title={formatGenre(props.genre as any)}>
-        {props.list?.filter(item => item.backdrop_path !== null).map((item, index) => (
-          <Card
-            key={index}
-            uri={`/${props.type}/${item.id}`}
-            imageUrl={''.concat(
-              import.meta.env.VITE_API_IMAGE_URL,
-              '/w300',
-              item.backdrop_path
-            )}
-            name={item.title || item.name}
-            rating={item.vote_average}
-          />
-        ))}
+      <Carousel
+        ref={carouselRef}
+        title={formatGenre(props.genre as any)}
+        cardLength={300}
+      >
+        {props.list
+          ?.filter(item => item.backdrop_path !== null)
+          .map((item, index) => (
+            <Card
+              key={index}
+              uri={`/${props.type}/${item.id}`}
+              imageUrl={''.concat(
+                import.meta.env.VITE_API_IMAGE_URL,
+                '/w300',
+                item.backdrop_path
+              )}
+              name={item.title || item.name}
+              rating={item.vote_average}
+            />
+          ))}
       </Carousel>
     </section>
   )
