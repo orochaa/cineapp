@@ -6,7 +6,8 @@ interface CardProps {
   uri: string
   imageUrl: string
   name: string | undefined
-  rating: number
+  paragraph?: string
+  rating?: number
   className?: string
 }
 
@@ -14,9 +15,7 @@ export function Card (props: CardProps) {
   const [hover, onHover] = useState(false)
 
   const boxWidth = parseInt(
-    /\/w\d+/i.exec(props.imageUrl)
-      ?.shift()
-      ?.replace(/\D/g, '') as string
+    /\/w\d+/i.exec(props.imageUrl)?.shift()?.replace(/\D/g, '') as string
   )
   const heightProportion = 16 / 10 - 1
   const boxHeight = boxWidth * heightProportion
@@ -46,8 +45,13 @@ export function Card (props: CardProps) {
             opacity-0 hover:opacity-100
           "
           >
-            <h3>{props.name}</h3>
-            <Rating rate={props.rating} size={40} />
+            <h3 className="text-lg font-semibold">
+              {props.name}
+              <p className="text-sm text-zinc-400">
+                {props?.paragraph}
+              </p>
+            </h3>
+            {props.rating && <Rating rate={props.rating} size={40} />}
           </div>
         </Link>
       ) : (
