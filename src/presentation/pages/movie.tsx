@@ -101,7 +101,7 @@ export function MoviePage () {
       </section>
 
       <Main>
-        <section className="w-9/12 m-auto">
+        <section className="w-full lg:w-9/12 m-auto">
           <div className="flex gap-6 p-8">
             <div className="relative min-w-fit">
               <img
@@ -178,18 +178,18 @@ export function MoviePage () {
 
           <Carousel title="Elenco" cardLength={185}>
             {credits?.cast
-              ?.filter(actor => actor.profile_path !== null)
-              .map((actor, index) => (
+              ?.filter(person => person.profile_path !== null)
+              .map(person => (
                 <Card
-                  key={index}
-                  uri={`/actor/${actor.id}`}
+                  key={person.id}
+                  uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
                     '/w185',
-                    actor.profile_path
+                    person.profile_path
                   )}
-                  name={actor.name}
-                  paragraph={actor.character}
+                  name={person.name}
+                  paragraph={person.character}
                 />
               ))}
           </Carousel>
@@ -197,21 +197,21 @@ export function MoviePage () {
           <Carousel title="Produção" cardLength={185}>
             {credits?.crew
               ?.filter(
-                (member, index, arr) =>
-                  arr.findIndex(a => a.name === member.name) === index &&
-                  member.profile_path !== null
+                (person, index, arr) =>
+                  arr.findIndex(a => a.name === person.name) === index &&
+                  person.profile_path !== null
               )
-              .map((actor, index) => (
+              .map(person => (
                 <Card
-                  key={index}
-                  uri={`/actor/${actor.id}`}
+                  key={person.id}
+                  uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
                     '/w185',
-                    actor.profile_path
+                    person.profile_path
                   )}
-                  name={actor.name}
-                  paragraph={actor.job}
+                  name={person.name}
+                  paragraph={person.job}
                 />
               ))}
           </Carousel>
