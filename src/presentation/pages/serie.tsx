@@ -78,8 +78,8 @@ export function SeriePage () {
             background: 'linear-gradient(to bottom, #000000cf, #000000be'
           }}
         ></div>
-        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm max-w-[60%]">
-          <p className="text-base text-neutral-300 pl-1 flex flex-wrap items-center gap-1">
+        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm sm:max-w-[60%]">
+          <p className="text-sm sm:text-base text-neutral-300 pl-1 flex flex-wrap items-center gap-1">
             {tv?.first_air_date.split('-').reverse().join('/')}
             <CgAsterisk />
             {tv?.genres.map(genre => genre.name).join(', ')}
@@ -88,25 +88,23 @@ export function SeriePage () {
             <CgAsterisk />
             {tv?.number_of_episodes} Episódios
           </p>
-          <h1 className="text-6xl text-neutral-100 font-bold">{tv?.name}</h1>
+          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">{tv?.name}</h1>
           <p className="text-lg text-neutral-200">{tv?.tagline}</p>
         </div>
       </section>
 
       <Main>
         <section className="w-full lg:w-9/12 m-auto">
-          <div className="flex gap-6 p-8">
-            <div className="relative min-w-fit">
+          <div className="flex flex-col sm:flex-row gap-6 p-8">
+            <div className="relative sm:min-w-[50%] md:min-w-[33%]">
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
-                  '/w342' as PosterSize,
+                  '/w500' as PosterSize,
                   tv?.poster_path || ''
                 )}
                 alt={tv?.title}
-                style={{
-                  filter: 'brightness(0.9)'
-                }}
+                className="block brightness-90 w-full max-w-fit"
               />
               <button
                 className="
@@ -229,13 +227,13 @@ export function SeriePage () {
                     season.poster_path
                   )}
                   alt={season.name}
-                  className="shadow-inner shadow-slate-900 block"
+                  className="object-contain max-w-[40%] shadow-inner shadow-slate-900"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">
                     {season.name} - {season.episode_count} episódios
                   </h3>
-                  <p className="text-zinc-300">
+                  <p className="text-sm sm:text-base text-zinc-300">
                     {season.overview || 'Sem informações sobre 🙁'}
                   </p>
                 </div>
@@ -244,7 +242,7 @@ export function SeriePage () {
           </ul>
 
           <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {similar?.map(tv => (
               <Link
                 key={tv.id}

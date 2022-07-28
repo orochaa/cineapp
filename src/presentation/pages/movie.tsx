@@ -109,7 +109,7 @@ export function MoviePage () {
       <Main>
         <section className="w-full lg:w-9/12 m-auto">
           <div className="flex flex-col sm:flex-row gap-6">
-            <div className="relative sm:min-w-[50%] md:min-w-[33%] ">
+            <div className="relative sm:min-w-[50%] md:min-w-[33%]">
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
@@ -133,7 +133,7 @@ export function MoviePage () {
               </button>
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-2">
               <h2 className="text-4xl text-slate-300 text-center py-2">
                 Informações
               </h2>
@@ -221,7 +221,7 @@ export function MoviePage () {
           </Carousel>
 
           <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {similars?.map(movie => (
               <Link
                 key={movie.id}
