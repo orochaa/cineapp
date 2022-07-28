@@ -16,6 +16,7 @@ jobs:
           git init
           git config user.name Mist3rBru
           git config user.email brunorocha2674@gmail.com
+          git branch -m gh-page
           git add .
           git commit -m 'deploy'
           git push -f https://github.com/Mist3rBru/cineapp.git gh-page
