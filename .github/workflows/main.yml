@@ -16,7 +16,6 @@ jobs:
           git remote add origin https://github.com/Mist3rBru/cineapp.git
           git config user.name Mist3rBru
           git config user.email brunorocha2674@gmail.com
-          git checkout -b gh-page
           git pull origin gh-page
           git checkout --ours .
           git add .
