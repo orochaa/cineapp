@@ -14,8 +14,8 @@ jobs:
           cd dist
           git init
           git remote add origin https://github.com/Mist3rBru/cineapp.git
-          git config user.name 'Bruno Rocha'
-          git config user.email 'brunorocha2674@gmail.com'
+          git config user.name Mist3rBru
+          git config user.email brunorocha2674@gmail.com
           git checkout -b gh-page
           git add .
           git commit -m 'deploy'
