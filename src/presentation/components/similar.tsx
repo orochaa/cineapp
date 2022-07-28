@@ -51,7 +51,7 @@ export function Similar (props: SimilarProps) {
                   } as CSSProperties
                 }
               >
-                {item.title}
+                {item.title || item.name}
               </h3>
               <p
                 className="text-zinc-400 text-sm"
