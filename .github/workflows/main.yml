@@ -1,13 +1,11 @@
 # Controls when the workflow will run
-on:
-  push:
-    branches: [ "master" ]
+on: push
 
 jobs:
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: build app
         run: sh ./deploy.sh
-        shell: pwsh
+        shell: sh
