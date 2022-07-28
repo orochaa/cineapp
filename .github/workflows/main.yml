@@ -15,7 +15,7 @@ jobs:
           git init
           git config user.name 'Bruno Rocha'
           git config user.email 'brunorocha2674@gmail.com'
-          git checkout -b master:gh-pages
+          git checkout -b gh-page
           git add .
           git commit -m 'deploy'
-          git push -f https://github.com/Mist3rBru/cineapp.git master:gh-pages
+          git push -f https://github.com/Mist3rBru/cineapp.git gh-page
