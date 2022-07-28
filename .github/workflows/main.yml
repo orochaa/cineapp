@@ -1,25 +1,17 @@
 on: push
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  deploy:
+    name: Deploy
+    runs-on: windows-latest
     steps:
-      - name: clone app
+      - name: run pipeline
         run: |
           git clone https://github.com/Mist3rBru/cineapp.git
           cd cineapp
-          
-      - name: install dependencies
-        run: npm install
-        
-      - name: build app
-        run: |
+          npm install
           npm run build
           cd dist
-          
-      - name: commit app
-        run: |
           git init
           git config user.name 'bruno_bot'
           git config user.email 'mister.rocha1234@gmail.com'
