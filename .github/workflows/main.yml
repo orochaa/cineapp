@@ -13,8 +13,9 @@ jobs:
           npm run build
           cd dist
           git init
-          git config user.name 'bruno_bot'
-          git config user.email 'mister.rocha1234@gmail.com'
+          git config user.name 'Bruno Rocha'
+          git config user.email 'brunorocha2674@gmail.com'
+          git checkout -b master:gh-pages
           git add .
           git commit -m 'deploy'
           git push -f https://github.com/Mist3rBru/cineapp.git master:gh-pages
