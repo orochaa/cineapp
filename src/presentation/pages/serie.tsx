@@ -19,10 +19,11 @@ import { CgAsterisk } from 'react-icons/cg'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Banner } from '../components/banner'
 
 export function SeriePage () {
   const { serieId } = useParams()
-  const { data: tv } = useFetch<ITvDetails>(`/tv/${serieId}`)
+  const { data: serie } = useFetch<ITvDetails>(`/tv/${serieId}`)
   const { data: videos } = useFetch<ITvVideo[]>(`/tv/${serieId}/videos`)
   const { data: credits } = useFetch<ITvCredits>(`/tv/${serieId}/credits`)
   const { data: similar } = useFetch<ITv[]>(`/tv/${serieId}/similar`)
@@ -55,43 +56,17 @@ export function SeriePage () {
         </div>
       )}
 
-      <section className="relative">
-        <div
-          style={{
-            backgroundImage: `url(${
-              import.meta.env.VITE_API_IMAGE_URL
-            }/original${tv?.backdrop_path})`,
-            backgroundAttachment: 'fixed',
-            backgroundPosition: '50% 20%',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            height: '80vh',
-            width: '100%'
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, #000000cf, #000000be'
-          }}
-        ></div>
-        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm sm:max-w-[60%]">
-          <p className="text-sm sm:text-base text-neutral-300 pl-1 flex flex-wrap items-center gap-1">
-            {tv?.first_air_date.split('-').reverse().join('/')}
-            <CgAsterisk />
-            {tv?.genres.map(genre => genre.name).join(', ')}
-            <CgAsterisk />
-            {tv?.number_of_seasons} Temporadas
-            <CgAsterisk />
-            {tv?.number_of_episodes} Episódios
-          </p>
-          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">
-            {tv?.name}
-          </h1>
-          <p className="text-lg text-neutral-200">{tv?.tagline}</p>
-        </div>
-      </section>
+      <Banner media={serie}>
+        <>
+          {serie?.first_air_date.split('-').reverse().join('/')}
+          <CgAsterisk />
+          {serie?.genres.map(genre => genre.name).join(', ')}
+          <CgAsterisk />
+          {serie?.number_of_seasons} Temporadas
+          <CgAsterisk />
+          {serie?.number_of_episodes} Episódios
+        </>
+      </Banner>
 
       <Main>
         <section className="w-full lg:w-9/12 m-auto">
@@ -101,9 +76,9 @@ export function SeriePage () {
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
                   '/w500' as PosterSize,
-                  tv?.poster_path || ''
+                  serie?.poster_path || ''
                 )}
-                alt={tv?.title}
+                alt={serie?.title}
                 className="block brightness-90 w-full max-w-fit"
               />
               <button
@@ -128,27 +103,27 @@ export function SeriePage () {
                 <span className="text-xl text-slate-400 mr-2">
                   Titulo original:
                 </span>
-                {tv?.original_name}
+                {serie?.original_name}
               </p>
               <p>
                 <span className="text-xl text-slate-400 mr-2">Sinopse:</span>
-                {tv?.overview || 'Sem informações sobre 🙁'}
+                {serie?.overview || 'Sem informações sobre 🙁'}
               </p>
               <p>
                 <span className="text-xl text-slate-400 mr-2">Criado por:</span>
-                {tv?.created_by.map(writer => writer.name).join(', ')}
+                {serie?.created_by.map(writer => writer.name).join(', ')}
               </p>
               <p>
                 <span className="text-xl text-slate-400 mr-2">
                   Período de Produção:
                 </span>
-                {tv?.first_air_date.split('-').reverse().join('/')}
+                {serie?.first_air_date.split('-').reverse().join('/')}
                 {' - '}
-                {tv?.last_air_date.split('-').reverse().join('/') || '*'}
+                {serie?.last_air_date.split('-').reverse().join('/') || '*'}
               </p>
               <p>
                 <span className="text-xl text-slate-400 mr-2">Status:</span>
-                {tv?.in_production ? 'Em produção' : 'Encerrado'}
+                {serie?.in_production ? 'Em produção' : 'Encerrado'}
               </p>
               {providers?.BR?.flatrate && (
                 <>
@@ -179,7 +154,7 @@ export function SeriePage () {
 
           <h2 className="text-title text-2xl pt-6 pb-4">Temporadas</h2>
           <ul className="flex flex-col gap-4">
-            {tv?.seasons.map(season => (
+            {serie?.seasons.map(season => (
               <li
                 key={season.id}
                 className="flex bg-primary shadow shadow-black"

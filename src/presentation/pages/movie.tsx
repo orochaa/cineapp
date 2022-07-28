@@ -12,7 +12,8 @@ import {
   Header,
   Main,
   Similar,
-  VideoPlayer
+  VideoPlayer,
+  Banner
 } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 import { MdAttachMoney, MdMoneyOff } from 'react-icons/md'
@@ -67,42 +68,16 @@ export function MoviePage () {
         </div>
       )}
 
-      <section className="relative">
-        <div
-          style={{
-            backgroundImage: `url(${
-              import.meta.env.VITE_API_IMAGE_URL
-            }/original${movie?.backdrop_path})`,
-            backgroundAttachment: 'fixed',
-            backgroundPosition: '50% 20%',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            height: '80vh',
-            width: '100%'
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, #000000cf, #000000be'
-          }}
-        ></div>
-        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm sm:max-w-[60%]">
-          <p className="text-sm sm:text-base text-neutral-300 pl-1 flex items-center gap-1">
-            {movie?.release_date.split('-').reverse().join('/')}
-            <CgAsterisk />
-            {movie?.genres.map(genre => genre.name).join(', ')}
-            <CgAsterisk />
-            {Math.floor((movie?.runtime || 0) / 60)}h
-            {Math.floor((movie?.runtime || 0) % 60)}min
-          </p>
-          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">
-            {movie?.title}
-          </h1>
-          <p className="text-lg text-neutral-200">{movie?.tagline}</p>
-        </div>
-      </section>
+      <Banner media={movie}>
+        <>
+          {movie?.release_date.split('-').reverse().join('/')}
+          <CgAsterisk />
+          {movie?.genres.map(genre => genre.name).join(', ')}
+          <CgAsterisk />
+          {Math.floor((movie?.runtime || 0) / 60)}h
+          {Math.floor((movie?.runtime || 0) % 60)}min
+        </>
+      </Banner>
 
       <Main>
         <section className="w-full lg:w-9/12 m-auto">
