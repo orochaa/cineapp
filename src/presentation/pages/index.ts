@@ -1,0 +1,7 @@
+export * from './home'
+export * from './movie'
+export * from './movies'
+export * from './serie'
+export * from './series'
+export * from './person'
+export * from './search'
