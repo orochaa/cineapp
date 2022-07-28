@@ -7,15 +7,16 @@ jobs:
     steps:
       - name: run pipeline
         run: |
-          git clone git@github.com:Mist3rBru/cineapp.git
+          git clone https://github.com/Mist3rBru/cineapp.git
           cd cineapp
           npm install
           npm run build
           cd dist
           git init
+          git remote add origin https://github.com/Mist3rBru/cineapp.git
           git config user.name 'Bruno Rocha'
           git config user.email 'brunorocha2674@gmail.com'
           git checkout -b gh-page
           git add .
           git commit -m 'deploy'
-          git push -f git@github.com:Mist3rBru/cineapp.git gh-page
+          git push origin gh-page
