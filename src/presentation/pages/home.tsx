@@ -1,4 +1,4 @@
-import { IMovie, ITv } from '@/domain/api'
+import { BackdropSize, IMovie, ITv } from '@/domain/api'
 import { Card, CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 
@@ -18,7 +18,7 @@ export function Home () {
           <Card
             imageUrl={''.concat(
               import.meta.env.VITE_API_IMAGE_URL,
-              '/w1280',
+              '/w1280' as BackdropSize,
               popularMovies[0].backdrop_path
             )}
             name={popularMovies[0].title}
@@ -29,7 +29,7 @@ export function Home () {
           <Card
             imageUrl={''.concat(
               import.meta.env.VITE_API_IMAGE_URL,
-              '/w1280',
+              '/w1280' as BackdropSize,
               popularTv[0].backdrop_path
             )}
             name={popularTv[0].name}

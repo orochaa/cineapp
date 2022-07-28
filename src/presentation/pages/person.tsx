@@ -1,4 +1,10 @@
-import { IPersonMovie, IPersonTv, IPersonDetails } from '@/domain/api'
+import {
+  IPersonMovie,
+  IPersonTv,
+  IPersonDetails,
+  ProfileSize,
+  BackdropSize
+} from '@/domain/api'
 import { Card, Carousel, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 import { useParams } from 'react-router-dom'
@@ -25,7 +31,7 @@ export function PersonPage () {
             <img
               src={''.concat(
                 import.meta.env.VITE_API_IMAGE_URL,
-                '/w500',
+                '/w500' as ProfileSize,
                 person?.profile_path || ''
               )}
               alt={person?.name}
@@ -48,7 +54,7 @@ export function PersonPage () {
                     uri={`/movie/${movie.id}`}
                     imageUrl={''.concat(
                       import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300',
+                      '/w300' as BackdropSize,
                       movie.backdrop_path
                     )}
                     name={movie.title}
@@ -69,7 +75,7 @@ export function PersonPage () {
                     uri={`/movie/${movie.id}`}
                     imageUrl={''.concat(
                       import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300',
+                      '/w300' as BackdropSize,
                       movie.backdrop_path
                     )}
                     name={movie.title}
@@ -90,7 +96,7 @@ export function PersonPage () {
                     uri={`/serie/${serie.id}`}
                     imageUrl={''.concat(
                       import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300',
+                      '/w300' as BackdropSize,
                       serie.backdrop_path
                     )}
                     name={serie.name}
@@ -111,7 +117,7 @@ export function PersonPage () {
                     uri={`/serie/${serie.id}`}
                     imageUrl={''.concat(
                       import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300',
+                      '/w300' as BackdropSize,
                       serie.backdrop_path
                     )}
                     name={serie.name}

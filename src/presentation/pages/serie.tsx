@@ -1,4 +1,8 @@
 import {
+  BackdropSize,
+  LogoSize,
+  PosterSize,
+  ProfileSize,
   ITv,
   ITvCredits,
   ITvDetails,
@@ -46,7 +50,8 @@ export function SeriePage () {
           <VideoPlayer
             playing={true}
             url={`https://www.youtube.com/watch?v=${
-              videos.find(video => /trailer/i.test(video.name))?.key || videos[0]?.key
+              videos.find(video => /trailer/i.test(video.name))?.key ||
+              videos[0]?.key
             }`}
           />
         </div>
@@ -95,7 +100,7 @@ export function SeriePage () {
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
-                  '/w342',
+                  '/w342' as PosterSize,
                   tv?.poster_path || ''
                 )}
                 alt={tv?.title}
@@ -156,7 +161,7 @@ export function SeriePage () {
                         key={provider.provider_id}
                         src={''.concat(
                           import.meta.env.VITE_API_IMAGE_URL,
-                          '/w45',
+                          '/w45' as LogoSize,
                           provider.logo_path || ''
                         )}
                         alt={provider.provider_name}
@@ -179,7 +184,7 @@ export function SeriePage () {
                   uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185',
+                    '/w185' as ProfileSize,
                     person.profile_path
                   )}
                   name={person.name}
@@ -201,7 +206,7 @@ export function SeriePage () {
                   uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185',
+                    '/w185' as ProfileSize,
                     person.profile_path
                   )}
                   name={person.name}
@@ -213,11 +218,14 @@ export function SeriePage () {
           <h2 className="text-title text-2xl pt-6 pb-4">Temporadas</h2>
           <ul className="flex flex-col gap-4">
             {tv?.seasons.map(season => (
-              <li key={season.id} className="flex bg-primary shadow shadow-black">
+              <li
+                key={season.id}
+                className="flex bg-primary shadow shadow-black"
+              >
                 <img
                   src={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185',
+                    '/w185' as PosterSize,
                     season.poster_path
                   )}
                   alt={season.name}
@@ -250,7 +258,7 @@ export function SeriePage () {
                 <img
                   src={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w300',
+                    '/w300' as BackdropSize,
                     tv.backdrop_path
                   )}
                   alt={tv.name}

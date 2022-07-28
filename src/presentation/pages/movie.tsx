@@ -1,9 +1,13 @@
 import {
+  BackdropSize,
+  LogoSize,
   IMovie,
   IMovieCredits,
   IMovieDetails,
   IMovieProviders,
-  IMovieVideo
+  IMovieVideo,
+  PosterSize,
+  ProfileSize
 } from '@/domain/api'
 import {
   Card,
@@ -58,7 +62,9 @@ export function MoviePage () {
         >
           <VideoPlayer
             playing={true}
-            url={`https://www.youtube.com/watch?v=${videos.find(video => /trailer/i.test(video.name))?.key}`}
+            url={`https://www.youtube.com/watch?v=${
+              videos.find(video => /trailer/i.test(video.name))?.key
+            }`}
           />
         </div>
       )}
@@ -107,7 +113,7 @@ export function MoviePage () {
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
-                  '/w342',
+                  '/w342' as PosterSize,
                   movie?.poster_path || ''
                 )}
                 alt={movie?.title}
@@ -162,7 +168,7 @@ export function MoviePage () {
                         key={provider.provider_id}
                         src={''.concat(
                           import.meta.env.VITE_API_IMAGE_URL,
-                          '/w45',
+                          '/w45' as LogoSize,
                           provider.logo_path || ''
                         )}
                         alt={provider.provider_name}
@@ -185,7 +191,7 @@ export function MoviePage () {
                   uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185',
+                    '/w185' as ProfileSize,
                     person.profile_path
                   )}
                   name={person.name}
@@ -207,7 +213,7 @@ export function MoviePage () {
                   uri={`/person/${person.id}`}
                   imageUrl={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185',
+                    '/w185' as ProfileSize,
                     person.profile_path
                   )}
                   name={person.name}
@@ -231,7 +237,7 @@ export function MoviePage () {
                 <img
                   src={''.concat(
                     import.meta.env.VITE_API_IMAGE_URL,
-                    '/w300',
+                    '/w300' as BackdropSize,
                     movie.backdrop_path
                   )}
                   alt={movie.name}
