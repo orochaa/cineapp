@@ -17,4 +17,4 @@ jobs:
           git config user.email mister.rocha1234@gmail.com
           git add .
           git commit -m 'deploy'
-          git push -f https://github.com/Mist3rBru/cineapp.git main:gh-pages
+          git push -f https://github.com/Mist3rBru/cineapp.git master:gh-pages
