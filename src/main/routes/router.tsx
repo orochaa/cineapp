@@ -5,6 +5,7 @@ export function Router () {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path={import.meta.env.VITE_BASE_URI || ''}>
         <Route path="" element={<Navigate to="home" />} />
         <Route path="home" element={<Home />} />
         <Route path="person/:personId" element={<PersonPage />} />
@@ -16,6 +17,7 @@ export function Router () {
         <Route path="tv">
           <Route path="" element={<SeriesPage />} />
           <Route path=":serieId" element={<SeriePage />} />
+        </Route>
         </Route>
       </Routes>
     </BrowserRouter>
