@@ -3,9 +3,9 @@ on: push
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: run pipeline
+      - name: Run pipeline
         run: |
           echo 'Cloning repo...'
           git clone https://github.com/Mist3rBru/cineapp.git
@@ -14,9 +14,9 @@ jobs:
           npm run build
           cd dist
           git init
-          git config user.name Mist3rBru
-          git config user.email brunorocha2674@gmail.com
-          git branch -m gh-page
+          git config user.name 'Mist3rBru'
+          git config user.email 'brunorocha2674@gmail.com'
+          git branch -m 'gh-page'
           git add .
           git commit -m 'deploy'
           git push -f https://github.com/Mist3rBru/cineapp.git gh-page
