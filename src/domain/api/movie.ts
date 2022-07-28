@@ -1,3 +1,5 @@
+import { IPerson } from './person'
+
 export interface IMovie {
   backdrop_path: string
   id: number
@@ -46,25 +48,13 @@ export interface IMovieVideo {
 }
 
 export interface IMovieCredits {
-  cast: Array<{
-    id: number
-    known_for_department: string
-    name: string
-    original_name: string
-    popularity: number
-    profile_path: string
+  cast: Array<IPerson & {
     cast_id: number
     character: string
     credit_id: string
     order: number
   }>
-  crew: Array<{
-    id: number
-    known_for_department: string
-    name: string
-    original_name: string
-    popularity: number
-    profile_path: string
+  crew: Array<IPerson & {
     credit_id: string
     job: string
     department: string

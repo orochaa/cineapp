@@ -2,7 +2,6 @@ import {
   BackdropSize,
   LogoSize,
   PosterSize,
-  ProfileSize,
   ITv,
   ITvCredits,
   ITvDetails,
@@ -10,8 +9,7 @@ import {
   ITvVideo
 } from '@/domain/api'
 import {
-  Card,
-  Carousel,
+  CarouselPeople,
   Header,
   Main,
   VideoPlayer
@@ -88,7 +86,9 @@ export function SeriePage () {
             <CgAsterisk />
             {tv?.number_of_episodes} Episódios
           </p>
-          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">{tv?.name}</h1>
+          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">
+            {tv?.name}
+          </h1>
           <p className="text-lg text-neutral-200">{tv?.tagline}</p>
         </div>
       </section>
@@ -173,45 +173,9 @@ export function SeriePage () {
             </div>
           </div>
 
-          <Carousel title="Elenco" cardLength={185}>
-            {credits?.cast
-              ?.filter(person => person.profile_path !== null)
-              .map(person => (
-                <Card
-                  key={person.id}
-                  uri={`/person/${person.id}`}
-                  imageUrl={''.concat(
-                    import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185' as ProfileSize,
-                    person.profile_path
-                  )}
-                  name={person.name}
-                  paragraph={person.character}
-                />
-              ))}
-          </Carousel>
+          <CarouselPeople title="Elenco" list={credits?.cast} />
 
-          <Carousel title="Produção" cardLength={185}>
-            {credits?.crew
-              ?.filter(
-                (person, index, arr) =>
-                  arr.findIndex(a => a.name === person.name) === index &&
-                  person.profile_path !== null
-              )
-              .map(person => (
-                <Card
-                  key={person.id}
-                  uri={`/person/${person.id}`}
-                  imageUrl={''.concat(
-                    import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185' as ProfileSize,
-                    person.profile_path
-                  )}
-                  name={person.name}
-                  paragraph={person.job}
-                />
-              ))}
-          </Carousel>
+          <CarouselPeople title="Produção" list={credits?.crew} />
 
           <h2 className="text-title text-2xl pt-6 pb-4">Temporadas</h2>
           <ul className="flex flex-col gap-4">

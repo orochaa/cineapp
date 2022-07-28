@@ -1,14 +1,17 @@
 import { IMovie, ITv } from '.'
 
-export interface IPersonDetails {
-  birthday: string
-  known_for_department: string
-  deathday: string | null
+export interface IPerson {
   id: number
   name: string
+  known_for_department: string
+  profile_path: string
+}
+
+export interface IPersonDetails extends IPerson{
+  birthday: string
+  deathday: string | null
   biography: string | null
   place_of_birth: string
-  profile_path: string
 }
 
 export interface IPersonMovie {

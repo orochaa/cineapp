@@ -1,3 +1,5 @@
+import { IPerson } from './person'
+
 export interface ITv {
   id: number
   name: string
@@ -61,25 +63,13 @@ export interface ITvVideo {
 }
 
 export interface ITvCredits {
-  cast: Array<{
-    id: number
-    known_for_department: string
-    name: string
-    original_name: string
-    popularity: number
-    profile_path: string
+  cast: Array<IPerson & {
     cast_id: number
     character: string
     credit_id: string
     order: number
   }>
-  crew: Array<{
-    id: number
-    known_for_department: string
-    name: string
-    original_name: string
-    popularity: number
-    profile_path: string
+  crew: Array<IPerson & {
     credit_id: string
     job: string
     department: string

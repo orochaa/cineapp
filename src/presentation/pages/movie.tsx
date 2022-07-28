@@ -6,12 +6,10 @@ import {
   IMovieDetails,
   IMovieProviders,
   IMovieVideo,
-  PosterSize,
-  ProfileSize
+  PosterSize
 } from '@/domain/api'
 import {
-  Card,
-  Carousel,
+  CarouselPeople,
   Header,
   Main,
   VideoPlayer
@@ -180,45 +178,9 @@ export function MoviePage () {
             </div>
           </div>
 
-          <Carousel title="Elenco" cardLength={185}>
-            {credits?.cast
-              ?.filter(person => person.profile_path !== null)
-              .map(person => (
-                <Card
-                  key={person.id}
-                  uri={`/person/${person.id}`}
-                  imageUrl={''.concat(
-                    import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185' as ProfileSize,
-                    person.profile_path
-                  )}
-                  name={person.name}
-                  paragraph={person.character}
-                />
-              ))}
-          </Carousel>
+          <CarouselPeople title="Elenco" list={credits?.cast} />
 
-          <Carousel title="Produção" cardLength={185}>
-            {credits?.crew
-              ?.filter(
-                (person, index, arr) =>
-                  arr.findIndex(a => a.name === person.name) === index &&
-                  person.profile_path !== null
-              )
-              .map(person => (
-                <Card
-                  key={person.id}
-                  uri={`/person/${person.id}`}
-                  imageUrl={''.concat(
-                    import.meta.env.VITE_API_IMAGE_URL,
-                    '/w185' as ProfileSize,
-                    person.profile_path
-                  )}
-                  name={person.name}
-                  paragraph={person.job}
-                />
-              ))}
-          </Carousel>
+          <CarouselPeople title="Produção" list={credits?.crew} />
 
           <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
