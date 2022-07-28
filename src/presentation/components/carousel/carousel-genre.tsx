@@ -1,4 +1,4 @@
-import { IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
+import { BackdropSize, IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
 import {
   Card,
   Carousel,
@@ -6,7 +6,7 @@ import {
   SelectGenreValue
 } from '@/presentation/components'
 import { formatGenre } from '@/presentation/helpers'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface CarouselGenreProps {
   genre: IMovieGenre | ITvGenre | string
@@ -17,8 +17,12 @@ interface CarouselGenreProps {
 
 export function CarouselGenre (props: CarouselGenreProps) {
   const [visible, setVisible] = useState(true)
-
   const carouselRef = useRef<ICarouselHandles>(null)
+
+  const filteredList = useMemo(
+    () => props.list?.filter(person => person.backdrop_path !== null),
+    [props.list]
+  )
 
   useEffect(() => {
     const isGenreSelected = props.selectedGenre === props.genre
@@ -27,6 +31,8 @@ export function CarouselGenre (props: CarouselGenreProps) {
     carouselRef.current?.setAxisX(0)
   }, [props.selectedGenre])
 
+  if (!filteredList?.length) return <span></span>
+
   return (
     <section className={visible ? 'block' : 'hidden'}>
       <Carousel
@@ -34,21 +40,19 @@ export function CarouselGenre (props: CarouselGenreProps) {
         title={formatGenre(props.genre as any)}
         cardLength={300}
       >
-        {props.list
-          ?.filter(item => item.backdrop_path !== null)
-          .map((item, index) => (
-            <Card
-              key={index}
-              uri={`/${props.type}/${item.id}`}
-              imageUrl={''.concat(
-                import.meta.env.VITE_API_IMAGE_URL,
-                '/w300',
-                item.backdrop_path
-              )}
-              name={item.title || item.name}
-              rating={item.vote_average}
-            />
-          ))}
+        {filteredList.map((item, index) => (
+          <Card
+            key={index}
+            uri={`/${props.type}/${item.id}`}
+            imageUrl={''.concat(
+              import.meta.env.VITE_API_IMAGE_URL,
+              '/w300' as BackdropSize,
+              item.backdrop_path
+            )}
+            name={item.title || item.name}
+            rating={item.vote_average}
+          />
+        ))}
       </Carousel>
     </section>
   )
