@@ -3,7 +3,7 @@ on: push
 jobs:
   deploy:
     name: Deploy
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Run pipeline
         run: |
