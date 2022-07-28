@@ -7,14 +7,13 @@ jobs:
     steps:
       - name: Run pipeline
         run: |
-          echo 'Cloning repo...'
           git clone https://github.com/Mist3rBru/cineapp.git
           cd cineapp
           npm install
           npm run build
           cd dist
           git init
-          git config user.name 'Mist3rBru'
+          git config user.name 'Bruno Rocha'
           git config user.email 'brunorocha2674@gmail.com'
           git branch -m 'gh-page'
           git add .
