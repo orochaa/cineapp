@@ -5,7 +5,7 @@ import { useQuery } from '@/presentation/hooks'
 import { useEffect, useState } from 'react'
 
 export function SearchPage () {
-  const query = useQuery().get('query')
+  const query = useQuery().get('search_query')
   const [movies, setMovies] = useState<IMovie[]>([])
   const [series, setSeries] = useState<ITv[]>([])
   const [people, setPeople] = useState<IPerson[]>([])
@@ -46,6 +46,8 @@ export function SearchPage () {
     <>
       <Header />
       <Main>
+        <h2 className="text-3xl">Resultados de {`'${query}'`}:</h2>
+
         <CarouselGenre
           genre="Filmes"
           list={movies}

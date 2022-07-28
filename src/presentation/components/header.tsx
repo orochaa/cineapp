@@ -11,7 +11,11 @@ export function Header () {
 
   const handleSubmit = useCallback((event: FormEvent) => {
     event.preventDefault()
-    navigate(`/search?query=${inputValue}`)
+    if (inputValue) {
+      navigate(`/search?search_query=${inputValue}`)
+    } else {
+      navigate('/home')
+    }
   }, [inputValue])
 
   return (
