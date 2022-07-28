@@ -90,8 +90,8 @@ export function MoviePage () {
             background: 'linear-gradient(to bottom, #000000cf, #000000be'
           }}
         ></div>
-        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm max-w-[60%]">
-          <p className="text-base text-neutral-300 pl-1 flex items-center gap-1">
+        <div className="absolute left-[5%] bottom-[10%] p-4 border-l-4 border-purple-600 bg-[#0003] rounded-l-sm sm:max-w-[60%]">
+          <p className="text-sm sm:text-base text-neutral-300 pl-1 flex items-center gap-1">
             {movie?.release_date.split('-').reverse().join('/')}
             <CgAsterisk />
             {movie?.genres.map(genre => genre.name).join(', ')}
@@ -99,7 +99,7 @@ export function MoviePage () {
             {Math.floor((movie?.runtime || 0) / 60)}h
             {Math.floor((movie?.runtime || 0) % 60)}min
           </p>
-          <h1 className="text-6xl text-neutral-100 font-bold">
+          <h1 className="text-4xl sm:text-6xl text-neutral-100 font-bold">
             {movie?.title}
           </h1>
           <p className="text-lg text-neutral-200">{movie?.tagline}</p>
@@ -108,26 +108,24 @@ export function MoviePage () {
 
       <Main>
         <section className="w-full lg:w-9/12 m-auto">
-          <div className="flex gap-6 p-8">
-            <div className="relative min-w-fit">
+          <div className="flex flex-col sm:flex-row gap-6">
+            <div className="relative sm:min-w-[50%] md:min-w-[33%] ">
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
-                  '/w342' as PosterSize,
+                  '/w500' as PosterSize,
                   movie?.poster_path || ''
                 )}
                 alt={movie?.title}
-                style={{
-                  filter: 'brightness(0.9)'
-                }}
+                className="block brightness-90 w-full max-w-fit"
               />
               <button
                 className="
-                absolute inset-0
-                flex items-center justify-center
-                bg-[#0005] transition-opacity duration-300
-                opacity-0 hover:opacity-100
-              "
+                  absolute inset-0
+                  flex items-center justify-center
+                  bg-[#0005] transition-opacity duration-300
+                  opacity-0 hover:opacity-100
+                "
                 title="Assistir trailer"
                 onClick={() => setShowVideo(true)}
               >
@@ -135,7 +133,7 @@ export function MoviePage () {
               </button>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full">
               <h2 className="text-4xl text-slate-300 text-center py-2">
                 Informações
               </h2>
@@ -223,7 +221,7 @@ export function MoviePage () {
           </Carousel>
 
           <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {similars?.map(movie => (
               <Link
                 key={movie.id}
@@ -245,7 +243,7 @@ export function MoviePage () {
                 />
                 <div className="px-4 py-2">
                   <h3
-                    className="font-bold text-xl text-zinc-300"
+                    className="font-bold sm:text-xl text-zinc-300"
                     style={
                       {
                         display: '-webkit-box',
@@ -259,7 +257,7 @@ export function MoviePage () {
                     {movie.title}
                   </h3>
                   <p
-                    className="text-zinc-400"
+                    className="text-zinc-400 text-sm"
                     style={
                       {
                         display: '-webkit-box',

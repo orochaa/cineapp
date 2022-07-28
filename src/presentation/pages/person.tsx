@@ -27,7 +27,7 @@ export function PersonPage () {
       <Header />
       <Main>
         <section className="w-full md:w-9/12 m-auto">
-          <div className="sm:flex gap-6 p-8">
+          <div className="flex flex-col sm:flex-row gap-6">
             <img
               src={''.concat(
                 import.meta.env.VITE_API_IMAGE_URL,
