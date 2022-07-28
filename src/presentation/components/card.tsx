@@ -39,11 +39,11 @@ export function Card (props: CardProps) {
           />
           <div
             className="
-            absolute inset-0
-            flex items-end justify-between
-            p-6 transition-all
-            opacity-0 hover:opacity-100
-          "
+              absolute inset-0
+              flex items-end justify-between
+              p-6 transition-all
+              opacity-0 hover:opacity-100
+            "
           >
             <h3 className="text-lg font-semibold">
               {props.name}

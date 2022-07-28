@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MdHome, MdSearch, MdTheaters, MdTv } from 'react-icons/md'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 
 export function Header () {
   const [showSidebar, setShowSidebar] = useState(false)
   const [inputFocus, onInputFocus] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const navigate = useNavigate()
+
+  const handleSubmit = useCallback((event: FormEvent) => {
+    event.preventDefault()
+    navigate(`/search?query=${inputValue}`)
+  }, [inputValue])
 
   return (
     <>
@@ -38,7 +45,7 @@ export function Header () {
               </p>
             </Link>
           </nav>
-          <form className="flex items-center gap-4 bg-background py-1 px-4 rounded">
+          <form onSubmit={handleSubmit} className="flex items-center gap-4 bg-background py-1 px-4 rounded">
             <MdSearch
               size={20}
               className={inputFocus ? 'text-purple-500' : ''}
@@ -50,6 +57,7 @@ export function Header () {
               style={{ verticalAlign: 'middle' }}
               onFocus={() => onInputFocus(true)}
               onBlur={() => onInputFocus(false)}
+              onChange={event => setInputValue(event.target.value)}
             />
           </form>
         </header>

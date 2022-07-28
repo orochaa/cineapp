@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Home, MoviePage, MoviesPage, PersonPage, SeriePage, SeriesPage } from '@/presentation/pages'
+import { Home, MoviePage, MoviesPage, PersonPage, SearchPage, SeriePage, SeriesPage } from '@/presentation/pages'
 
 export function Router () {
   return (
@@ -8,6 +8,7 @@ export function Router () {
         <Route path="" element={<Navigate to="home" />} />
         <Route path="home" element={<Home />} />
         <Route path="person/:personId" element={<PersonPage />} />
+        <Route path="search" element={<SearchPage />} />
         <Route path="movies">
           <Route path="" element={<MoviesPage />} />
           <Route path=":movieId" element={<MoviePage />} />
