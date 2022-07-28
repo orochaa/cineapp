@@ -1,5 +1,4 @@
 import {
-  BackdropSize,
   LogoSize,
   IMovie,
   IMovieCredits,
@@ -12,21 +11,22 @@ import {
   CarouselPeople,
   Header,
   Main,
+  Similar,
   VideoPlayer
 } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 import { MdAttachMoney, MdMoneyOff } from 'react-icons/md'
 import { CgAsterisk } from 'react-icons/cg'
 import { BsFillPlayFill } from 'react-icons/bs'
-import { Link, useParams } from 'react-router-dom'
-import { useCallback, useEffect, useState, CSSProperties } from 'react'
+import { useParams } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
 
 export function MoviePage () {
   const { movieId } = useParams()
   const { data: movie } = useFetch<IMovieDetails>(`/movie/${movieId}`)
   const { data: videos } = useFetch<IMovieVideo[]>(`/movie/${movieId}/videos`)
   const { data: credits } = useFetch<IMovieCredits>(`/movie/${movieId}/credits`)
-  const { data: similars } = useFetch<IMovie[]>(`/movie/${movieId}/similar`)
+  const { data: similar } = useFetch<IMovie[]>(`/movie/${movieId}/similar`)
   const { data: providers } = useFetch<IMovieProviders>(
     `/movie/${movieId}/watch/providers`
   )
@@ -182,60 +182,7 @@ export function MoviePage () {
 
           <CarouselPeople title="Produção" list={credits?.crew} />
 
-          <h2 className="pt-6 pb-4 text-2xl text-title">Similares</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {similars?.map(movie => (
-              <Link
-                key={movie.id}
-                to={`/movies/${movie.id}`}
-                className="hover:brightness-75 transition-all"
-                style={{
-                  background: '#090B10AA',
-                  boxShadow: '0 0 3px 5px 4px #121214'
-                }}
-              >
-                <img
-                  src={''.concat(
-                    import.meta.env.VITE_API_IMAGE_URL,
-                    '/w300' as BackdropSize,
-                    movie.backdrop_path
-                  )}
-                  alt={movie.name}
-                  style={{ filter: 'brightness(0.9)' }}
-                />
-                <div className="px-4 py-2">
-                  <h3
-                    className="font-bold sm:text-xl text-zinc-300"
-                    style={
-                      {
-                        display: '-webkit-box',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        '-webkit-line-clamp': '1',
-                        '-webkit-box-orient': 'vertical'
-                      } as CSSProperties
-                    }
-                  >
-                    {movie.title}
-                  </h3>
-                  <p
-                    className="text-zinc-400 text-sm"
-                    style={
-                      {
-                        display: '-webkit-box',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        '-webkit-line-clamp': '3',
-                        '-webkit-box-orient': 'vertical'
-                      } as CSSProperties
-                    }
-                  >
-                    {movie.overview || 'Sem informações sobre 🙁'}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <Similar list={similar} type="movies" />
         </section>
       </Main>
     </>
