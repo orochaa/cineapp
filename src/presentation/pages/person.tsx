@@ -2,10 +2,9 @@ import {
   IPersonMovie,
   IPersonTv,
   IPersonDetails,
-  ProfileSize,
-  BackdropSize
+  ProfileSize
 } from '@/domain/api'
-import { Card, Carousel, Header, Main } from '@/presentation/components'
+import { CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -44,89 +43,33 @@ export function PersonPage () {
             </div>
           </div>
 
-          {movies?.cast.length && (
-            <Carousel title="Filmes Atuados" cardLength={300}>
-              {movies.cast
-                .filter(movie => movie.backdrop_path !== null)
-                .map(movie => (
-                  <Card
-                    key={movie.id}
-                    uri={`/movie/${movie.id}`}
-                    imageUrl={''.concat(
-                      import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300' as BackdropSize,
-                      movie.backdrop_path
-                    )}
-                    name={movie.title}
-                    paragraph={movie.character}
-                    rating={movie.vote_average}
-                  />
-                ))}
-            </Carousel>
-          )}
+          <CarouselGenre
+            genre="Filmes Atuados"
+            selectedGenre="*"
+            type="movies"
+            list={movies?.cast}
+          />
 
-          {movies?.crew.length && (
-            <Carousel title="Filmes Produzidos" cardLength={300}>
-              {movies.crew
-                .filter(movie => movie.backdrop_path !== null)
-                .map(movie => (
-                  <Card
-                    key={movie.id}
-                    uri={`/movie/${movie.id}`}
-                    imageUrl={''.concat(
-                      import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300' as BackdropSize,
-                      movie.backdrop_path
-                    )}
-                    name={movie.title}
-                    paragraph={movie.job}
-                    rating={movie.vote_average}
-                  />
-                ))}
-            </Carousel>
-          )}
+          <CarouselGenre
+            genre="Filmes Produzidos"
+            selectedGenre="*"
+            type="tv"
+            list={movies?.crew}
+          />
 
-          {series?.cast.length && (
-            <Carousel title="Séries Atuadas" cardLength={300}>
-              {series.cast
-                .filter(serie => serie.backdrop_path !== null)
-                .map(serie => (
-                  <Card
-                    key={serie.id}
-                    uri={`/serie/${serie.id}`}
-                    imageUrl={''.concat(
-                      import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300' as BackdropSize,
-                      serie.backdrop_path
-                    )}
-                    name={serie.name}
-                    paragraph={serie.character}
-                    rating={serie.vote_average}
-                  />
-                ))}
-            </Carousel>
-          )}
+          <CarouselGenre
+            genre="Séries Atuadas"
+            selectedGenre="*"
+            type="tv"
+            list={series?.cast}
+          />
 
-          {series?.crew.length && (
-            <Carousel title="Séries Produzidas" cardLength={300}>
-              {series.crew
-                .filter(serie => serie.backdrop_path !== null)
-                .map(serie => (
-                  <Card
-                    key={serie.id}
-                    uri={`/serie/${serie.id}`}
-                    imageUrl={''.concat(
-                      import.meta.env.VITE_API_IMAGE_URL,
-                      '/w300' as BackdropSize,
-                      serie.backdrop_path
-                    )}
-                    name={serie.name}
-                    paragraph={serie.job}
-                    rating={serie.vote_average}
-                  />
-                ))}
-            </Carousel>
-          )}
+          <CarouselGenre
+            genre="Séries Produzidas"
+            selectedGenre="*"
+            type="tv"
+            list={series?.crew}
+          />
         </section>
       </Main>
     </>
