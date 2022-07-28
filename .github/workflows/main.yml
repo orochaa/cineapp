@@ -5,16 +5,24 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: build app
+      - name: clone app
         run: |
           git clone https://github.com/Mist3rBru/cineapp.git
           cd cineapp
-          npm install
+          
+      - name: install dependencies
+        run: npm install
+        
+      - name: build app
+        run: |
           npm run build
           cd dist
+          
+      - name: commit app
+        run: |
           git init
           git config user.name 'bruno_bot'
           git config user.email 'mister.rocha1234@gmail.com'
           git add .
           git commit -m 'deploy'
-          git push origin master:gh-pages
+          git push -f https://github.com/Mist3rBru/cineapp.git master:gh-pages
