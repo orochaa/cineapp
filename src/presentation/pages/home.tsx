@@ -14,7 +14,7 @@ export function Home () {
     <>
       <Header />
       <Main>
-        <div className="flex gap-2 my-4">
+        <div className="flex flex-col sm:flex-row gap-2 my-4">
           <Card
             imageUrl={''.concat(
               import.meta.env.VITE_API_IMAGE_URL,
@@ -24,7 +24,7 @@ export function Home () {
             name={popularMovies[0].title}
             rating={popularMovies[0].vote_average}
             uri={`/movies/${popularMovies[0].id}`}
-            className="w-1/2 text-2xl"
+            className="sm:w-1/2 text-2xl"
           />
           <Card
             imageUrl={''.concat(
@@ -35,7 +35,7 @@ export function Home () {
             name={popularTv[0].name}
             rating={popularTv[0].vote_average}
             uri={`/tv/${popularTv[0].id}`}
-            className="w-1/2 text-2xl"
+            className="sm:w-1/2 text-2xl"
           />
         </div>
         <CarouselGenre
