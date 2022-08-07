@@ -1,14 +1,4 @@
-import {
-  Dispatch,
-  ForwardRefRenderFunction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  SetStateAction,
-  useImperativeHandle,
-  forwardRef
-} from 'react'
+import { Dispatch, ForwardRefRenderFunction, useCallback, useEffect, useMemo, useState, SetStateAction, useImperativeHandle, forwardRef, TouchEvent } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 interface ICarouselProps {
@@ -22,12 +12,11 @@ export interface ICarouselHandles {
   setAxisX: Dispatch<SetStateAction<number>>
 }
 
-const CarouselComponent: ForwardRefRenderFunction<
-  ICarouselHandles,
-  ICarouselProps
-> = (props, ref) => {
+const CarouselComponent: ForwardRefRenderFunction<ICarouselHandles, ICarouselProps> = (props, ref) => {
   const [axisX, setAxisX] = useState(0)
-  const [leftArrow, setLeftArrow] = useState(false)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [touchStart, setTouchStart] = useState(0)
+
   const [grid, setGrid] = useState(false)
   const [carouselList, setCarouselList] = useState<any[]>([])
 
@@ -49,6 +38,16 @@ const CarouselComponent: ForwardRefRenderFunction<
     setAxisX(axisX => axisX - carouselWidth)
   }, [])
 
+  const handleTouchStart = useCallback((event: TouchEvent<HTMLUListElement>) => {
+    setTouchStart(event.touches[0].clientX)
+  }, [])
+
+  const handleTouchMove = useCallback((event: TouchEvent<HTMLUListElement>) => {
+    const actualTouch = event.touches[0].clientX
+    const touchDiference = (touchStart - actualTouch) * 1.5
+    setAxisX(axisX - touchDiference)
+  }, [touchStart])
+
   useImperativeHandle(ref,
     () => ({
       setGrid,
@@ -60,9 +59,9 @@ const CarouselComponent: ForwardRefRenderFunction<
   useEffect(() => {
     if (axisX >= 0) {
       setAxisX(0)
-      setLeftArrow(false)
+      setShowLeftArrow(false)
     } else {
-      setLeftArrow(true)
+      setShowLeftArrow(true)
     }
 
     const nextRight = Math.abs(axisX - carouselWidth * 2)
@@ -95,7 +94,7 @@ const CarouselComponent: ForwardRefRenderFunction<
       >
         <button
           className={`absolute left-1 text-title opacity-0 group-hover:opacity-100 z-10 rounded-full bg-gray-700 bg-opacity-30 hover:bg-opacity-60 ${
-            leftArrow ? 'visible' : 'invisible'
+            showLeftArrow ? 'visible' : 'invisible'
           }`}
           onClick={handleLeftArrowClick}
         >
@@ -103,12 +102,14 @@ const CarouselComponent: ForwardRefRenderFunction<
         </button>
         <ul
           className={`
-            flex shrink-0 items-center gap-4 transition-all duration-500
+            flex shrink-0 items-center gap-4 transition-all sm:duration-500 ease-linear sm:ease-in-out
             ${grid ? 'flex-wrap' : 'flex-nowrap'}
           `}
           style={{
             marginLeft: axisX + 'px'
           }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
         >
           {carouselList}
         </ul>
