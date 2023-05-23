@@ -3,6 +3,7 @@ import { z } from 'zod'
 type SafeFetchParams<T> = {
   schema: z.ZodType<T>
   headers?: HeadersInit
+  params?: Record<string, (string | number)[]>
 } & (
   | {
       url: string
@@ -20,27 +21,38 @@ type SafeFetchParams<T> = {
       }
   )
 
-export async function safeFetch<T>(params: SafeFetchParams<T>): Promise<T> {
+export async function safeFetch<T>(data: SafeFetchParams<T>): Promise<T> {
+  const params = data.params
+    ? Object.entries(data.params)
+        .map(([key, value], index) => {
+          const mark = index === 0 ? '?' : '&'
+          return [mark, key, '=', value.join(',')].join('')
+        })
+        .join('')
+    : '?language=pt-BR'
+
   const url =
-    'url' in params
-      ? params.url
-      : `${process.env.NEXT_PUBLIC_API_URL}${params.uri}?language=pt-BR`
+    'url' in data
+      ? [data.url, params].join('')
+      : [process.env.NEXT_PUBLIC_API_URL, data.uri, params].join('')
+
   const updateConfig: RequestInit =
-    'revalidate' in params
-      ? { next: { revalidate: params.revalidate }, cache: 'force-cache' }
-      : { cache: params.cache }
+    'revalidate' in data
+      ? { next: { revalidate: data.revalidate } }
+      : { cache: data.cache }
+
   return await fetch(url, {
     headers: {
       accept: 'application/json',
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-      ...params.headers
+      ...data.headers
     },
     ...updateConfig
   })
     .then(res => res.json())
-    .then(data => {
-      // console.log({ data })
-      return data
+    .then(res => {
+      // console.log({ res })
+      return res
     })
-    .then(data => params.schema.parse(data?.results ?? data))
+    .then(res => data.schema.parse(res?.results ?? data))
 }

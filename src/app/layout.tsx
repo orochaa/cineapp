@@ -1,12 +1,13 @@
 import { Header } from '@/components/Header'
-import { Main } from '@/components/Main'
+import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './global.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Cineapp'
+export const metadata: Metadata = {
+  title: 'Cineapp',
+  description: 'Welcome to Cineapp'
 }
 
 export default function RootLayout({

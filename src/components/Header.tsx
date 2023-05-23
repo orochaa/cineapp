@@ -5,12 +5,14 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdHome, MdSearch, MdTheaters, MdTv } from 'react-icons/md'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useWindowSize } from '@/hooks/use-window-size'
 
 export function Header() {
   const [showSidebar, setShowSidebar] = useState(false)
   const [inputFocus, onInputFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
 
+  const window = useWindowSize()
   const router = useRouter()
 
   const handleSubmit = useCallback(
@@ -27,7 +29,7 @@ export function Header() {
 
   return (
     <>
-      {window.innerWidth > 450 ? (
+      {window.width > 450 ? (
         <header
           className="
             fixed left-0 top-0

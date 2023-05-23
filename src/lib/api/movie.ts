@@ -3,15 +3,15 @@ import { Person } from './person'
 
 export const movieSchema = z.object({
   id: z.number(),
-  backdrop_path: z.string(),
+  backdrop_path: z.string().nullable(),
   original_language: z.string(),
   original_title: z.string(),
-  overview: z.string().or(z.null()),
+  overview: z.string().nullable(),
   popularity: z.number(),
-  poster_path: z.string(),
-  release_date: z.string(),
+  poster_path: z.string().nullable(),
+  release_date: z.string().optional(),
   title: z.string(),
-  name: z.string().or(z.undefined()),
+  name: z.string().optional(),
   vote_average: z.number(),
   vote_count: z.number()
 })

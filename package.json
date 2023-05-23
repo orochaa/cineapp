@@ -9,12 +9,12 @@
     "lint": "tsc --noEmit && eslint --fix . && prettier --write ."
   },
   "dependencies": {
-    "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "next": "^13.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-player": "^2.12.0",
     "react-select": "^5.7.3",
     "swr": "^2.1.5",

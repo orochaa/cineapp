@@ -1,5 +1,8 @@
-import { MovieGenre, TvGenre } from '@/domain/api'
-import { formatGenre } from '@/helpers'
+'use client'
+
+import { formatGenre } from '@/lib/api/genre'
+import { MovieGenre } from '@/lib/api/movie'
+import { TvGenre } from '@/lib/api/tv'
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import Select, { SingleValue } from 'react-select'
 
@@ -13,7 +16,7 @@ type SelectOption = {
 interface SelectGenreProps {
   title: string
   options: Array<MovieGenre | TvGenre>
-  onSet: Dispatch<SetStateAction<SelectGenreValue>>
+  onSelect: Dispatch<SetStateAction<SelectGenreValue>>
 }
 
 export function SelectGenre(props: SelectGenreProps) {
@@ -24,7 +27,7 @@ export function SelectGenre(props: SelectGenreProps) {
 
   const handleClick = useCallback((data: SingleValue<SelectOption>) => {
     setValue(data)
-    props.onSet(data?.value as SelectGenreValue)
+    props.onSelect(data?.value as SelectGenreValue)
   }, [])
 
   const hover = {

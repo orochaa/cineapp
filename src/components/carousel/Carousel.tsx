@@ -1,3 +1,6 @@
+'use client'
+
+import { useWindowSize } from '@/hooks/use-window-size'
 import {
   Dispatch,
   ForwardRefRenderFunction,
@@ -34,11 +37,13 @@ const CarouselComponent: ForwardRefRenderFunction<
   const [grid, setGrid] = useState(false)
   const [carouselList, setCarouselList] = useState<any[]>([])
 
+  const window = useWindowSize()
+  
   const carouselWidth = useMemo(
     () =>
-      Math.floor((window.innerWidth * 0.9) / props.cardLength) *
+      Math.floor((window.width * 0.9) / props.cardLength) *
       props.cardLength,
-    [window.innerWidth]
+    [window.width]
   )
 
   const carouselListWidth = useMemo(
