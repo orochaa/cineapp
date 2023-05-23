@@ -1,8 +1,8 @@
-import { Header } from '@/components/Header'
 import { Main } from '@/components/Main'
 import { CarouselGenre } from '@/components/carousel/CarouselGenre'
-import { useFetch } from '@/hooks'
-import { PersonDetails, PersonMovie, PersonTv, ProfileSize } from '@/domain/api'
+import { useFetch } from '@/hooks/use-fetch'
+import { PersonDetails, PersonMovie, PersonTv } from '@/lib/api/person'
+import { formatImageRequest } from '@/lib/request'
 import { useEffect } from 'react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
@@ -24,11 +24,11 @@ export function PersonPage() {
       <section className="m-auto w-full md:w-9/12">
         <div className="flex flex-col gap-6 sm:flex-row">
           <Image
-            src={''.concat(
-              process.env.NEXT_PUBLIC_API_IMAGE_URL,
-              '/w500' as ProfileSize,
-              person?.profile_path || ''
-            )}
+            src={formatImageRequest({
+              type: 'profile',
+              size: '/w500',
+              path: person?.profile_path || ''
+            })}
             alt={person?.name as string}
             className="w-full object-cover brightness-90 sm:w-1/2 md:w-1/3"
           />

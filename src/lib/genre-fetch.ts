@@ -10,7 +10,7 @@ interface GenreFetchParams<T> {
 export async function genreFetch<T>(params: GenreFetchParams<T>): Promise<T> {
   return await safeFetch({
     uri: `/discover/${params.type}`,
-    revalidate: 60 * 60 * 24,
+    cache: 'no-store',
     schema: params.schema,
     params: {
       language: ['pt-BR'],

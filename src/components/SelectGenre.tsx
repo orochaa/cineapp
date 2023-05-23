@@ -1,34 +1,30 @@
 'use client'
 
-import { formatGenre } from '@/lib/api/genre'
-import { MovieGenre } from '@/lib/api/movie'
-import { TvGenre } from '@/lib/api/tv'
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { useState } from 'react'
 import Select, { SingleValue } from 'react-select'
-
-export type SelectGenreValue = MovieGenre | TvGenre | '*'
 
 type SelectOption = {
   label: string
-  value: SelectGenreValue
+  value: string
 }
 
 interface SelectGenreProps {
   title: string
-  options: Array<MovieGenre | TvGenre>
-  onSelect: Dispatch<SetStateAction<SelectGenreValue>>
+  options: SelectOption[]
+  onSelect?: (option: SelectOption) => void
 }
 
 export function SelectGenre(props: SelectGenreProps) {
-  const [value, setValue] = useState<SingleValue<SelectOption>>({
+  const defaultOption = {
     label: 'Gêneros',
     value: '*'
-  })
+  }
+  const [value, setValue] = useState<SingleValue<SelectOption>>(defaultOption)
 
-  const handleClick = useCallback((data: SingleValue<SelectOption>) => {
+  const handleClick = (data: SingleValue<SelectOption>) => {
     setValue(data)
-    props.onSelect(data?.value as SelectGenreValue)
-  }, [])
+    props.onSelect?.(data as SelectOption)
+  }
 
   const hover = {
     option: '#734bd1',
@@ -41,12 +37,9 @@ export function SelectGenre(props: SelectGenreProps) {
     <div className="flex flex-1 gap-6">
       <button
         className="text-2xl text-title"
-        onClick={() =>
-          handleClick({
-            label: 'Gêneros',
-            value: '*'
-          })
-        }
+        onClick={() => {
+          handleClick(defaultOption)
+        }}
       >
         {props.title}
       </button>
@@ -87,11 +80,8 @@ export function SelectGenre(props: SelectGenreProps) {
           })
         }}
         value={value}
-        options={props.options.map(value => ({
-          label: formatGenre(value),
-          value
-        }))}
-        onChange={data => handleClick(data as SelectOption)}
+        options={props.options}
+        onChange={handleClick}
       />
     </div>
   )

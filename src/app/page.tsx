@@ -40,7 +40,7 @@ export default async function Home() {
           imageUrl={formatImageRequest({
             type: 'backdrop',
             size: '/w1280',
-            path: popularMovies[0].backdrop_path
+            path: popularMovies[0].backdrop_path!
           })}
           height={405}
           width={870}
@@ -65,26 +65,26 @@ export default async function Home() {
       </div>
       <CarouselGenre
         genre="Filmes Populares"
-        type="movies"
         selectedGenre="*"
+        type="movies"
         list={popularMovies?.slice(1, popularMovies.length)}
       />
       <CarouselGenre
         genre="Filmes Bem Avaliados"
-        type="movies"
         selectedGenre="*"
+        type="movies"
         list={topRatedMovies}
       />
       <CarouselGenre
         genre="Séries Populares"
-        type="tv"
         selectedGenre="*"
+        type="tv"
         list={popularTv?.slice(1, popularTv.length)}
       />
       <CarouselGenre
         genre="Séries Bem Avaliados"
-        type="tv"
         selectedGenre="*"
+        type="tv"
         list={topRatedTv}
       />
     </Main>
