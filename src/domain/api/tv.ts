@@ -77,7 +77,7 @@ export interface ITvCredits {
 }
 
 export interface ITvProviders {
-  BR: {
+  BR?: {
     flatrate?: {
       logo_path: string
       provider_id: number

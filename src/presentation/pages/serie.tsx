@@ -125,7 +125,7 @@ export function SeriePage(): React.JSX.Element {
                 <span className="mr-2 text-xl text-slate-400">Status:</span>
                 {serie?.in_production ? 'Em produção' : 'Encerrado'}
               </p>
-              {providers?.BR.flatrate && (
+              {providers?.BR?.flatrate && (
                 <>
                   <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
                   <div className="flex gap-3">

@@ -122,7 +122,7 @@ export function MoviePage(): React.JSX.Element {
                 <MdAttachMoney className="inline text-green-500" size={20} />
                 {formatCurrency(movie?.revenue)}
               </p>
-              {providers?.BR.flatrate && (
+              {providers?.BR?.flatrate && (
                 <>
                   <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
                   <div className="flex gap-3">

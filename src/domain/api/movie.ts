@@ -62,7 +62,7 @@ export interface IMovieCredits {
 }
 
 export interface IMovieProviders {
-  BR: {
+  BR?: {
     flatrate?: {
       logo_path: string
       provider_id: number
