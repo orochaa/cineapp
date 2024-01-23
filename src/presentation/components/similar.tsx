@@ -1,32 +1,32 @@
-import { IMovie, ITv, BackdropSize } from '@/domain/api'
-import { CSSProperties, useMemo } from 'react'
+import { type BackdropSize, type IMovie, type ITv } from '@/domain/api'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 interface SimilarProps {
-  list: Array<IMovie | ITv> | undefined
+  list: (IMovie | ITv)[] | undefined
   type: 'movies' | 'tv'
 }
 
-export function Similar (props: SimilarProps) {
+export function Similar(props: SimilarProps): React.JSX.Element {
   const filteredList = useMemo(
-    () => props.list?.filter(item => item.backdrop_path !== null),
+    () => props.list?.filter(item => !!item.backdrop_path),
     [props.list]
   )
 
-  if (!filteredList?.length) return <span></span>
+  if (!filteredList?.length) return <span />
 
   return (
     <>
-      <h3 className="pt-6 pb-4 text-2xl text-title">Similares</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <h3 className="pb-4 pt-6 text-2xl text-title">Similares</h3>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {filteredList.map(item => (
           <Link
             key={item.id}
             to={`/${props.type}/${item.id}`}
-            className="hover:brightness-75 transition-all"
+            className="transition-all hover:brightness-75"
             style={{
               background: '#090B10AA',
-              boxShadow: '0 0 3px 5px 4px #121214'
+              boxShadow: '0 0 3px 5px 4px #121214',
             }}
           >
             <img
@@ -39,33 +39,11 @@ export function Similar (props: SimilarProps) {
               style={{ filter: 'brightness(0.9)' }}
             />
             <div className="px-4 py-2">
-              <h3
-                className="font-bold sm:text-xl text-zinc-300"
-                style={
-                  {
-                    display: '-webkit-box',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    '-webkit-line-clamp': '1',
-                    '-webkit-box-orient': 'vertical'
-                  } as CSSProperties
-                }
-              >
-                {item.title || item.name}
+              <h3 className="line-clamp-1 overflow-ellipsis font-bold text-zinc-300 sm:text-xl">
+                {item.title ?? item.name}
               </h3>
-              <p
-                className="text-zinc-400 text-sm"
-                style={
-                  {
-                    display: '-webkit-box',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    '-webkit-line-clamp': '3',
-                    '-webkit-box-orient': 'vertical'
-                  } as CSSProperties
-                }
-              >
-                {item.overview || 'Sem informações sobre 🙁'}
+              <p className="line-clamp-3 overflow-ellipsis text-sm text-zinc-400">
+                {item.overview ?? 'Sem informações sobre 🙁'}
               </p>
             </div>
           </Link>

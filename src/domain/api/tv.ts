@@ -1,4 +1,4 @@
-import { IPerson } from './person'
+import { type IPerson } from './person'
 
 export interface ITv {
   id: number
@@ -35,17 +35,17 @@ export type ITvGenre =
 
 export interface ITvDetails extends ITv {
   tagline: string
-  genres: Array<{ id: number; name: string }>
-  created_by: Array<{
+  genres: { id: number; name: string }[]
+  created_by: {
     id: string
     credit_id: string
     name: string
     profile_path: string
-  }>
+  }[]
   in_production: boolean
   number_of_episodes: number
   number_of_seasons: number
-  seasons: Array<{
+  seasons: {
     air_date: string
     episode_count: number
     id: number
@@ -53,7 +53,7 @@ export interface ITvDetails extends ITv {
     overview: string | null
     poster_path: string
     season_number: number
-  }>
+  }[]
 }
 
 export interface ITvVideo {
@@ -63,25 +63,25 @@ export interface ITvVideo {
 }
 
 export interface ITvCredits {
-  cast: Array<IPerson & {
+  cast: (IPerson & {
     cast_id: number
     character: string
     credit_id: string
     order: number
-  }>
-  crew: Array<IPerson & {
+  })[]
+  crew: (IPerson & {
     credit_id: string
     job: string
     department: string
-  }>
+  })[]
 }
 
 export interface ITvProviders {
   BR: {
-    flatrate?: Array<{
+    flatrate?: {
       logo_path: string
       provider_id: number
       provider_name: string
-    }>
+    }[]
   }
 }

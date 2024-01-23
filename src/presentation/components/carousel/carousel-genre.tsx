@@ -1,26 +1,32 @@
-import { BackdropSize, IMovie, IMovieGenre, ITv, ITvGenre } from '@/domain/api'
+import {
+  type BackdropSize,
+  type IMovie,
+  type IMovieGenre,
+  type ITv,
+  type ITvGenre,
+} from '@/domain/api'
 import {
   Card,
   Carousel,
-  ICarouselHandles,
-  SelectGenreValue
+  type ICarouselHandles,
+  type SelectGenreValue,
 } from '@/presentation/components'
-import { formatGenre } from '@/presentation/helpers'
+import { type GenreType, formatGenre } from '@/presentation/helpers'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface CarouselGenreProps {
   genre: IMovieGenre | ITvGenre | string
   selectedGenre: SelectGenreValue
-  list: Array<IMovie | ITv> | undefined
+  list: (IMovie | ITv)[] | undefined
   type: 'tv' | 'movies'
 }
 
-export function CarouselGenre (props: CarouselGenreProps) {
+export function CarouselGenre(props: CarouselGenreProps): React.JSX.Element {
   const [visible, setVisible] = useState(true)
   const carouselRef = useRef<ICarouselHandles>(null)
 
   const filteredList = useMemo(
-    () => props.list?.filter(person => person.backdrop_path !== null),
+    () => props.list?.filter(person => !!person.backdrop_path),
     [props.list]
   )
 
@@ -29,15 +35,15 @@ export function CarouselGenre (props: CarouselGenreProps) {
     setVisible(isGenreSelected || props.selectedGenre === '*')
     carouselRef.current?.setGrid(isGenreSelected)
     carouselRef.current?.setAxisX(0)
-  }, [props.selectedGenre])
+  }, [props.genre, props.selectedGenre])
 
-  if (!filteredList?.length) return <span></span>
+  if (!filteredList?.length) return <span />
 
   return (
     <section className={visible ? 'block' : 'hidden'}>
       <Carousel
         ref={carouselRef}
-        title={formatGenre(props.genre as any)}
+        title={formatGenre(props.genre as GenreType)}
         cardLength={300}
       >
         {filteredList.map((item, index) => (
@@ -49,7 +55,7 @@ export function CarouselGenre (props: CarouselGenreProps) {
               '/w300' as BackdropSize,
               item.backdrop_path
             )}
-            name={item.title || item.name}
+            name={item.title ?? item.name}
             rating={item.vote_average}
           />
         ))}

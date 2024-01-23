@@ -1,47 +1,59 @@
-import { IMovieGenre, ITvGenre } from '@/domain/api'
+import { type IMovieGenre, type ITvGenre } from '@/domain/api'
 import { formatGenre } from '@/presentation/helpers'
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
-import Select, { SingleValue } from 'react-select'
+import React, {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useState,
+} from 'react'
+import Select, { type SingleValue } from 'react-select'
 
 export type SelectGenreValue = IMovieGenre | ITvGenre | '*'
 
-type SelectOption = {
-  label: string,
+interface SelectOption {
+  label: string
   value: SelectGenreValue
 }
 
 interface SelectGenreProps {
   title: string
-  options: Array<IMovieGenre | ITvGenre>
+  options: (IMovieGenre | ITvGenre)[]
   onSet: Dispatch<SetStateAction<SelectGenreValue>>
 }
 
-export function SelectGenre (props: SelectGenreProps) {
-  const [value, setValue] = useState<SingleValue<SelectOption>>({
+export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
+  const [value, setValue] = useState<NonNullable<SingleValue<SelectOption>>>({
     label: 'Gêneros',
-    value: '*'
+    value: '*',
   })
 
-  const handleClick = useCallback((data: SingleValue<SelectOption>) => {
-    setValue(data)
-    props.onSet(data?.value as SelectGenreValue)
-  }, [])
+  const handleClick = useCallback(
+    (data: SingleValue<SelectOption>) => {
+      if (data) {
+        setValue(data)
+        props.onSet(data.value)
+      }
+    },
+    [props]
+  )
 
   const hover = {
     option: '#734bd1',
     border: '#6833e4',
     boxShadow: '0 0 10px #9466ff',
-    current: '#090B10'
+    current: '#090B10',
   }
 
   return (
     <div className="flex flex-1 gap-6">
       <button
-        className="text-title text-2xl"
-        onClick={() => handleClick({
-          label: 'Gêneros',
-          value: '*'
-        })}
+        className="text-2xl text-title"
+        onClick={() =>
+          handleClick({
+            label: 'Gêneros',
+            value: '*',
+          })
+        }
       >
         {props.title}
       </button>
@@ -49,7 +61,7 @@ export function SelectGenre (props: SelectGenreProps) {
         styles={{
           container: base => ({
             ...base,
-            minWidth: '12rem'
+            minWidth: '12rem',
           }),
           control: (base, state) => ({
             ...base,
@@ -60,33 +72,33 @@ export function SelectGenre (props: SelectGenreProps) {
             boxShadow: state.isFocused ? hover.boxShadow : '',
             ':hover': {
               borderColor: hover.border,
-              boxShadow: hover.boxShadow
-            }
+              boxShadow: hover.boxShadow,
+            },
           }),
           singleValue: base => ({
             ...base,
-            color: 'white'
+            color: 'white',
           }),
           menuList: base => ({
             ...base,
             background: hover.current,
-            border: '2px solid' + hover.border
+            border: `2px solid${hover.border}`,
           }),
           option: base => ({
             ...base,
             background: hover.current,
             color: 'white',
             ':hover': {
-              background: hover.option
-            }
-          })
+              background: hover.option,
+            },
+          }),
         }}
         value={value}
         options={props.options.map(value => ({
           label: formatGenre(value),
-          value
+          value,
         }))}
-        onChange={data => handleClick(data as SelectOption)}
+        onChange={data => handleClick(data)}
       />
     </div>
   )

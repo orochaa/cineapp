@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         background: '#141620',
         primary: '#090B10',
-        title: '#E5E5E5'
+        title: '#E5E5E5',
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
@@ -14,9 +14,9 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
         raleway: ['Raleway', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
-        ubuntu: ['Ubuntu', 'sans-serif']
-      }
-    }
+        ubuntu: ['Ubuntu', 'sans-serif'],
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }

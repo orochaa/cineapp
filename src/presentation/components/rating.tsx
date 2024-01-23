@@ -1,14 +1,16 @@
+import React from 'react'
+
 interface RatingProps {
   size: number
   rate: number | undefined
 }
 
-export function Rating (props: RatingProps) {
+export function Rating(props: RatingProps): React.JSX.Element {
   const { size, rate } = props
   let strokeColor = ''
   const dash = (size * 220) / 70
 
-  if (!rate) return <span></span>
+  if (!rate) return <span />
 
   if (rate >= 8) strokeColor = '#31dd0e'
   else if (rate >= 6) strokeColor = '#dadd0e'
@@ -17,10 +19,10 @@ export function Rating (props: RatingProps) {
 
   return (
     <div className="relative flex items-center justify-center">
-      <div className="absolute right-1/5">
+      <div className="right-1/5 absolute">
         <p
           style={{
-            fontSize: (size * 14) / 40
+            fontSize: (size * 14) / 40,
           }}
         >
           {rate.toFixed(1)}
@@ -30,10 +32,10 @@ export function Rating (props: RatingProps) {
         style={{
           height: size,
           width: size,
-          transform: 'rotate(270deg)'
+          transform: 'rotate(270deg)',
         }}
       >
-        <svg className="block m-auto">
+        <svg className="m-auto block">
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -44,7 +46,7 @@ export function Rating (props: RatingProps) {
               fill: 'transparent',
               transform: 'translate(1px, 1px)',
               strokeWidth: '2px',
-              stroke: '#555'
+              stroke: '#555',
             }}
           />
           <circle
@@ -59,7 +61,7 @@ export function Rating (props: RatingProps) {
               strokeWidth: '2px',
               stroke: strokeColor,
               strokeDasharray: dash,
-              strokeDashoffset: dash - (dash * rate) / 10
+              strokeDashoffset: dash - (dash * rate) / 10,
             }}
           />
         </svg>

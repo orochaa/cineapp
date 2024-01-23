@@ -1,15 +1,15 @@
 import {
-  IPersonMovie,
-  IPersonTv,
-  IPersonDetails,
-  ProfileSize
+  type IPersonDetails,
+  type IPersonMovie,
+  type IPersonTv,
+  type ProfileSize,
 } from '@/domain/api'
 import { CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
-import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-export function PersonPage () {
+export function PersonPage(): React.JSX.Element {
   const { personId } = useParams()
   const { data: person } = useFetch<IPersonDetails>(`/person/${personId}`)
   const { data: movies } = useFetch<IPersonMovie>(
@@ -25,21 +25,21 @@ export function PersonPage () {
     <>
       <Header />
       <Main>
-        <section className="w-full md:w-9/12 m-auto">
-          <div className="flex flex-col sm:flex-row gap-6">
+        <section className="m-auto w-full md:w-9/12">
+          <div className="flex flex-col gap-6 sm:flex-row">
             <img
               src={''.concat(
                 import.meta.env.VITE_API_IMAGE_URL,
                 '/w500' as ProfileSize,
-                person?.profile_path || ''
+                person?.profile_path ?? ''
               )}
               alt={person?.name}
-              className="w-full sm:w-1/2 md:w-1/3 brightness-90 object-cover"
+              className="w-full object-cover brightness-90 sm:w-1/2 md:w-1/3"
             />
 
             <div className="flex flex-col gap-2 py-2">
               <h2 className="text-4xl text-slate-300">{person?.name}</h2>
-              <p>{person?.biography || 'Sem informações sobre 🙁'}</p>
+              <p>{person?.biography ?? 'Sem informações sobre 🙁'}</p>
             </div>
           </div>
 

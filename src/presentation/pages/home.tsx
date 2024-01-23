@@ -1,8 +1,8 @@
-import { BackdropSize, IMovie, ITv } from '@/domain/api'
+import { type BackdropSize, type IMovie, type ITv } from '@/domain/api'
 import { Card, CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 
-export function Home () {
+export function Home(): React.JSX.Element {
   const { data: popularMovies } = useFetch<IMovie[]>('/movie/popular')
   const { data: topRatedMovies } = useFetch<IMovie[]>('/movie/top_rated')
   const { data: popularTv } = useFetch<ITv[]>('/tv/popular')
@@ -14,7 +14,7 @@ export function Home () {
     <>
       <Header />
       <Main>
-        <div className="flex flex-col sm:flex-row gap-2 my-4">
+        <div className="my-4 flex flex-col gap-2 sm:flex-row">
           <Card
             imageUrl={''.concat(
               import.meta.env.VITE_API_IMAGE_URL,
@@ -24,7 +24,7 @@ export function Home () {
             name={popularMovies[0].title}
             rating={popularMovies[0].vote_average}
             uri={`/movies/${popularMovies[0].id}`}
-            className="sm:w-1/2 text-2xl"
+            className="text-2xl sm:w-1/2"
           />
           <Card
             imageUrl={''.concat(
@@ -35,14 +35,14 @@ export function Home () {
             name={popularTv[0].name}
             rating={popularTv[0].vote_average}
             uri={`/tv/${popularTv[0].id}`}
-            className="sm:w-1/2 text-2xl"
+            className="text-2xl sm:w-1/2"
           />
         </div>
         <CarouselGenre
           genre="Filmes Populares"
           type="movies"
           selectedGenre="*"
-          list={popularMovies?.slice(1, popularMovies.length)}
+          list={popularMovies.slice(1, popularMovies.length)}
         />
         <CarouselGenre
           genre="Filmes Bem Avaliados"
@@ -54,7 +54,7 @@ export function Home () {
           genre="Séries Populares"
           type="tv"
           selectedGenre="*"
-          list={popularTv?.slice(1, popularTv.length)}
+          list={popularTv.slice(1, popularTv.length)}
         />
         <CarouselGenre
           genre="Séries Bem Avaliados"

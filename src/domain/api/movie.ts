@@ -1,4 +1,4 @@
-import { IPerson } from './person'
+import { type IPerson } from './person'
 
 export interface IMovie {
   backdrop_path: string
@@ -38,7 +38,7 @@ export interface IMovieDetails extends IMovie {
   revenue: number
   runtime: number
   tagline: string
-  genres: Array<{ id: number; name: string }>
+  genres: { id: number; name: string }[]
 }
 
 export interface IMovieVideo {
@@ -48,25 +48,25 @@ export interface IMovieVideo {
 }
 
 export interface IMovieCredits {
-  cast: Array<IPerson & {
+  cast: (IPerson & {
     cast_id: number
     character: string
     credit_id: string
     order: number
-  }>
-  crew: Array<IPerson & {
+  })[]
+  crew: (IPerson & {
     credit_id: string
     job: string
     department: string
-  }>
+  })[]
 }
 
 export interface IMovieProviders {
   BR: {
-    flatrate?: Array<{
+    flatrate?: {
       logo_path: string
       provider_id: number
       provider_name: string
-    }>
+    }[]
   }
 }

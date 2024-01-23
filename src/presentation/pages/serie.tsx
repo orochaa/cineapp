@@ -1,27 +1,27 @@
 import {
-  LogoSize,
-  PosterSize,
-  ITv,
-  ITvCredits,
-  ITvDetails,
-  ITvProviders,
-  ITvVideo
+  type ITv,
+  type ITvCredits,
+  type ITvDetails,
+  type ITvProviders,
+  type ITvVideo,
+  type LogoSize,
+  type PosterSize,
 } from '@/domain/api'
 import {
   CarouselPeople,
   Header,
   Main,
   Similar,
-  VideoPlayer
+  VideoPlayer,
 } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
-import { CgAsterisk } from 'react-icons/cg'
-import { BsFillPlayFill } from 'react-icons/bs'
-import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { BsFillPlayFill } from 'react-icons/bs'
+import { CgAsterisk } from 'react-icons/cg'
+import { useParams } from 'react-router-dom'
 import { Banner } from '../components/banner'
 
-export function SeriePage () {
+export function SeriePage(): React.JSX.Element {
   const { serieId } = useParams()
   const { data: serie } = useFetch<ITvDetails>(`/tv/${serieId}`)
   const { data: videos } = useFetch<ITvVideo[]>(`/tv/${serieId}/videos`)
@@ -43,13 +43,13 @@ export function SeriePage () {
 
       {showVideo && videos && (
         <div
-          className="fixed inset-0 flex items-center justify-center h-screen w-screen bg-[#000a] z-20 transition-all"
+          className="fixed inset-0 z-20 flex h-screen w-screen items-center justify-center bg-[#000a] transition-all"
           onClick={() => setShowVideo(false)}
         >
           <VideoPlayer
-            playing={true}
+            playing
             url={`https://www.youtube.com/watch?v=${
-              videos.find(video => /trailer/i.test(video.name))?.key ||
+              videos.find(video => /trailer/i.test(video.name))?.key ??
               videos[0]?.key
             }`}
           />
@@ -69,24 +69,24 @@ export function SeriePage () {
       </Banner>
 
       <Main>
-        <section className="w-full lg:w-9/12 m-auto">
-          <div className="flex flex-col sm:flex-row gap-6 p-8">
+        <section className="m-auto w-full lg:w-9/12">
+          <div className="flex flex-col gap-6 p-8 sm:flex-row">
             <div className="relative sm:min-w-[50%] md:min-w-[33%]">
               <img
                 src={''.concat(
                   import.meta.env.VITE_API_IMAGE_URL,
                   '/w500' as PosterSize,
-                  serie?.poster_path || ''
+                  serie?.poster_path ?? ''
                 )}
                 alt={serie?.title}
-                className="block brightness-90 w-full max-w-fit"
+                className="block w-full max-w-fit brightness-90"
               />
               <button
                 className="
                 absolute inset-0
                 flex items-center justify-center
-                bg-[#0005] transition-opacity duration-300
-                opacity-0 hover:opacity-100
+                bg-[#0005] opacity-0 transition-opacity
+                duration-300 hover:opacity-100
               "
                 title="Assistir trailer"
                 onClick={() => setShowVideo(true)}
@@ -96,38 +96,38 @@ export function SeriePage () {
             </div>
 
             <div className="flex flex-col gap-2">
-              <h2 className="text-4xl text-slate-300 text-center py-2">
+              <h2 className="py-2 text-center text-4xl text-slate-300">
                 Informações
               </h2>
               <p>
-                <span className="text-xl text-slate-400 mr-2">
+                <span className="mr-2 text-xl text-slate-400">
                   Titulo original:
                 </span>
                 {serie?.original_name}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">Sinopse:</span>
-                {serie?.overview || 'Sem informações sobre 🙁'}
+                <span className="mr-2 text-xl text-slate-400">Sinopse:</span>
+                {serie?.overview ?? 'Sem informações sobre 🙁'}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">Criado por:</span>
+                <span className="mr-2 text-xl text-slate-400">Criado por:</span>
                 {serie?.created_by.map(writer => writer.name).join(', ')}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">
+                <span className="mr-2 text-xl text-slate-400">
                   Período de Produção:
                 </span>
                 {serie?.first_air_date.split('-').reverse().join('/')}
                 {' - '}
-                {serie?.last_air_date.split('-').reverse().join('/') || '*'}
+                {serie?.last_air_date.split('-').reverse().join('/') ?? '*'}
               </p>
               <p>
-                <span className="text-xl text-slate-400 mr-2">Status:</span>
+                <span className="mr-2 text-xl text-slate-400">Status:</span>
                 {serie?.in_production ? 'Em produção' : 'Encerrado'}
               </p>
-              {providers?.BR?.flatrate && (
+              {providers?.BR.flatrate && (
                 <>
-                  <p className="text-xl text-slate-400 mr-2">Onde assistir:</p>
+                  <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
                   <div className="flex gap-3">
                     {providers.BR.flatrate.map(provider => (
                       <img
@@ -152,7 +152,7 @@ export function SeriePage () {
 
           <CarouselPeople title="Produção" list={credits?.crew} />
 
-          <h2 className="text-title text-2xl pt-6 pb-4">Temporadas</h2>
+          <h2 className="pb-4 pt-6 text-2xl text-title">Temporadas</h2>
           <ul className="flex flex-col gap-4">
             {serie?.seasons.map(season => (
               <li
@@ -166,14 +166,14 @@ export function SeriePage () {
                     season.poster_path
                   )}
                   alt={season.name}
-                  className="object-contain max-w-[40%] shadow-inner shadow-slate-900"
+                  className="max-w-[40%] object-contain shadow-inner shadow-slate-900"
                 />
                 <div className="p-4">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">
+                  <h3 className="mb-2 text-lg font-bold sm:text-xl">
                     {season.name} - {season.episode_count} episódios
                   </h3>
-                  <p className="text-sm sm:text-base text-zinc-300">
-                    {season.overview || 'Sem informações sobre 🙁'}
+                  <p className="text-sm text-zinc-300 sm:text-base">
+                    {season.overview ?? 'Sem informações sobre 🙁'}
                   </p>
                 </div>
               </li>

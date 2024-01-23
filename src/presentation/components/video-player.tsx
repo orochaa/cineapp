@@ -5,13 +5,13 @@ interface VideoPlayerProps {
   playing: boolean
 }
 
-export function VideoPlayer (props: VideoPlayerProps) {
+export function VideoPlayer(props: VideoPlayerProps): React.JSX.Element {
   return (
     <ReactPlayer
       url={props.url}
       playing={props.playing}
-      controls={true}
-      stopOnUnmount={true}
+      controls
+      stopOnUnmount
     />
   )
 }

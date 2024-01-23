@@ -1,4 +1,4 @@
-import { IMovie, ITv } from '.'
+import { type IMovie, type ITv } from '.'
 
 export interface IPerson {
   id: number
@@ -7,7 +7,7 @@ export interface IPerson {
   profile_path: string
 }
 
-export interface IPersonDetails extends IPerson{
+export interface IPersonDetails extends IPerson {
   birthday: string
   deathday: string | null
   biography: string | null
@@ -15,25 +15,25 @@ export interface IPersonDetails extends IPerson{
 }
 
 export interface IPersonMovie {
-  cast: Array<IMovie & {
+  cast: (IMovie & {
     character: string
-  }>
-  crew: Array<IMovie & {
+  })[]
+  crew: (IMovie & {
     known_for_department: string
     credit_id: string
     job: string
     department: string
-  }>
+  })[]
 }
 
 export interface IPersonTv {
-  cast: Array<ITv & {
+  cast: (ITv & {
     character: string
-  }>
-  crew: Array<ITv & {
+  })[]
+  crew: (ITv & {
     known_for_department: string
     credit_id: string
     job: string
     department: string
-  }>
+  })[]
 }

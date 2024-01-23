@@ -1,10 +1,10 @@
-import { IMovieGenre, ITvGenre } from '@/domain/api'
+import { type IMovieGenre, type ITvGenre } from '@/domain/api'
 
-type GenreTypes = IMovieGenre | ITvGenre
+export type GenreType = IMovieGenre | ITvGenre
 
-type GenreDictionary = Record<GenreTypes, string>
+type GenreDictionary = Record<GenreType, string>
 
-export function formatGenre (genre: IMovieGenre | ITvGenre): string {
+export function formatGenre(genre: GenreType): string {
   const genreDictionary: GenreDictionary = {
     action: 'Ação',
     adventure: 'Aventura',
@@ -26,7 +26,8 @@ export function formatGenre (genre: IMovieGenre | ITvGenre): string {
     news: 'Noticias',
     reality: 'Reality',
     soap: 'Novelas',
-    talk: 'TalkShows'
+    talk: 'TalkShows',
   }
+
   return genreDictionary[genre] || genre
 }

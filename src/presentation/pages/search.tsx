@@ -1,10 +1,23 @@
-import { IMovie, IPerson, ITv } from '@/domain/api'
-import { api } from '@/infra/http'
-import { CarouselGenre, CarouselPeople, Header, Main } from '@/presentation/components'
+import { type IMovie, type IPerson, type ITv } from '@/domain/api'
+import {
+  CarouselGenre,
+  CarouselPeople,
+  Header,
+  Main,
+} from '@/presentation/components'
 import { useQuery } from '@/presentation/hooks'
+import { api } from '@/infra/http'
 import { useEffect, useState } from 'react'
 
-export function SearchPage () {
+interface SearchMultiResult {
+  results: ({
+    media_type: 'movie' | 'tv' | 'person'
+  } & IMovie &
+    ITv &
+    IPerson)[]
+}
+
+export function SearchPage(): React.JSX.Element {
   const query = useQuery().get('search_query')
   const [movies, setMovies] = useState<IMovie[]>([])
   const [series, setSeries] = useState<ITv[]>([])
@@ -12,18 +25,19 @@ export function SearchPage () {
 
   useEffect(() => {
     api
-      .get('/search/multi', {
+      .get<SearchMultiResult>('/search/multi', {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
           language: 'pt-BR',
-          query
-        }
+          query,
+        },
       })
       .then(res => {
         const movies: IMovie[] = []
         const series: ITv[] = []
         const people: IPerson[] = []
-        res.data.results.forEach((d: any) => {
+
+        for (const d of res.data.results) {
           switch (d.media_type) {
             case 'movie':
               movies.push(d)
@@ -35,11 +49,12 @@ export function SearchPage () {
               people.push(d)
               break
           }
-        })
+        }
         setMovies(movies)
         setSeries(series)
         setPeople(people)
       })
+      .catch(console.error)
   }, [query])
 
   return (
@@ -62,10 +77,7 @@ export function SearchPage () {
           type="tv"
         />
 
-        <CarouselPeople
-          title="Pessoas"
-          list={people}
-        />
+        <CarouselPeople title="Pessoas" list={people} />
       </Main>
     </>
   )
