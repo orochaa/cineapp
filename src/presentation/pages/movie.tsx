@@ -1,11 +1,11 @@
-import {
-  type IMovie,
-  type IMovieCredits,
-  type IMovieDetails,
-  type IMovieProviders,
-  type IMovieVideo,
-  type LogoSize,
-  type PosterSize,
+import type {
+  IMovie,
+  IMovieCredits,
+  IMovieDetails,
+  IMovieProviders,
+  IMovieVideo,
+  LogoSize,
+  PosterSize,
 } from '@/domain/api'
 import {
   Banner,
@@ -46,7 +46,7 @@ export function MoviePage(): React.JSX.Element {
     <>
       <Header />
 
-      {showVideo && videos && (
+      {!!(showVideo && videos) && (
         <div
           className="fixed inset-0 z-20 flex h-screen w-screen items-center justify-center bg-[#000a] transition-all"
           onClick={() => setShowVideo(false)}
@@ -85,12 +85,8 @@ export function MoviePage(): React.JSX.Element {
                 className="block w-full max-w-fit brightness-90"
               />
               <button
-                className="
-                  absolute inset-0
-                  flex items-center justify-center
-                  bg-[#0005] opacity-0 transition-opacity
-                  duration-300 hover:opacity-100
-                "
+                type="button"
+                className="absolute inset-0 flex items-center justify-center bg-[#0005] opacity-0 transition-opacity duration-300 hover:opacity-100"
                 title="Assistir trailer"
                 onClick={() => setShowVideo(true)}
               >
@@ -122,7 +118,7 @@ export function MoviePage(): React.JSX.Element {
                 <MdAttachMoney className="inline text-green-500" size={20} />
                 {formatCurrency(movie?.revenue)}
               </p>
-              {providers?.BR?.flatrate && (
+              {providers?.BR?.flatrate ? (
                 <>
                   <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
                   <div className="flex gap-3">
@@ -141,7 +137,7 @@ export function MoviePage(): React.JSX.Element {
                     ))}
                   </div>
                 </>
-              )}
+              ) : null}
             </div>
           </div>
 

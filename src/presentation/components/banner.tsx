@@ -1,5 +1,6 @@
-import { type IMovieDetails, type ITvDetails } from '@/domain/api'
-import React, { type ReactNode } from 'react'
+import type { IMovieDetails, ITvDetails } from '@/domain/api'
+import React from 'react'
+import type { ReactNode } from 'react'
 
 interface BannerProps {
   media: IMovieDetails | ITvDetails | undefined

@@ -1,4 +1,11 @@
-import { type IMovieGenre, type ITvGenre } from '@/domain/api'
+import type { IMovieGenre, ITvGenre } from '@/domain/api'
+import type { ClassValue } from 'clsx'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...classNames: ClassValue[]): string {
+  return twMerge(clsx(...classNames))
+}
 
 export type GenreType = IMovieGenre | ITvGenre
 

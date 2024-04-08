@@ -1,11 +1,11 @@
-import { type ITv } from '@/domain/api'
+import type { ITv } from '@/domain/api'
 import {
   CarouselGenre,
   Header,
   Main,
   SelectGenre,
-  type SelectGenreValue,
 } from '@/presentation/components'
+import type { SelectGenreValue } from '@/presentation/components'
 import { useFetch, useGenre } from '@/presentation/hooks'
 import { useState } from 'react'
 

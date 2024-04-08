@@ -22,6 +22,7 @@ export function useGenre<TResult>(
         },
       })
       .then(res => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         setData(res.data.results as TResult)
       })
       .catch(console.error)

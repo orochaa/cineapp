@@ -1,8 +1,8 @@
-import {
-  type IPersonDetails,
-  type IPersonMovie,
-  type IPersonTv,
-  type ProfileSize,
+import type {
+  IPersonDetails,
+  IPersonMovie,
+  IPersonTv,
+  ProfileSize,
 } from '@/domain/api'
 import { CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'

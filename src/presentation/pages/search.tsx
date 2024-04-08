@@ -1,4 +1,4 @@
-import { type IMovie, type IPerson, type ITv } from '@/domain/api'
+import type { IMovie, IPerson, ITv } from '@/domain/api'
 import {
   CarouselGenre,
   CarouselPeople,

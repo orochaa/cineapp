@@ -1,12 +1,9 @@
-import { type IMovieGenre, type ITvGenre } from '@/domain/api'
-import { formatGenre } from '@/presentation/helpers'
-import React, {
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useState,
-} from 'react'
-import Select, { type SingleValue } from 'react-select'
+import type { IMovieGenre, ITvGenre } from '@/domain/api'
+import { formatGenre } from '@/presentation/helpers/format.js'
+import React, { useCallback, useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
+import Select from 'react-select'
+import type { SingleValue } from 'react-select'
 
 export type SelectGenreValue = IMovieGenre | ITvGenre | '*'
 
@@ -47,6 +44,7 @@ export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
   return (
     <div className="flex flex-1 gap-6">
       <button
+        type="button"
         className="text-2xl text-title"
         onClick={() =>
           handleClick({

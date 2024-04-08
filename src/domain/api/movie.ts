@@ -1,4 +1,4 @@
-import { type IPerson } from './person'
+import type { IPerson } from './person'
 
 export interface IMovie {
   backdrop_path: string

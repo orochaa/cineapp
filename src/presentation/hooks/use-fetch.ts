@@ -1,5 +1,6 @@
 import { api } from '@/infra/http'
-import useSWR, { type KeyedMutator } from 'swr'
+import useSWR from 'swr'
+import type { KeyedMutator } from 'swr'
 
 interface FetchResult<TResult> {
   data: TResult | undefined
@@ -7,21 +8,22 @@ interface FetchResult<TResult> {
   mutate: KeyedMutator<TResult>
 }
 
-export function useFetch<TResult = undefined>(
-  uri: string
-): FetchResult<TResult> {
-  const { data, error, mutate } = useSWR<TResult>(uri, async (uri: string) => {
-    const res = await api.get(uri, {
-      params: {
-        api_key: import.meta.env.VITE_API_KEY,
-        language: 'pt-BR',
-      },
-    })
+export function useFetch<TResult>(uri: string): FetchResult<TResult> {
+  const { data, error, mutate } = useSWR<TResult, Error, string>(
+    uri,
+    async uri => {
+      const res = await api.get<TResult>(uri, {
+        params: {
+          api_key: import.meta.env.VITE_API_KEY,
+          language: 'pt-BR',
+        },
+      })
 
-    return res.data && typeof res.data === 'object' && 'results' in res.data
-      ? res.data.results
-      : res.data
-  })
+      return res.data && typeof res.data === 'object' && 'results' in res.data
+        ? (res.data.results as TResult)
+        : res.data
+    }
+  )
 
   return { data, error, mutate }
 }

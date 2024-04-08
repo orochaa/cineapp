@@ -1,4 +1,4 @@
-import { type ProfileSize } from '@/domain/api'
+import type { ProfileSize } from '@/domain/api'
 import { Card, Carousel } from '@/presentation/components'
 import React, { useMemo } from 'react'
 

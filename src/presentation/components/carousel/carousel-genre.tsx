@@ -1,21 +1,22 @@
-import {
-  type BackdropSize,
-  type IMovie,
-  type IMovieGenre,
-  type ITv,
-  type ITvGenre,
+import type {
+  BackdropSize,
+  IMovie,
+  IMovieGenre,
+  ITv,
+  ITvGenre,
 } from '@/domain/api'
-import {
-  Card,
-  Carousel,
-  type ICarouselHandles,
-  type SelectGenreValue,
+import { Card, Carousel } from '@/presentation/components'
+import type {
+  ICarouselHandles,
+  SelectGenreValue,
 } from '@/presentation/components'
-import { type GenreType, formatGenre } from '@/presentation/helpers'
+import { formatGenre } from '@/presentation/helpers/format.js'
+import type { GenreType } from '@/presentation/helpers/format.js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface CarouselGenreProps {
-  genre: IMovieGenre | ITvGenre | string
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  genre: IMovieGenre | ITvGenre | (string & {})
   selectedGenre: SelectGenreValue
   list: (IMovie | ITv)[] | undefined
   type: 'tv' | 'movies'

@@ -1,4 +1,4 @@
-import { type IPerson } from './person'
+import type { IPerson } from './person'
 
 export interface ITv {
   id: number

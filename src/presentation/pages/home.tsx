@@ -1,4 +1,4 @@
-import { type BackdropSize, type IMovie, type ITv } from '@/domain/api'
+import type { BackdropSize, IMovie, ITv } from '@/domain/api'
 import { Card, CarouselGenre, Header, Main } from '@/presentation/components'
 import { useFetch } from '@/presentation/hooks'
 

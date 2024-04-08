@@ -1,4 +1,4 @@
-import { type IMovie, type ITv } from '.'
+import type { IMovie, ITv } from '.'
 
 export interface IPerson {
   id: number

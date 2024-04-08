@@ -1,11 +1,11 @@
-import {
-  type ITv,
-  type ITvCredits,
-  type ITvDetails,
-  type ITvProviders,
-  type ITvVideo,
-  type LogoSize,
-  type PosterSize,
+import type {
+  ITv,
+  ITvCredits,
+  ITvDetails,
+  ITvProviders,
+  ITvVideo,
+  LogoSize,
+  PosterSize,
 } from '@/domain/api'
 import {
   CarouselPeople,
@@ -41,7 +41,7 @@ export function SeriePage(): React.JSX.Element {
     <>
       <Header />
 
-      {showVideo && videos && (
+      {showVideo && videos ? (
         <div
           className="fixed inset-0 z-20 flex h-screen w-screen items-center justify-center bg-[#000a] transition-all"
           onClick={() => setShowVideo(false)}
@@ -54,7 +54,7 @@ export function SeriePage(): React.JSX.Element {
             }`}
           />
         </div>
-      )}
+      ) : null}
 
       <Banner media={serie}>
         <>
@@ -82,12 +82,8 @@ export function SeriePage(): React.JSX.Element {
                 className="block w-full max-w-fit brightness-90"
               />
               <button
-                className="
-                absolute inset-0
-                flex items-center justify-center
-                bg-[#0005] opacity-0 transition-opacity
-                duration-300 hover:opacity-100
-              "
+                type="button"
+                className="absolute inset-0 flex items-center justify-center bg-[#0005] opacity-0 transition-opacity duration-300 hover:opacity-100"
                 title="Assistir trailer"
                 onClick={() => setShowVideo(true)}
               >
@@ -125,7 +121,7 @@ export function SeriePage(): React.JSX.Element {
                 <span className="mr-2 text-xl text-slate-400">Status:</span>
                 {serie?.in_production ? 'Em produção' : 'Encerrado'}
               </p>
-              {providers?.BR?.flatrate && (
+              {providers?.BR?.flatrate ? (
                 <>
                   <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
                   <div className="flex gap-3">
@@ -144,7 +140,7 @@ export function SeriePage(): React.JSX.Element {
                     ))}
                   </div>
                 </>
-              )}
+              ) : null}
             </div>
           </div>
 
