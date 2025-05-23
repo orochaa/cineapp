@@ -35,6 +35,7 @@ interface Movie {
   name: string | undefined
   vote_average: number
   vote_count: number
+  genre_ids: number[]
 }
 
 type MovieGenre =

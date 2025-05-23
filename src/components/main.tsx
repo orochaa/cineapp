@@ -1,13 +1,15 @@
+import { cn } from '@/lib/format'
 import type { ReactNode } from 'react'
 
 interface MainProps {
   children: ReactNode
+  className?: string
 }
 
-export function Main({ children }: MainProps): React.JSX.Element {
+export function Main(props: MainProps): React.JSX.Element {
   return (
-    <main className="bg-background text-title min-h-screen w-full overflow-hidden">
-      <div className="m-auto mt-28 mb-20 w-11/12">{children}</div>
+    <main className={cn('bg-background min-h-svh w-full', props.className)}>
+      {props.children}
     </main>
   )
 }

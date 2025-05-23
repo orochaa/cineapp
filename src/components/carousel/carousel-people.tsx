@@ -41,8 +41,8 @@ export function CarouselPeople(props: CarouselPeopleProps): React.JSX.Element {
             '/w185' as ProfileSize,
             person.profile_path
           )}
-          name={person.name}
-          paragraph={person.character ?? person.known_for_department}
+          title={person.name}
+          description={person.character ?? person.known_for_department}
         />
       ))}
     </Carousel>

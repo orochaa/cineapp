@@ -2,8 +2,8 @@ import { Card } from '@/components/card'
 import type { CarouselHandles } from '@/components/carousel/carousel'
 import { Carousel } from '@/components/carousel/carousel'
 import type { SelectGenreValue } from '@/components/select-genre'
-import { formatGenre } from '@/lib/format.js'
-import type { GenreType } from '@/lib/format.js'
+import { formatGenre } from '@/lib/genre'
+import type { GenreType } from '@/lib/genre'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface CarouselGenreProps {
@@ -42,6 +42,7 @@ export function CarouselGenre(props: CarouselGenreProps): React.JSX.Element {
       >
         {filteredList.map((item, index) => (
           <Card
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
             uri={`/${props.type}/${item.id}`}
             imageUrl={''.concat(
@@ -49,8 +50,9 @@ export function CarouselGenre(props: CarouselGenreProps): React.JSX.Element {
               '/w300' as BackdropSize,
               item.backdrop_path
             )}
-            name={item.title ?? item.name}
+            title={item.title ?? item.name}
             rating={item.vote_average}
+            containerClassName="w-[300px]"
           />
         ))}
       </Carousel>

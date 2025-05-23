@@ -107,23 +107,20 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
 
     return (
       <>
-        <h2 className="text-title pt-6 pb-4 text-2xl">{props.title}</h2>
-        <div
-          className={
-            grid ? 'block' : 'group relative flex items-center overflow-hidden'
-          }
-        >
+        <h2 className="text-title m-6 mb-4 text-2xl font-semibold">
+          {props.title}
+        </h2>
+        <div className={grid ? 'block' : 'relative flex overflow-hidden'}>
           <button
             type="button"
-            className={`bg-opacity-30 text-title hover:bg-opacity-60 absolute left-1 z-10 rounded-full bg-gray-700 opacity-0 group-hover:opacity-100 ${
-              showLeftArrow ? 'visible' : 'invisible'
-            }`}
+            data-active={showLeftArrow}
+            className="invisible absolute bottom-0 left-0 z-10 flex h-full w-16 items-center justify-center bg-gradient-to-r from-zinc-950/90 via-zinc-950/80 to-transparent opacity-0 transition hover:opacity-100 data-active:visible"
             onClick={handleLeftArrowClick}
           >
-            <MdChevronLeft size={40} />
+            <MdChevronLeft size={40} className="text-title" />
           </button>
           <ul
-            className={`flex shrink-0 items-center gap-4 transition-all ease-linear sm:duration-500 sm:ease-in-out ${grid ? 'flex-wrap' : 'flex-nowrap'} `}
+            className={`flex shrink-0 items-start gap-4 pl-6 transition-all ease-linear sm:duration-500 sm:ease-in-out ${grid ? 'flex-wrap' : 'flex-nowrap'} `}
             style={{
               marginLeft: `${axisX}px`,
             }}
@@ -134,7 +131,7 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
           </ul>
           <button
             type="button"
-            className="bg-opacity-30 text-title hover:bg-opacity-60 absolute right-1 z-10 rounded-full bg-gray-700 opacity-0 group-hover:opacity-100"
+            className="absolute right-0 bottom-0 z-10 flex h-full w-16 items-center justify-center bg-gradient-to-r from-transparent via-zinc-950/80 to-zinc-950/90 opacity-0 transition hover:opacity-100"
             onClick={handleRightArrowClick}
           >
             <MdChevronRight size={40} />
