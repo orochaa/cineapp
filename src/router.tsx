@@ -1,4 +1,4 @@
-import { Header } from '@/components/header'
+import { Layout } from '@/components/layout/layout'
 import { Home } from '@/pages/home'
 import { MoviePage } from '@/pages/movie'
 import { MoviesPage } from '@/pages/movies'
@@ -13,7 +13,7 @@ export function Router(): React.JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Header />}>
+        <Route element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="person/:personId" element={<PersonPage />} />
           <Route path="search" element={<SearchPage />} />
