@@ -1,5 +1,4 @@
 import { CarouselGenre } from '@/components/carousel/carousel-genre'
-import { Header } from '@/components/header'
 import { Main } from '@/components/main'
 import { SelectGenre } from '@/components/select-genre'
 import type { SelectGenreValue } from '@/components/select-genre'
@@ -30,9 +29,8 @@ export function MoviesPage(): React.JSX.Element {
   const western = useGenre<Movie[]>('movie', 37)
 
   return (
-    <>
-      <Header />
-      <Main>
+    <Main className="pb-20">
+      <div className="pt-12 pl-6">
         <SelectGenre
           title="Filmes"
           onSet={setGenre}
@@ -54,115 +52,115 @@ export function MoviesPage(): React.JSX.Element {
             'western',
           ]}
         />
-        <CarouselGenre
-          genre="Populares"
-          selectedGenre={genre}
-          type="movies"
-          list={trending}
-        />
-        <CarouselGenre
-          genre="Bem Avaliados"
-          selectedGenre={genre}
-          type="movies"
-          list={topRated}
-        />
-        <CarouselGenre
-          genre="Em Breve"
-          selectedGenre={genre}
-          type="movies"
-          list={upcoming}
-        />
-        <CarouselGenre
-          genre="action"
-          selectedGenre={genre}
-          type="movies"
-          list={action}
-        />
-        <CarouselGenre
-          genre="adventure"
-          selectedGenre={genre}
-          type="movies"
-          list={adventure}
-        />
-        <CarouselGenre
-          genre="animation"
-          selectedGenre={genre}
-          type="movies"
-          list={animation}
-        />
-        <CarouselGenre
-          genre="comedy"
-          selectedGenre={genre}
-          type="movies"
-          list={comedy}
-        />
-        <CarouselGenre
-          genre="crime"
-          selectedGenre={genre}
-          type="movies"
-          list={crime}
-        />
-        <CarouselGenre
-          genre="documentary"
-          selectedGenre={genre}
-          type="movies"
-          list={documentary}
-        />
-        <CarouselGenre
-          genre="drama"
-          selectedGenre={genre}
-          type="movies"
-          list={drama}
-        />
-        <CarouselGenre
-          genre="family"
-          selectedGenre={genre}
-          type="movies"
-          list={family}
-        />
-        <CarouselGenre
-          genre="fantasy"
-          selectedGenre={genre}
-          type="movies"
-          list={fantasy}
-        />
-        <CarouselGenre
-          genre="history"
-          selectedGenre={genre}
-          type="movies"
-          list={history}
-        />
-        <CarouselGenre
-          genre="horror"
-          selectedGenre={genre}
-          type="movies"
-          list={horror}
-        />
-        <CarouselGenre
-          genre="mystery"
-          selectedGenre={genre}
-          type="movies"
-          list={mystery}
-        />
-        <CarouselGenre
-          genre="romance"
-          selectedGenre={genre}
-          type="movies"
-          list={romance}
-        />
-        <CarouselGenre
-          genre="sciFi"
-          selectedGenre={genre}
-          type="movies"
-          list={sciFi}
-        />
-        <CarouselGenre
-          genre="western"
-          selectedGenre={genre}
-          type="movies"
-          list={western}
-        />
-      </Main>
-    </>
+      </div>
+      <CarouselGenre
+        genre="Populares"
+        selectedGenre={genre}
+        type="movies"
+        list={trending}
+      />
+      <CarouselGenre
+        genre="Bem Avaliados"
+        selectedGenre={genre}
+        type="movies"
+        list={topRated}
+      />
+      <CarouselGenre
+        genre="Em Breve"
+        selectedGenre={genre}
+        type="movies"
+        list={upcoming}
+      />
+      <CarouselGenre
+        genre="action"
+        selectedGenre={genre}
+        type="movies"
+        list={action}
+      />
+      <CarouselGenre
+        genre="adventure"
+        selectedGenre={genre}
+        type="movies"
+        list={adventure}
+      />
+      <CarouselGenre
+        genre="animation"
+        selectedGenre={genre}
+        type="movies"
+        list={animation}
+      />
+      <CarouselGenre
+        genre="comedy"
+        selectedGenre={genre}
+        type="movies"
+        list={comedy}
+      />
+      <CarouselGenre
+        genre="crime"
+        selectedGenre={genre}
+        type="movies"
+        list={crime}
+      />
+      <CarouselGenre
+        genre="documentary"
+        selectedGenre={genre}
+        type="movies"
+        list={documentary}
+      />
+      <CarouselGenre
+        genre="drama"
+        selectedGenre={genre}
+        type="movies"
+        list={drama}
+      />
+      <CarouselGenre
+        genre="family"
+        selectedGenre={genre}
+        type="movies"
+        list={family}
+      />
+      <CarouselGenre
+        genre="fantasy"
+        selectedGenre={genre}
+        type="movies"
+        list={fantasy}
+      />
+      <CarouselGenre
+        genre="history"
+        selectedGenre={genre}
+        type="movies"
+        list={history}
+      />
+      <CarouselGenre
+        genre="horror"
+        selectedGenre={genre}
+        type="movies"
+        list={horror}
+      />
+      <CarouselGenre
+        genre="mystery"
+        selectedGenre={genre}
+        type="movies"
+        list={mystery}
+      />
+      <CarouselGenre
+        genre="romance"
+        selectedGenre={genre}
+        type="movies"
+        list={romance}
+      />
+      <CarouselGenre
+        genre="sciFi"
+        selectedGenre={genre}
+        type="movies"
+        list={sciFi}
+      />
+      <CarouselGenre
+        genre="western"
+        selectedGenre={genre}
+        type="movies"
+        list={western}
+      />
+    </Main>
   )
 }

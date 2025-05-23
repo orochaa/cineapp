@@ -1,10 +1,9 @@
 import { CarouselGenre } from '@/components/carousel/carousel-genre'
 import { CarouselPeople } from '@/components/carousel/carousel-people'
-import { Header } from '@/components/header'
 import { Main } from '@/components/main'
-import { useQuery } from '@/hooks/use-query'
 import { api } from '@/lib/http'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router'
 
 interface SearchMultiResult {
   results: ({
@@ -15,7 +14,9 @@ interface SearchMultiResult {
 }
 
 export function SearchPage(): React.JSX.Element {
-  const query = useQuery().get('search_query')
+  const [searchParams] = useSearchParams()
+  const query = searchParams.get('q')
+
   const [movies, setMovies] = useState<Movie[]>([])
   const [series, setSeries] = useState<TvShow[]>([])
   const [people, setPeople] = useState<Person[]>([])
@@ -55,27 +56,19 @@ export function SearchPage(): React.JSX.Element {
   }, [query])
 
   return (
-    <>
-      <Header />
-      <Main>
-        <h2 className="text-3xl">Resultados de {`'${query}'`}:</h2>
+    <Main className="pt-12 pb-20">
+      <h2 className="pl-6 text-3xl">Resultados de {`'${query}'`}:</h2>
 
-        <CarouselGenre
-          genre="Filmes"
-          list={movies}
-          selectedGenre="*"
-          type="movies"
-        />
+      <CarouselGenre
+        genre="Filmes"
+        list={movies}
+        selectedGenre="*"
+        type="movies"
+      />
 
-        <CarouselGenre
-          genre="Séries"
-          list={series}
-          selectedGenre="*"
-          type="tv"
-        />
+      <CarouselGenre genre="Séries" list={series} selectedGenre="*" type="tv" />
 
-        <CarouselPeople title="Pessoas" list={people} />
-      </Main>
-    </>
+      <CarouselPeople title="Pessoas" list={people} />
+    </Main>
   )
 }

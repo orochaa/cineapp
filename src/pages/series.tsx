@@ -1,5 +1,4 @@
 import { CarouselGenre } from '@/components/carousel/carousel-genre'
-import { Header } from '@/components/header'
 import { Main } from '@/components/main'
 import { SelectGenre } from '@/components/select-genre'
 import type { SelectGenreValue } from '@/components/select-genre'
@@ -29,9 +28,8 @@ export function SeriesPage(): React.JSX.Element {
   const western = useGenre<TvShow[]>('tv', 37)
 
   return (
-    <>
-      <Header />
-      <Main>
+    <Main className="pb-20">
+      <div className="pt-12 pl-6">
         <SelectGenre
           title="Séries"
           onSet={setGenre}
@@ -52,109 +50,90 @@ export function SeriesPage(): React.JSX.Element {
             'western',
           ]}
         />
-        <CarouselGenre
-          type="tv"
-          genre="Populares"
-          selectedGenre={genre}
-          list={trending}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="Bem Avaliados"
-          selectedGenre={genre}
-          list={topRated}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="Atuais"
-          selectedGenre={genre}
-          list={current}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="actionAdventure"
-          selectedGenre={genre}
-          list={actionAdventure}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="animation"
-          selectedGenre={genre}
-          list={animation}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="crime"
-          selectedGenre={genre}
-          list={crime}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="documentary"
-          selectedGenre={genre}
-          list={documentary}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="drama"
-          selectedGenre={genre}
-          list={drama}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="family"
-          selectedGenre={genre}
-          list={family}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="kids"
-          selectedGenre={genre}
-          list={kids}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="mystery"
-          selectedGenre={genre}
-          list={mystery}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="news"
-          selectedGenre={genre}
-          list={news}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="reality"
-          selectedGenre={genre}
-          list={reality}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="sciFi"
-          selectedGenre={genre}
-          list={sciFi}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="soap"
-          selectedGenre={genre}
-          list={soap}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="talk"
-          selectedGenre={genre}
-          list={talk}
-        />
-        <CarouselGenre
-          type="tv"
-          genre="western"
-          selectedGenre={genre}
-          list={western}
-        />
-      </Main>
-    </>
+      </div>
+
+      <CarouselGenre
+        type="tv"
+        genre="Populares"
+        selectedGenre={genre}
+        list={trending}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="Bem Avaliados"
+        selectedGenre={genre}
+        list={topRated}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="Atuais"
+        selectedGenre={genre}
+        list={current}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="actionAdventure"
+        selectedGenre={genre}
+        list={actionAdventure}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="animation"
+        selectedGenre={genre}
+        list={animation}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="crime"
+        selectedGenre={genre}
+        list={crime}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="documentary"
+        selectedGenre={genre}
+        list={documentary}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="drama"
+        selectedGenre={genre}
+        list={drama}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="family"
+        selectedGenre={genre}
+        list={family}
+      />
+      <CarouselGenre type="tv" genre="kids" selectedGenre={genre} list={kids} />
+      <CarouselGenre
+        type="tv"
+        genre="mystery"
+        selectedGenre={genre}
+        list={mystery}
+      />
+      <CarouselGenre type="tv" genre="news" selectedGenre={genre} list={news} />
+      <CarouselGenre
+        type="tv"
+        genre="reality"
+        selectedGenre={genre}
+        list={reality}
+      />
+      <CarouselGenre
+        type="tv"
+        genre="sciFi"
+        selectedGenre={genre}
+        list={sciFi}
+      />
+      <CarouselGenre type="tv" genre="soap" selectedGenre={genre} list={soap} />
+      <CarouselGenre type="tv" genre="talk" selectedGenre={genre} list={talk} />
+      <CarouselGenre
+        type="tv"
+        genre="western"
+        selectedGenre={genre}
+        list={western}
+      />
+    </Main>
   )
 }

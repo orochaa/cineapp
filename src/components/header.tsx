@@ -23,7 +23,7 @@ export function Header(): React.JSX.Element {
       if (search) {
         navigate(`/search?q=${search}`)
       } else {
-        navigate('/home')
+        navigate('/')
       }
     },
     [navigate]
@@ -35,7 +35,7 @@ export function Header(): React.JSX.Element {
         <header className="sticky top-0 left-0 z-30 w-full">
           <div className="bg-header flex items-center gap-8 px-6 py-3">
             <nav className="flex gap-6 font-semibold">
-              <Link to="/home" className="group flex items-center gap-2">
+              <Link to="/" className="group flex items-center gap-2">
                 <House size={18} />
                 <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
                   Inicio
@@ -104,7 +104,7 @@ export function Header(): React.JSX.Element {
             <div className="mx-4 mt-28">
               <nav className="space-y-3">
                 <Link
-                  to="/home"
+                  to="/"
                   className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
                 >
                   <House />

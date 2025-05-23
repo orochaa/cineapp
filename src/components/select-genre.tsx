@@ -1,4 +1,4 @@
-import { formatGenre } from '@/lib/format.js'
+import { formatGenre } from '@/lib/genre'
 import React, { useCallback, useState } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 import Select from 'react-select'
