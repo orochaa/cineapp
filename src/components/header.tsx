@@ -1,116 +1,136 @@
+import { useWindowSize } from '@/hooks/use-window-size'
+import { Clapperboard, House, Menu, Search, TvMinimal } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import type { FormEvent } from 'react'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { MdHome, MdSearch, MdTheaters, MdTv } from 'react-icons/md'
-import { Link, useNavigate } from 'react-router'
+import { Link, Outlet, useNavigate, useSearchParams } from 'react-router'
 
 export function Header(): React.JSX.Element {
-  const [showSidebar, setShowSidebar] = useState(false)
-  const [inputFocus, setInputFocus] = useState(false)
-  const [inputValue, setInputValue] = useState('')
+  const [searchParams] = useSearchParams()
+  const query = searchParams.get('q')
+
+  const { windowWidth } = useWindowSize()
+
+  const [isSidebarActive, setIsSidebarActive] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault()
+    (e: FormEvent) => {
+      e.preventDefault()
 
-      if (inputValue) {
-        navigate(`/search?search_query=${inputValue}`)
+      const fd = new FormData(e.target as HTMLFormElement)
+      const search = fd.get('search') as string
+
+      if (search) {
+        navigate(`/search?q=${search}`)
       } else {
         navigate('/home')
       }
     },
-    [inputValue, navigate]
+    [navigate]
   )
 
-  return window.innerWidth > 450 ? (
-    <header className="bg-primary fixed top-0 left-0 z-40 flex w-full gap-4 px-4 py-5 text-white md:gap-10 md:px-9">
-      <nav className="font-open flex gap-3 font-semibold md:gap-6">
-        <Link to="/home" className="group flex items-center gap-2">
-          <MdHome />
-          <p className="after:block after:h-0.5 after:w-0 after:rounded-sm after:bg-white after:transition-[width] group-hover:after:w-full">
-            Inicio
-          </p>
-        </Link>
-        <Link to="/movies" className="group flex items-center gap-2">
-          <MdTheaters />
-          <p className="after:block after:h-0.5 after:w-0 after:rounded-sm after:bg-white after:transition-[width] group-hover:after:w-full">
-            Filmes
-          </p>
-        </Link>
-        <Link to="/tv" className="group flex items-center gap-2">
-          <MdTv />
-          <p className="after:block after:h-0.5 after:w-0 after:rounded-sm after:bg-white after:transition-[width] group-hover:after:w-full">
-            Séries
-          </p>
-        </Link>
-      </nav>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-background flex items-center gap-4 rounded-sm px-4 py-1"
-      >
-        <MdSearch size={20} className={inputFocus ? 'text-purple-500' : ''} />
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          className="bg-transparent p-1 outline-hidden transition-colors placeholder:text-zinc-500"
-          style={{ verticalAlign: 'middle' }}
-          onFocus={() => setInputFocus(true)}
-          onBlur={() => setInputFocus(false)}
-          onChange={event => setInputValue(event.target.value)}
-        />
-      </form>
-    </header>
-  ) : (
-    <header className="bg-primary fixed top-0 left-0 z-40 flex w-full gap-4 px-9 py-5 text-xl text-white">
-      <button
-        type="button"
-        className="z-50 rounded-sm border border-transparent p-1 active:border-zinc-300"
-        onClick={() => setShowSidebar(state => !state)}
-      >
-        <GiHamburgerMenu size={20} className="bg-transparent outline-hidden" />
-      </button>
+  return (
+    <div>
+      {windowWidth > 640 ? (
+        <header className="sticky top-0 left-0 z-30 w-full">
+          <div className="bg-header flex items-center gap-8 px-6 py-3">
+            <nav className="flex gap-6 font-semibold">
+              <Link to="/home" className="group flex items-center gap-2">
+                <House size={18} />
+                <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
+                  Inicio
+                </p>
+              </Link>
+              <Link to="/movies" className="group flex items-center gap-2">
+                <Clapperboard size={18} />
+                <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
+                  Filmes
+                </p>
+              </Link>
+              <Link to="/tv" className="group flex items-center gap-2">
+                <TvMinimal size={18} />
+                <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
+                  Séries
+                </p>
+              </Link>
+            </nav>
 
-      <form className="bg-background flex items-center gap-2 rounded-sm px-4 py-1">
-        <MdSearch size={20} className={inputFocus ? 'text-purple-500' : ''} />
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          className="w-1/2 bg-transparent p-1 align-middle outline-hidden placeholder:text-zinc-500"
-          onFocus={() => setInputFocus(true)}
-          onBlur={() => setInputFocus(false)}
-        />
-      </form>
+            <form
+              onSubmit={handleSubmit}
+              className="flex w-xs items-center gap-2 rounded-lg bg-slate-800/60 px-3 py-2"
+            >
+              <Search size={18} className="text-zinc-300" />
+              <input
+                type="text"
+                name="search"
+                className="peer block h-full grow outline-hidden placeholder:text-zinc-400"
+                placeholder="Pesquisar..."
+                defaultValue={query ?? ''}
+                autoFocus={!!query}
+              />
+            </form>
+          </div>
+        </header>
+      ) : (
+        <header className="sticky top-0 left-0 z-30 w-full">
+          <div className="bg-header mx-auto flex w-11/12 items-center gap-4 py-3">
+            <button
+              type="button"
+              className="relative z-50 h-full p-2"
+              onClick={() => setIsSidebarActive(state => !state)}
+            >
+              <Menu size={24} className="bg-transparent outline-hidden" />
+            </button>
 
-      <section
-        className={`fixed top-0 left-0 h-screen w-full bg-[#1212145A] transition-opacity ${showSidebar ? 'visible' : 'invisible'} `}
-      >
-        <div className="bg-primary h-screen w-[85%] overflow-hidden px-4 pt-20">
-          <nav className="font-open flex flex-col gap-4 font-semibold">
-            <Link
-              to="/home"
-              className="bg-opacity-60 flex items-center gap-4 rounded-sm bg-slate-900 p-4"
+            <form
+              onSubmit={handleSubmit}
+              className="flex w-full max-w-xs items-center gap-2 rounded-lg bg-slate-800 px-4 py-3"
             >
-              <MdHome />
-              <p>Inicio</p>
-            </Link>
-            <Link
-              to="/movies"
-              className="bg-opacity-60 flex items-center gap-4 rounded-sm bg-slate-900 p-4"
-            >
-              <MdTheaters />
-              <p>Filmes</p>
-            </Link>
-            <Link
-              to="/tv"
-              className="bg-opacity-60 flex items-center gap-4 rounded-sm bg-slate-900 p-4"
-            >
-              <MdTv />
-              <p>Séries</p>
-            </Link>
-          </nav>
-        </div>
-      </section>
-    </header>
+              <Search />
+              <input
+                type="text"
+                name="search"
+                className="peer block h-full grow outline-hidden placeholder:text-zinc-400"
+                placeholder="Pesquisar..."
+                defaultValue={query ?? ''}
+                autoFocus={!!query}
+              />
+            </form>
+          </div>
+          <div
+            data-active={isSidebarActive}
+            className="bg-header fixed top-0 left-0 z-20 h-svh w-0 overflow-hidden transition-[width] data-active:w-xs"
+          >
+            <div className="mx-4 mt-28">
+              <nav className="space-y-3">
+                <Link
+                  to="/home"
+                  className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
+                >
+                  <House />
+                  Inicio
+                </Link>
+                <Link
+                  to="/movies"
+                  className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
+                >
+                  <Clapperboard />
+                  Filmes
+                </Link>
+                <Link
+                  to="/tv"
+                  className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
+                >
+                  <TvMinimal />
+                  Séries
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </header>
+      )}
+
+      <Outlet />
+    </div>
   )
 }

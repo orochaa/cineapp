@@ -3,8 +3,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --color-header: #090b10;
   --color-background: #141620;
-  --color-primary: #090b10;
   --color-title: #e5e5e5;
 
   --font-lato: Lato, sans-serif;
@@ -15,8 +15,13 @@
   --font-ubuntu: Ubuntu, sans-serif;
 }
 
+@custom-variant data-selected (&[data-selected="true"]);
+@custom-variant data-active (&[data-active="true"]);
+
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family:
+    DM Sans,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

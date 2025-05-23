@@ -1,3 +1,4 @@
+import { Header } from '@/components/header'
 import { Home } from '@/pages/home'
 import { MoviePage } from '@/pages/movie'
 import { MoviesPage } from '@/pages/movies'
@@ -12,9 +13,8 @@ export function Router(): React.JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={import.meta.env.VITE_BASE_URI || ''}>
-          <Route path="" element={<Navigate to="home" />} />
-          <Route path="home" element={<Home />} />
+        <Route element={<Header />}>
+          <Route path="" element={<Home />} />
           <Route path="person/:personId" element={<PersonPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="movies">
@@ -25,6 +25,7 @@ export function Router(): React.JSX.Element {
             <Route path="" element={<SeriesPage />} />
             <Route path=":serieId" element={<SeriePage />} />
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </BrowserRouter>
