@@ -1,6 +1,7 @@
 import { api } from '@/lib/http'
 import { useEffect, useState } from 'react'
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export function useGenre<TResult>(
   type: 'movie' | 'tv',
   genreId: number

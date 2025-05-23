@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { CgAsterisk } from 'react-icons/cg'
 import { MdAttachMoney, MdMoneyOff } from 'react-icons/md'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 const formatCurrency = (n: number | undefined): string => {
   return n === undefined ? '?' : n.toLocaleString('pt-br')
@@ -121,7 +121,7 @@ export function MoviePage(): React.JSX.Element {
                         )}
                         alt={provider.provider_name}
                         title={provider.provider_name}
-                        className="rounded-sm"
+                        className="rounded-xs"
                       />
                     ))}
                   </div>

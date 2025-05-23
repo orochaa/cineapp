@@ -3,7 +3,7 @@ import { Header } from '@/components/header'
 import { Main } from '@/components/main'
 import { useFetch } from '@/hooks/use-fetch'
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 export function PersonPage(): React.JSX.Element {
   const { personId } = useParams()

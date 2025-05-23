@@ -44,7 +44,7 @@ export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
     <div className="flex flex-1 gap-6">
       <button
         type="button"
-        className="text-2xl text-title"
+        className="text-title text-2xl"
         onClick={() =>
           handleClick({
             label: 'Gêneros',

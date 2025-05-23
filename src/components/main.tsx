@@ -6,8 +6,8 @@ interface MainProps {
 
 export function Main({ children }: MainProps): React.JSX.Element {
   return (
-    <main className="min-h-screen w-full overflow-hidden bg-background text-title">
-      <div className="m-auto mb-20 mt-28 w-11/12">{children}</div>
+    <main className="bg-background text-title min-h-screen w-full overflow-hidden">
+      <div className="m-auto mt-28 mb-20 w-11/12">{children}</div>
     </main>
   )
 }

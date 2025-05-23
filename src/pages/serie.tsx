@@ -7,7 +7,7 @@ import { useFetch } from '@/hooks/use-fetch'
 import { useEffect, useState } from 'react'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { CgAsterisk } from 'react-icons/cg'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { Banner } from '../components/banner'
 
 export function SeriePage(): React.JSX.Element {
@@ -124,7 +124,7 @@ export function SeriePage(): React.JSX.Element {
                         )}
                         alt={provider.provider_name}
                         title={provider.provider_name}
-                        className="rounded-sm"
+                        className="rounded-xs"
                       />
                     ))}
                   </div>
@@ -137,12 +137,12 @@ export function SeriePage(): React.JSX.Element {
 
           <CarouselPeople title="Produção" list={credits?.crew} />
 
-          <h2 className="pb-4 pt-6 text-2xl text-title">Temporadas</h2>
+          <h2 className="text-title pt-6 pb-4 text-2xl">Temporadas</h2>
           <ul className="flex flex-col gap-4">
             {serie?.seasons.map(season => (
               <li
                 key={season.id}
-                className="flex bg-primary shadow shadow-black"
+                className="bg-primary flex shadow-sm shadow-black"
               >
                 <img
                   src={''.concat(

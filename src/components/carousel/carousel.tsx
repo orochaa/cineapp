@@ -107,7 +107,7 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
 
     return (
       <>
-        <h2 className="pb-4 pt-6 text-2xl text-title">{props.title}</h2>
+        <h2 className="text-title pt-6 pb-4 text-2xl">{props.title}</h2>
         <div
           className={
             grid ? 'block' : 'group relative flex items-center overflow-hidden'
@@ -115,7 +115,7 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
         >
           <button
             type="button"
-            className={`absolute left-1 z-10 rounded-full bg-gray-700 bg-opacity-30 text-title opacity-0 hover:bg-opacity-60 group-hover:opacity-100 ${
+            className={`bg-opacity-30 text-title hover:bg-opacity-60 absolute left-1 z-10 rounded-full bg-gray-700 opacity-0 group-hover:opacity-100 ${
               showLeftArrow ? 'visible' : 'invisible'
             }`}
             onClick={handleLeftArrowClick}
@@ -123,10 +123,7 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
             <MdChevronLeft size={40} />
           </button>
           <ul
-            className={`
-            flex shrink-0 items-center gap-4 transition-all ease-linear sm:duration-500 sm:ease-in-out
-            ${grid ? 'flex-wrap' : 'flex-nowrap'}
-          `}
+            className={`flex shrink-0 items-center gap-4 transition-all ease-linear sm:duration-500 sm:ease-in-out ${grid ? 'flex-wrap' : 'flex-nowrap'} `}
             style={{
               marginLeft: `${axisX}px`,
             }}
@@ -137,7 +134,7 @@ export const Carousel = forwardRef<CarouselHandles, CarouselProps>(
           </ul>
           <button
             type="button"
-            className="absolute right-1 z-10 rounded-full bg-gray-700 bg-opacity-30 text-title opacity-0 hover:bg-opacity-60 group-hover:opacity-100"
+            className="bg-opacity-30 text-title hover:bg-opacity-60 absolute right-1 z-10 rounded-full bg-gray-700 opacity-0 group-hover:opacity-100"
             onClick={handleRightArrowClick}
           >
             <MdChevronRight size={40} />

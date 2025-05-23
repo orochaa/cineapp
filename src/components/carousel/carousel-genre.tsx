@@ -7,7 +7,6 @@ import type { GenreType } from '@/lib/format.js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface CarouselGenreProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
   genre: MovieGenre | TvShowGenre | (string & {})
   selectedGenre: SelectGenreValue
   list: (Movie | TvShow)[] | undefined

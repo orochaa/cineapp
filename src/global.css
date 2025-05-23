@@ -1,8 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #141620;
+  --color-primary: #090b10;
+  --color-title: #e5e5e5;
+
+  --font-lato: Lato, sans-serif;
+  --font-open: Open Sans, sans-serif;
+  --font-poppins: Poppins, sans-serif;
+  --font-raleway: Raleway, sans-serif;
+  --font-roboto: Roboto, sans-serif;
+  --font-ubuntu: Ubuntu, sans-serif;
+}
 
 * {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+li {
+  list-style: none;
 }

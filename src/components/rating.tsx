@@ -26,7 +26,7 @@ export function Rating(props: RatingProps): React.JSX.Element {
 
   return (
     <div className="relative flex items-center justify-center">
-      <div className="right-1/5 absolute">
+      <div className="absolute right-1/5">
         <p
           style={{
             fontSize: (size * 14) / 40,

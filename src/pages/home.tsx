@@ -46,7 +46,7 @@ export function Home(): React.JSX.Element {
           genre="Filmes Populares"
           type="movies"
           selectedGenre="*"
-          list={popularMovies.slice(1, popularMovies.length)}
+          list={popularMovies.slice(1)}
         />
         <CarouselGenre
           genre="Filmes Bem Avaliados"
@@ -58,7 +58,7 @@ export function Home(): React.JSX.Element {
           genre="Séries Populares"
           type="tv"
           selectedGenre="*"
-          list={popularTv.slice(1, popularTv.length)}
+          list={popularTv.slice(1)}
         />
         <CarouselGenre
           genre="Séries Bem Avaliados"

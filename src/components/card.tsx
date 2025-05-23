@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { Rating } from './rating'
 
 interface CardProps {
@@ -23,7 +23,7 @@ export function Card(props: CardProps): React.JSX.Element {
   return props.name ? (
     <Link
       to={props.uri}
-      className={`relative text-title shadow-md shadow-black ${props.className}`}
+      className={`text-title relative shadow-md shadow-black ${props.className}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -35,14 +35,7 @@ export function Card(props: CardProps): React.JSX.Element {
           filter: hover ? 'brightness(0.3)' : 'brightness(0.8)',
         }}
       />
-      <div
-        className="
-              absolute inset-0
-              flex items-end justify-between
-              p-6 opacity-0
-              transition-all hover:opacity-100
-            "
-      >
+      <div className="absolute inset-0 flex items-end justify-between p-6 opacity-0 transition-all hover:opacity-100">
         <h3 className="text-lg font-semibold">
           {props.name}
           <p className="text-sm text-zinc-400">{props.paragraph}</p>
