@@ -1,0 +1,12 @@
+{
+  "files.autoSave": "off",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "tailwindCSS.experimental.classRegex": [
+    ["(?:cn,clsx,twMerge)\\(([^)]*)\\)", "(?:'|\"|`)([^'\"`]*)(?:'|\"|`)"],
+    ["tv\\(([^)]*)\\)", "(?:'|\"|`)([^'\"`]*)(?:'|\"|`)"],
+    ["\\w*[cC]lassName\\s*:\\s*[\"'`]([^\"'`]*)[\"'`]"],
+    ["\\w*[cC]lassName\\s*[:=]\\s*[\"'`]([^\"'`]*)[\"'`]"],
+    ["\\w*[cC]lassName\\s*[:=]\\s*{([^}]*)}"]
+  ]
+}

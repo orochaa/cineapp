@@ -1,0 +1,44 @@
+{
+  "reactComponent": {
+    "scope": "typescriptreact",
+    "prefix": ["comp", "component"],
+    "body": [
+      "export interface ${1:Component}Props {",
+      "  ",
+      "}",
+      "",
+      "export function ${1:Component} (props: ${1:Component}Props): React.JSX.Element {",
+      "  return (",
+      "    <${2:Main}>",
+      "      $0",
+      "    </${2:Main}>",
+      "  )",
+      "}",
+      "",
+    ],
+  },
+  "reactPage": {
+    "scope": "typescriptreact",
+    "prefix": ["page"],
+    "body": [
+      "export function $1Page (): React.JSX.Element {",
+      "  return (",
+      "    <${2:Main}>",
+      "      $0",
+      "    </${2:Main}>",
+      "  )",
+      "}",
+      "",
+    ],
+  },
+  "reactState": {
+    "scope": "typescript,typescriptreact",
+    "prefix": ["stt", "state"],
+    "body": ["const [$1, set$2] = useState<$3>($4)", "$0"],
+  },
+  "reactHook": {
+    "scope": "typescript,typescriptreact",
+    "prefix": ["hook", "use"],
+    "body": ["export function use$1($2) {", "  $0", "}", ""],
+  },
+}

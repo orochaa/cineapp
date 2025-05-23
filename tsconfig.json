@@ -24,6 +24,5 @@
 
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
-  },
-  "references": [{ "path": "./tsconfig.node.json" }]
+  }
 }

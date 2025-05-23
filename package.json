@@ -1,14 +1,14 @@
 {
   "name": "cineapp",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "run-s lint:tsc lint:prettier lint:eslint",
-    "lint:tsc": "tsc",
+    "lint:tsc": "tsc --noEmit",
     "lint:prettier": "prettier --write .",
     "lint:eslint": "eslint --fix \"src/**/*.ts{x,}\""
   },
