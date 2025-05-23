@@ -20,15 +20,15 @@ export function Home(): React.JSX.Element {
     <Main className="pb-20">
       <Link
         to={`/movies/${popularMovies[0].id}`}
-        className="relative w-full bg-black"
+        className="relative w-full overflow-hidden bg-black"
       >
         <img
           src={`${import.meta.env.VITE_API_IMAGE_URL}/w1280/${popularMovies[0].backdrop_path}`}
           alt={popularMovies[0].title}
-          className="ml-auto size-full w-2/3 object-cover"
+          className="ml-auto aspect-video w-full object-cover lg:w-2/3"
         />
-        <div className="absolute top-0 left-0 flex h-full w-2/3 items-center bg-gradient-to-r from-black via-black to-transparent px-28">
-          <div className="space-y-1.5">
+        <div className="absolute bottom-0 left-0 flex w-full items-center bg-gradient-to-t from-black via-black to-transparent py-12 lg:h-full lg:w-2/3 lg:bg-gradient-to-r lg:px-28">
+          <div className="mx-auto w-11/12 space-y-1.5 lg:w-full">
             <h2 className="text-5xl font-semibold">
               {popularMovies[0]?.title}
             </h2>
