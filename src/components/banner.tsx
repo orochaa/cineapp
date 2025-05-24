@@ -32,9 +32,9 @@ export function Banner(props: BannerProps): React.JSX.Element {
         }}
       />
       <div className="absolute bottom-[10%] left-[5%] rounded-l-sm border-l-4 border-purple-600 bg-[#0003] p-4 sm:max-w-[60%]">
-        <p className="flex items-center gap-1 pl-1 text-base text-neutral-300">
+        <div className="flex flex-wrap items-center gap-1 pl-1 text-base text-neutral-300">
           {children}
-        </p>
+        </div>
         <h1 className="text-4xl font-bold text-neutral-100 sm:text-6xl">
           {media?.title ?? media?.name}
         </h1>
