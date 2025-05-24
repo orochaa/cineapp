@@ -25,14 +25,14 @@ export function Home(): React.JSX.Element {
         <img
           src={`${import.meta.env.VITE_API_IMAGE_URL}/w1280/${popularMovies[0].backdrop_path}`}
           alt={popularMovies[0].title}
-          className="ml-auto aspect-video w-full object-cover lg:w-2/3"
+          className="ml-auto aspect-video max-h-[40svh] w-full object-cover lg:max-h-svh lg:w-2/3"
         />
-        <div className="absolute bottom-0 left-0 flex w-full items-center bg-gradient-to-t from-black via-black to-transparent py-12 lg:h-full lg:w-2/3 lg:bg-gradient-to-r lg:px-28">
+        <div className="bottom-0 left-0 flex w-full items-center bg-gradient-to-t from-black via-black to-transparent py-12 lg:absolute lg:h-full lg:w-2/3 lg:bg-gradient-to-r lg:px-28">
           <div className="mx-auto w-11/12 space-y-1.5 lg:w-full">
-            <h2 className="text-5xl font-semibold">
+            <h2 className="text-3xl font-semibold sm:text-5xl">
               {popularMovies[0]?.title}
             </h2>
-            <div className="flex items-center gap-1 pl-1 text-sm text-neutral-300">
+            <div className="flex flex-wrap items-center gap-1 pl-1 text-sm text-neutral-300">
               <Stars
                 rating={popularMovies[0]?.vote_average}
                 starClassName="size-4"
@@ -44,7 +44,9 @@ export function Home(): React.JSX.Element {
               <CgAsterisk />
               {new Date(popularMovies[0]?.release_date).toLocaleDateString()}
             </div>
-            <p className="text-pretty">{popularMovies[0]?.overview}</p>
+            <p className="line-clamp-4 text-pretty text-ellipsis sm:line-clamp-none">
+              {popularMovies[0]?.overview}
+            </p>
           </div>
         </div>
       </Link>

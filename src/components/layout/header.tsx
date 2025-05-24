@@ -30,8 +30,8 @@ export function Header(): React.JSX.Element {
   )
 
   return windowWidth > 640 ? (
-    <header className="sticky top-0 left-0 z-30 w-full">
-      <div className="bg-header flex items-center gap-8 px-6 py-3">
+    <header className="bg-header sticky top-0 left-0 z-30 w-svw">
+      <div className="flex w-full items-center gap-8 px-6 py-3">
         <nav className="flex gap-6 font-semibold">
           <Link to="/" className="group flex items-center gap-2">
             <House size={18} />
@@ -70,8 +70,8 @@ export function Header(): React.JSX.Element {
       </div>
     </header>
   ) : (
-    <header className="sticky top-0 left-0 z-30 w-full">
-      <div className="bg-header mx-auto flex w-11/12 items-center gap-4 py-3">
+    <header className="bg-header sticky top-0 left-0 z-30 w-svw">
+      <div className="mx-auto flex w-11/12 items-center gap-4 py-3">
         <button
           type="button"
           className="relative z-50 h-full p-2"
