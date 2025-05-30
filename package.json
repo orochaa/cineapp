@@ -23,7 +23,8 @@
     "react-router": "^7.6.0",
     "react-select": "^5.10.1",
     "swr": "^2.3.3",
-    "tailwind-merge": "^3.3.0"
+    "tailwind-merge": "^3.3.0",
+    "ua-parser-js": "^2.0.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.7",
@@ -31,6 +32,7 @@
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
+    "@types/ua-parser-js": "^0.7.39",
     "@vitejs/plugin-react": "^4.5.0",
     "eslint": "^9.27.0",
     "eslint-plugin-mist3rbru": "^0.6.4",

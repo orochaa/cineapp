@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout/layout'
+import { useDailyAppPing } from '@/hooks/use-daily-app-ping'
 import { Home } from '@/pages/home'
 import { MoviePage } from '@/pages/movie'
 import { MoviesPage } from '@/pages/movies'
@@ -10,6 +11,8 @@ import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 
 export function Router(): React.JSX.Element {
+  useDailyAppPing()
+
   return (
     <BrowserRouter>
       <Routes>
