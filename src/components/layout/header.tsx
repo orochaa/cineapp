@@ -13,6 +13,14 @@ export function Header(): React.JSX.Element {
   const [isSidebarActive, setIsSidebarActive] = useState(false)
   const navigate = useNavigate()
 
+  const handleToggleSidebar = useCallback(() => {
+    setIsSidebarActive(state => !state)
+  }, [])
+
+  const handleCloseSidebar = useCallback(() => {
+    setIsSidebarActive(false)
+  }, [])
+
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault()
@@ -36,19 +44,19 @@ export function Header(): React.JSX.Element {
           <Link to="/" className="group flex items-center gap-2">
             <House size={18} />
             <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
-              Inicio
+              Home
             </p>
           </Link>
           <Link to="/movies" className="group flex items-center gap-2">
             <Clapperboard size={18} />
             <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
-              Filmes
+              Movies
             </p>
           </Link>
           <Link to="/tv" className="group flex items-center gap-2">
             <TvMinimal size={18} />
             <p className="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:rounded after:bg-white after:transition-[width] group-hover:after:w-full">
-              Séries
+              Series
             </p>
           </Link>
         </nav>
@@ -62,7 +70,7 @@ export function Header(): React.JSX.Element {
             type="text"
             name="search"
             className="peer block h-full grow outline-hidden placeholder:text-zinc-400"
-            placeholder="Pesquisar..."
+            placeholder="Search..."
             defaultValue={query ?? ''}
             autoFocus={!!query}
           />
@@ -75,7 +83,7 @@ export function Header(): React.JSX.Element {
         <button
           type="button"
           className="relative z-50 h-full p-2"
-          onClick={() => setIsSidebarActive(state => !state)}
+          onClick={handleToggleSidebar}
         >
           <Menu size={24} className="bg-transparent outline-hidden" />
         </button>
@@ -89,7 +97,7 @@ export function Header(): React.JSX.Element {
             type="text"
             name="search"
             className="peer block h-full grow outline-hidden placeholder:text-zinc-400"
-            placeholder="Pesquisar..."
+            placeholder="Search..."
             defaultValue={query ?? ''}
             autoFocus={!!query}
           />
@@ -104,26 +112,26 @@ export function Header(): React.JSX.Element {
             <Link
               to="/"
               className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
-              onClick={() => setIsSidebarActive(false)}
+              onClick={handleCloseSidebar}
             >
               <House />
-              Inicio
+              Home
             </Link>
             <Link
               to="/movies"
               className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
-              onClick={() => setIsSidebarActive(false)}
+              onClick={handleCloseSidebar}
             >
               <Clapperboard />
-              Filmes
+              Movies
             </Link>
             <Link
               to="/tv"
               className="flex items-center gap-4 rounded border border-transparent bg-slate-900 p-4 font-semibold hover:border-zinc-600 active:border-zinc-500"
-              onClick={() => setIsSidebarActive(false)}
+              onClick={handleCloseSidebar}
             >
               <TvMinimal />
-              Séries
+              Series
             </Link>
           </nav>
         </div>

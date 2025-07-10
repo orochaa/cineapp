@@ -32,7 +32,7 @@ export function MoviesPage(): React.JSX.Element {
     <Main className="pb-20">
       <div className="pt-12 pl-6">
         <SelectGenre
-          title="Filmes"
+          title="Movies"
           onSet={setGenre}
           options={[
             'action',
@@ -54,19 +54,19 @@ export function MoviesPage(): React.JSX.Element {
         />
       </div>
       <CarouselGenre
-        genre="Populares"
+        genre="Popular"
         selectedGenre={genre}
         type="movies"
         list={trending}
       />
       <CarouselGenre
-        genre="Bem Avaliados"
+        genre="Top Rated"
         selectedGenre={genre}
         type="movies"
         list={topRated}
       />
       <CarouselGenre
-        genre="Em Breve"
+        genre="Coming Soon"
         selectedGenre={genre}
         type="movies"
         list={upcoming}

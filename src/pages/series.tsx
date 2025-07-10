@@ -31,7 +31,7 @@ export function SeriesPage(): React.JSX.Element {
     <Main className="pb-20">
       <div className="pt-12 pl-6">
         <SelectGenre
-          title="Séries"
+          title="Series"
           onSet={setGenre}
           options={[
             'actionAdventure',
@@ -54,19 +54,19 @@ export function SeriesPage(): React.JSX.Element {
 
       <CarouselGenre
         type="tv"
-        genre="Populares"
+        genre="Popular"
         selectedGenre={genre}
         list={trending}
       />
       <CarouselGenre
         type="tv"
-        genre="Bem Avaliados"
+        genre="Top Rated"
         selectedGenre={genre}
         list={topRated}
       />
       <CarouselGenre
         type="tv"
-        genre="Atuais"
+        genre="Current"
         selectedGenre={genre}
         list={current}
       />

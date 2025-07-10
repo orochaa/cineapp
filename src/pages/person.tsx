@@ -32,34 +32,35 @@ export function PersonPage(): React.JSX.Element {
 
           <div className="flex flex-col gap-2 py-2">
             <h2 className="text-4xl text-slate-300">{person?.name}</h2>
-            <p>{person?.biography ?? 'Sem informações sobre 🙁'}</p>
+            {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+            <p>{person?.biography?.trim() || 'No information about 🙁'}</p>
           </div>
         </div>
       </section>
 
       <CarouselGenre
-        genre="Filmes Atuados"
+        genre="Acted in Movies"
         selectedGenre="*"
         type="movies"
         list={movies?.cast}
       />
 
       <CarouselGenre
-        genre="Filmes Produzidos"
+        genre="Produced Movies"
         selectedGenre="*"
         type="tv"
         list={movies?.crew}
       />
 
       <CarouselGenre
-        genre="Séries Atuadas"
+        genre="Acted in Series"
         selectedGenre="*"
         type="tv"
         list={series?.cast}
       />
 
       <CarouselGenre
-        genre="Séries Produzidas"
+        genre="Produced Series"
         selectedGenre="*"
         type="tv"
         list={series?.crew}

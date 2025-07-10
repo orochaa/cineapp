@@ -13,7 +13,6 @@ export function useGenre<TResult>(
       .get(`/discover/${type}`, {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
-          language: 'pt-BR',
           sort_by: 'popularity.desc',
           page: Math.floor(Math.random() * 10) + 1,
           with_genres: genreId,

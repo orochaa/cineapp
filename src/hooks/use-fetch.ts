@@ -15,7 +15,6 @@ export function useFetch<TResult>(uri: string): FetchResult<TResult> {
       const res = await api.get<TResult>(uri, {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
-          language: 'pt-BR',
         },
       })
 

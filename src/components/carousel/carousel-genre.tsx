@@ -50,7 +50,8 @@ export function CarouselGenre(props: CarouselGenreProps): React.JSX.Element {
               '/w300' as BackdropSize,
               item.backdrop_path
             )}
-            title={item.title ?? item.name}
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+            title={item.title?.trim() || item.name}
             rating={item.vote_average}
             containerClassName="w-[300px]"
           />

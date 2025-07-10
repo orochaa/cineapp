@@ -36,7 +36,8 @@ export function Banner(props: BannerProps): React.JSX.Element {
           {children}
         </div>
         <h1 className="text-4xl font-bold text-neutral-100 sm:text-6xl">
-          {media?.title ?? media?.name}
+          {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+          {media?.title?.trim() || media?.name}
         </h1>
         <p className="text-base text-neutral-200 sm:text-lg">
           {media?.tagline}

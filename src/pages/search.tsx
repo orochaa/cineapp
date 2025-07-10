@@ -26,7 +26,6 @@ export function SearchPage(): React.JSX.Element {
       .get<SearchMultiResult>('/search/multi', {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
-          language: 'pt-BR',
           query,
         },
       })
@@ -57,18 +56,18 @@ export function SearchPage(): React.JSX.Element {
 
   return (
     <Main className="pt-12 pb-20">
-      <h2 className="pl-6 text-3xl">Resultados de {`'${query}'`}:</h2>
+      <h2 className="pl-6 text-3xl">Results for {`'${query}'`}:</h2>
 
       <CarouselGenre
-        genre="Filmes"
+        genre="Movies"
         list={movies}
         selectedGenre="*"
         type="movies"
       />
 
-      <CarouselGenre genre="Séries" list={series} selectedGenre="*" type="tv" />
+      <CarouselGenre genre="Series" list={series} selectedGenre="*" type="tv" />
 
-      <CarouselPeople title="Pessoas" list={people} />
+      <CarouselPeople title="People" list={people} />
     </Main>
   )
 }

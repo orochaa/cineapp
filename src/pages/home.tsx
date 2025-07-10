@@ -51,25 +51,25 @@ export function Home(): React.JSX.Element {
         </div>
       </Link>
       <CarouselGenre
-        genre="Filmes Populares"
+        genre="Popular Movies"
         type="movies"
         selectedGenre="*"
         list={popularMovies.slice(1)}
       />
       <CarouselGenre
-        genre="Filmes Bem Avaliados"
+        genre="Top Rated Movies"
         type="movies"
         selectedGenre="*"
         list={topRatedMovies}
       />
       <CarouselGenre
-        genre="Séries Populares"
+        genre="Popular Series"
         type="tv"
         selectedGenre="*"
         list={popularTv}
       />
       <CarouselGenre
-        genre="Séries Bem Avaliadas"
+        genre="Top Rated Series"
         type="tv"
         selectedGenre="*"
         list={topRatedTv}

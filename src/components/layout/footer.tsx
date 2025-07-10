@@ -13,7 +13,7 @@ export function Footer(): React.JSX.Element {
           />
           <div>
             <p className="items-center gap-2 sm:flex">
-              Projeto feito em{' '}
+              Project made with{' '}
               <a
                 href="https://react.dev/"
                 target="_blank"
@@ -24,7 +24,7 @@ export function Footer(): React.JSX.Element {
                   className="inline-block size-6 text-blue-400"
                 />
               </a>{' '}
-              com dados consumidos da{' '}
+              with data consumed from the{' '}
               <a
                 title="The Movie Database"
                 href="https://www.themoviedb.org/"
@@ -40,8 +40,8 @@ export function Footer(): React.JSX.Element {
               </a>
             </p>
             <p>
-              Este projeto usa a TMDB API, mas não é aprovado ou certificado
-              pela TMDB.
+              This product uses the TMDB API but is not endorsed or certified by
+              TMDB.
             </p>
           </div>
         </div>

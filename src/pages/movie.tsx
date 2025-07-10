@@ -5,7 +5,7 @@ import { Similar } from '@/components/similar'
 import { Stars } from '@/components/stars'
 import { VideoPlayer } from '@/components/video-player'
 import { useFetch } from '@/hooks/use-fetch'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { CgAsterisk } from 'react-icons/cg'
@@ -13,7 +13,7 @@ import { MdAttachMoney, MdMoneyOff } from 'react-icons/md'
 import { useParams } from 'react-router'
 
 const formatCurrency = (n: number | undefined): string => {
-  return n === undefined ? '?' : n.toLocaleString('pt-br')
+  return n === undefined ? '?' : n.toLocaleString()
 }
 
 export function MoviePage(): React.JSX.Element {
@@ -27,6 +27,14 @@ export function MoviePage(): React.JSX.Element {
   )
 
   const [showVideo, setShowVideo] = useState(false)
+
+  const handleCloseVideo = useCallback(() => {
+    setShowVideo(false)
+  }, [])
+
+  const handleShowVideo = useCallback(() => {
+    setShowVideo(true)
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -48,13 +56,11 @@ export function MoviePage(): React.JSX.Element {
         createPortal(
           <div
             className="fixed inset-0 z-20 flex h-screen w-screen items-center justify-center bg-[#000a] transition-all"
-            onClick={() => setShowVideo(false)}
+            onClick={handleCloseVideo}
           >
             <VideoPlayer
               playing
-              url={`https://www.youtube.com/watch?v=${
-                videos.find(video => /trailer/i.test(video.name))?.key
-              }`}
+              url={`https://www.youtube.com/watch?v=${videos.find(video => /trailer/i.test(video.name))?.key}`}
             />
           </div>,
           document.body
@@ -74,8 +80,8 @@ export function MoviePage(): React.JSX.Element {
           <button
             type="button"
             className="absolute inset-0 flex items-center justify-center bg-[#0005] opacity-0 transition-opacity duration-300 hover:opacity-100"
-            title="Assistir trailer"
-            onClick={() => setShowVideo(true)}
+            title="Watch trailer"
+            onClick={handleShowVideo}
           >
             <BsFillPlayFill className="text-8xl" />
           </button>
@@ -83,31 +89,30 @@ export function MoviePage(): React.JSX.Element {
 
         <div className="flex flex-col gap-2">
           <h2 className="py-2 text-center text-4xl text-slate-300">
-            Informações
+            Information
           </h2>
           <p>
-            <span className="mr-2 text-xl text-slate-400">
-              Titulo original:
-            </span>
+            <span className="mr-2 text-xl text-slate-400">Original Title:</span>
             {movie?.original_title}
           </p>
           <p>
-            <span className="mr-2 text-xl text-slate-400">Sinopse:</span>
-            {movie?.overview ?? 'Sem informações sobre 🙁'}
+            <span className="mr-2 text-xl text-slate-400">Synopsis:</span>
+            {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+            {movie?.overview?.trim() || 'No information about 🙁'}
           </p>
           <p>
-            <span className="mr-2 text-xl text-slate-400">Orçamento:</span>
+            <span className="mr-2 text-xl text-slate-400">Budget:</span>
             <MdMoneyOff className="inline text-red-500" size={20} />
             {formatCurrency(movie?.budget)}
           </p>
           <p>
-            <span className="mr-2 text-xl text-slate-400">Receita:</span>
+            <span className="mr-2 text-xl text-slate-400">Revenue:</span>
             <MdAttachMoney className="inline text-green-500" size={20} />
             {formatCurrency(movie?.revenue)}
           </p>
           {!!providers?.BR?.flatrate && (
             <>
-              <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
+              <p className="mr-2 text-xl text-slate-400">Where to watch:</p>
               <div className="flex gap-3">
                 {providers.BR.flatrate.map(provider => (
                   <img
@@ -128,9 +133,9 @@ export function MoviePage(): React.JSX.Element {
         </div>
       </section>
 
-      <CarouselPeople title="Elenco" list={credits?.cast} />
+      <CarouselPeople title="Cast" list={credits?.cast} />
 
-      <CarouselPeople title="Produção" list={credits?.crew} />
+      <CarouselPeople title="Production" list={credits?.crew} />
       <div className="mx-auto w-11/12">
         <Similar list={similar} type="movies" />
       </div>

@@ -42,7 +42,8 @@ export function CarouselPeople(props: CarouselPeopleProps): React.JSX.Element {
             person.profile_path
           )}
           title={person.name}
-          description={person.character ?? person.known_for_department}
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          description={person.character?.trim() || person.known_for_department}
         />
       ))}
     </Carousel>

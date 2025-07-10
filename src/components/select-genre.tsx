@@ -17,9 +17,16 @@ interface SelectGenreProps {
   onSet: Dispatch<SetStateAction<SelectGenreValue>>
 }
 
+const hover = {
+  option: '#734bd1',
+  border: '#6833e4',
+  boxShadow: '0 0 10px #9466ff',
+  current: '#090B10',
+}
+
 export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
   const [value, setValue] = useState<NonNullable<SingleValue<SelectOption>>>({
-    label: 'Gêneros',
+    label: 'Genres',
     value: '*',
   })
 
@@ -33,21 +40,15 @@ export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
     [props]
   )
 
-  const hover = {
-    option: '#734bd1',
-    border: '#6833e4',
-    boxShadow: '0 0 10px #9466ff',
-    current: '#090B10',
-  }
-
   return (
     <div className="flex flex-1 gap-6">
       <button
         type="button"
         className="text-title text-2xl"
+        // eslint-disable-next-line react/jsx-no-bind
         onClick={() =>
           handleClick({
-            label: 'Gêneros',
+            label: 'Genres',
             value: '*',
           })
         }
@@ -95,6 +96,7 @@ export function SelectGenre(props: SelectGenreProps): React.JSX.Element {
           label: formatGenre(value),
           value,
         }))}
+        // eslint-disable-next-line react/jsx-no-bind
         onChange={data => handleClick(data)}
       />
     </div>

@@ -18,7 +18,7 @@ export function Similar(props: SimilarProps): React.JSX.Element {
 
   return (
     <>
-      <h3 className="text-title pt-6 pb-4 text-2xl">Similares</h3>
+      <h3 className="text-title pt-6 pb-4 text-2xl">Similar</h3>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {filteredList.map(item => (
           <Link
@@ -41,10 +41,12 @@ export function Similar(props: SimilarProps): React.JSX.Element {
             />
             <div className="px-4 py-2">
               <h3 className="line-clamp-1 font-bold text-ellipsis text-zinc-300 sm:text-xl">
-                {item.title ?? item.name}
+                {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+                {item.title?.trim() || item.name}
               </h3>
               <p className="line-clamp-3 text-sm text-ellipsis text-zinc-400">
-                {item.overview ?? 'Sem informações sobre 🙁'}
+                {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+                {item.overview?.trim() || 'No information about 🙁'}
               </p>
             </div>
           </Link>

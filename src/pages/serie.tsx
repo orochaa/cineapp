@@ -4,7 +4,7 @@ import { Similar } from '@/components/similar'
 import { Stars } from '@/components/stars'
 import { VideoPlayer } from '@/components/video-player'
 import { useFetch } from '@/hooks/use-fetch'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { CgAsterisk } from 'react-icons/cg'
 import { useParams } from 'react-router'
@@ -22,6 +22,14 @@ export function SeriePage(): React.JSX.Element {
 
   const [showVideo, setShowVideo] = useState(false)
 
+  const handleCloseVideo = useCallback(() => {
+    setShowVideo(false)
+  }, [])
+
+  const handleShowVideo = useCallback(() => {
+    setShowVideo(true)
+  }, [])
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [serieId])
@@ -34,16 +42,16 @@ export function SeriePage(): React.JSX.Element {
           <CgAsterisk />
           {serie?.genres.map(genre => genre.name).join(', ')}
           <CgAsterisk />
-          {serie?.number_of_seasons} Temporadas
+          {serie?.number_of_seasons} Seasons
           <CgAsterisk />
-          {serie?.number_of_episodes} Episódios
+          {serie?.number_of_episodes} Episodes
         </>
       </Banner>
 
       {!!(showVideo && videos) && (
         <div
           className="fixed inset-0 z-20 flex h-screen w-screen items-center justify-center bg-[#000a] transition-all"
-          onClick={() => setShowVideo(false)}
+          onClick={handleCloseVideo}
         >
           <VideoPlayer
             playing
@@ -70,8 +78,8 @@ export function SeriePage(): React.JSX.Element {
             <button
               type="button"
               className="absolute inset-0 flex items-center justify-center bg-[#0005] opacity-0 transition-opacity duration-300 hover:opacity-100"
-              title="Assistir trailer"
-              onClick={() => setShowVideo(true)}
+              title="Watch trailer"
+              onClick={handleShowVideo}
             >
               <BsFillPlayFill className="text-8xl" />
             </button>
@@ -79,25 +87,26 @@ export function SeriePage(): React.JSX.Element {
 
           <div className="flex flex-col gap-2">
             <h2 className="py-2 text-center text-4xl text-slate-300">
-              Informações
+              Information
             </h2>
             <p>
               <span className="mr-2 text-xl text-slate-400">
-                Titulo original:
+                Original Title:
               </span>
               {serie?.original_name}
             </p>
             <p>
-              <span className="mr-2 text-xl text-slate-400">Sinopse:</span>
-              {serie?.overview ?? 'Sem informações sobre 🙁'}
+              <span className="mr-2 text-xl text-slate-400">Synopsis:</span>
+              {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+              {serie?.overview?.trim() || 'No information about 🙁'}
             </p>
             <p>
-              <span className="mr-2 text-xl text-slate-400">Criado por:</span>
+              <span className="mr-2 text-xl text-slate-400">Created by:</span>
               {serie?.created_by.map(writer => writer.name).join(', ')}
             </p>
             <p>
               <span className="mr-2 text-xl text-slate-400">
-                Período de Produção:
+                Production Period:
               </span>
               {serie?.first_air_date.split('-').reverse().join('/')}
               {' - '}
@@ -105,11 +114,13 @@ export function SeriePage(): React.JSX.Element {
             </p>
             <p>
               <span className="mr-2 text-xl text-slate-400">Status:</span>
-              {serie?.in_production ? 'Em produção' : 'Encerrado'}
+              {serie?.in_production ? 'In production' : 'Ended'}
             </p>
             {!!providers?.BR?.flatrate && (
               <>
-                <p className="mr-2 text-xl text-slate-400">Onde assistir:</p>
+                <span className="mr-2 text-xl text-slate-400">
+                  Where to watch:
+                </span>
                 <div className="flex gap-3">
                   {providers.BR.flatrate.map(provider => (
                     <img
@@ -131,12 +142,12 @@ export function SeriePage(): React.JSX.Element {
         </div>
       </section>
 
-      <CarouselPeople title="Elenco" list={credits?.cast} />
+      <CarouselPeople title="Cast" list={credits?.cast} />
 
-      <CarouselPeople title="Produção" list={credits?.crew} />
+      <CarouselPeople title="Production" list={credits?.crew} />
 
       <section className="mx-auto w-11/12 max-w-6xl py-20">
-        <h2 className="text-title pt-6 pb-4 text-2xl">Temporadas</h2>
+        <h2 className="text-title pt-6 pb-4 text-2xl">Seasons</h2>
         <ul className="space-y-4">
           {serie?.seasons.map(season => (
             <li
@@ -154,10 +165,11 @@ export function SeriePage(): React.JSX.Element {
               />
               <div className="p-4">
                 <h3 className="mb-2 text-lg font-bold sm:text-xl">
-                  {season.name} - {season.episode_count} episódios
+                  {season.name} - {season.episode_count} episodes
                 </h3>
                 <p className="text-sm text-zinc-300 sm:text-base">
-                  {season.overview ?? 'Sem informações sobre 🙁'}
+                  {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing */}
+                  {season.overview?.trim() || 'No information about 🙁'}
                 </p>
               </div>
             </li>
